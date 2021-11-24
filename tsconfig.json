@@ -28,7 +28,9 @@
 			"$styles": ["src/styles"],
 			"$styles/*": ["src/styles/*"],
 			"$stores": ["src/stores"],
-			"$stores/*": ["src/stores/*"]
+			"$stores/*": ["src/stores/*"],
+			"$utils": ["src/utils"],
+			"$utils/*": ["src/utils/*"]
 		}
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]
