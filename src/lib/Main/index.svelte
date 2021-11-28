@@ -3,8 +3,8 @@
 </script>
 
 <main>
-	<img src="/images/png/logo.png" alt="JEM GITHUB LOGO" class="h-[50px]" />
-	<h1>IDS.Company Base Project</h1>
+	<img src="/images/png/firo group.png" alt="Firo LOGO" class="h-[50px]" />
+	<h1>Firo Company</h1>
 	<Jumper size="60" color="#FF3E00" unit="px" duration="1s" />
 </main>
 
