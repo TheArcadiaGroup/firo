@@ -19,6 +19,6 @@
 	}
 
 	h1 {
-		@apply text-red-300 text-xl my-2;
+		@apply text-para-color text-xl my-2;
 	}
 </style>

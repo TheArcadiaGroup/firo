@@ -13,7 +13,8 @@ module.exports = {
 			fontFamily: {
 				sans: ['Source Sans Pro']
 			},
-			color: {
+			colors: {
+				...require('tailwindcss/defaultTheme').colors,
 				white: 'white',
 				transparent: 'transparent',
 				maincolor: '#9B1C2E',
