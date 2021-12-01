@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Drawer from '../../components/Drawer.svelte';
+	import Drawer from '../../components/Drawer/Drawer.svelte';
 	import { Jumper } from 'svelte-loading-spinners';
 	import Navbar from '../../components/Navbar/Navbar.svelte';
 </script>
