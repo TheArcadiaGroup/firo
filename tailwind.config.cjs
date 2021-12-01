@@ -24,9 +24,9 @@ module.exports = {
 				'bg-primary': '#EDF1F5',
 				black: {
 					default: '#000000',
-					light: 'rgba(0,0,0,0,0.7)',
-					lighter: 'rgba(0,0,0,0,0.6)',
-					lightest: 'rgba(0,0,0,0,0.5)'
+					light: '#000000B3',
+					lighter: '#00000099',
+					lightest: '#00000080'
 				}
 			}
 		}
