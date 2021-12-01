@@ -1,5 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
 
 	onMount(() => {
 		var btn = document.getElementById('btn');
@@ -11,12 +14,16 @@
 		btn.style.left = '0';
 		left.style.color = '#FFFFFF';
 		right.style.color = '#000000B3';
+
+		dispatch('leftClicked');
 	}
 
 	function rightClick() {
-		btn.style.left = '192px';
+		btn.style.left = '400px';
 		right.style.color = '#FFFFFF';
 		left.style.color = '#000000B3';
+
+		dispatch('rightClicked');
 	}
 </script>
 
@@ -31,18 +38,25 @@
 </main>
 
 <style lang="postcss">
+	main {
+		@apply self-center;
+	}
+
 	.button-box {
-		@apply w-96 relative rounded-3xl bg-white flex;
+		@apply relative rounded-3xl bg-white flex;
+		width: 800px;
 	}
 
 	.toggle-btn {
-		@apply w-48 py-3 px-10 cursor-pointer bg-transparent relative text-center;
+		@apply py-3 px-10 cursor-pointer bg-transparent relative text-center;
+		width: 400px;
 		border: 0;
 		outline: none;
 	}
 
 	#btn {
-		@apply w-48 left-0 top-0 absolute h-full bg-maincolor rounded-3xl duration-500;
+		@apply left-0 top-0 absolute h-full bg-maincolor rounded-3xl duration-500;
+		width: 400px;
 	}
 
 	#left {
