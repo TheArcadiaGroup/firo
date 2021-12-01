@@ -3,21 +3,14 @@
 
 <main>
 	<nav
-		class="sm:w-screen bg-white drop-shadow-sm md:drop-shadow-none dark:bg-gray-800 overflow-hidden"
-	>
+		class="sm:w-screen bg-white drop-shadow-sm md:drop-shadow-none dark:bg-gray-800 overflow-hidden">
 		<div class="container px-6 py-3 mx-auto md:flex md:justify-center">
 			<div class="flex justify-between content-around">
 				<img class="w-8 mx-8 md:w-20" src="/images/png/firo group.png" alt="" />
 				<!-- Mobile menu button -->
 				<div class="flex md:hidden w-100">
 					<button type="button" class="text-gray-500 mr-2" aria-label="toggle menu">
-						<svg
-							width="20"
-							height="20"
-							viewBox="0 0 20 20"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
+						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<rect width="8" height="8" rx="3" fill="#B1B5C3" />
 							<rect y="12" width="8" height="8" rx="3" fill="#B1B5C3" />
 							<rect x="12" y="12" width="8" height="8" rx="3" fill="#B1B5C3" />
