@@ -1,4 +1,5 @@
 <script>
+	import Stake from '$lib/Stake/index.svelte';
 </script>
 
 <main>
@@ -16,10 +17,11 @@
 			<div class="staking-apr component">
 				<p class="staking-apr-text">Staking APR</p>
 				<div class="apr-value">
-					<p class="staking-apr-value-text">9.58%</p>
+					<p class="staking-apr-value-text">{9.58}%</p>
 					<p>Yesterday's APR</p>
 				</div>
 			</div>
+			<Stake />
 		</section>
 		<div class="space" />
 		<section class="right-section">
@@ -50,7 +52,7 @@
 	}
 
 	main {
-		@apply flex flex-col justify-center items-center font-sans;
+		@apply flex flex-col justify-center items-center font-sans mx-4;
 	}
 
 	.main-section {
@@ -78,7 +80,7 @@
 	}
 
 	.staking-apr {
-		@apply p-6 mt-14 flex justify-between items-center;
+		@apply p-6 mt-14 flex justify-between items-center mb-6;
 	}
 
 	.staking-apr-value-text {
