@@ -6,25 +6,26 @@
 
 	onMount(() => {
 		// Stop populating the global scope within functions, always use either let or const
-		var btn = document.getElementById('btn');
 		var left = document.getElementById('left');
 		var right = document.getElementById('right');
 	});
 
 	function leftClick() {
 		// These values must be initialized before
-		btn.style.left = '0';
 		left.style.color = '#FFFFFF';
 		right.style.color = '#000000B3';
+		right.classList.remove('btn');
+		left.classList.add('btn');
 
 		dispatch('leftClicked');
 	}
 
 	function rightClick() {
 		// Its bad practice to do this, initialize these elements within this component's scope and use them accordingly
-		btn.style.left = '400px';
 		right.style.color = '#FFFFFF';
 		left.style.color = '#000000B3';
+		left.classList.remove('btn');
+		right.classList.add('btn');
 
 		dispatch('rightClicked');
 	}
@@ -33,8 +34,8 @@
 <main>
 	<div class="form-box">
 		<div class="button-box">
-			<div id="btn" />
-			<button type="button" class="toggle-btn" id="left" on:click={leftClick}>Stake FIRO</button>
+			<button type="button" class="toggle-btn btn" id="left" on:click={leftClick}>Stake FIRO</button
+			>
 			<button type="button" class="toggle-btn" id="right" on:click={rightClick}>Unstake</button>
 		</div>
 	</div>
@@ -42,24 +43,17 @@
 
 <style lang="postcss">
 	main {
-		@apply self-center;
+		@apply self-center w-full;
 	}
 
 	.button-box {
-		@apply relative rounded-3xl bg-white flex;
-		width: 800px;
+		@apply relative rounded-3xl bg-white flex w-full;
 	}
 
 	.toggle-btn {
-		@apply py-3 px-10 cursor-pointer bg-transparent relative text-center;
-		width: 400px;
+		@apply py-3 px-10 cursor-pointer bg-transparent relative text-center duration-500 rounded-3xl w-full;
 		border: 0;
 		outline: none;
-	}
-
-	#btn {
-		@apply left-0 top-0 absolute h-full bg-maincolor rounded-3xl duration-500;
-		width: 400px;
 	}
 
 	#left {
@@ -68,5 +62,9 @@
 
 	#right {
 		@apply text-black-light;
+	}
+
+	.btn {
+		@apply bg-maincolor rounded-3xl;
 	}
 </style>
