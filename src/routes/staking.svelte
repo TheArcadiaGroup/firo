@@ -1,10 +1,14 @@
 <script>
+	// This page should be in the index route
 	import Stake from '$lib/Stake/index.svelte';
 </script>
 
+<!-- Separate these into components -->
 <main>
+	<!-- Use Grid for these or have a better implementation of flex -->
 	<section class="main-section">
 		<section class="left-section">
+			<!-- Have a separate component for this -->
 			<h2>Maximize yield by staking FIRO</h2>
 			<p class="description">
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque efficitur risus metus,
@@ -15,6 +19,7 @@
 				viverra sem viverra. Donec vulputate massa at enim tincidunt hendre
 			</p>
 			<div class="staking-apr component">
+				<!-- Separate component -->
 				<p class="staking-apr-text">Staking APR</p>
 				<div class="apr-value">
 					<p class="staking-apr-value-text">{9.58}%</p>
@@ -23,6 +28,7 @@
 			</div>
 			<Stake />
 		</section>
+		<!-- You don't need this component. Use flex-between accordingly or style the previous element to have a margin/more padding to the right -->
 		<div class="space" />
 		<section class="right-section">
 			<img class="firo-grp-logo" src="/images/png/firo-group.png" alt="firo-group-logo" />
