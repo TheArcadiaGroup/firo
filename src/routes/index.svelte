@@ -40,7 +40,11 @@
 
 <style lang="postcss">
 	.top-section {
-		@apply flex items-center w-full max-w-4xl self-center justify-between;
+		@apply md:flex md:items-center w-full md:max-w-4xl self-center md:justify-between;
+	}
+
+	.top-section > .right {
+		@apply hidden md:block;
 	}
 
 	.mid-section {
@@ -48,7 +52,7 @@
 	}
 
 	.lower-section {
-		@apply flex items-center w-full max-w-4xl self-center justify-between;
+		@apply md:flex items-center w-full max-w-4xl self-center justify-between;
 	}
 
 	main {
@@ -56,22 +60,18 @@
 	}
 
 	.right {
-		@apply max-w-xs w-full;
+		@apply md:max-w-xs w-full;
 	}
 
 	.left {
-		@apply max-w-xl w-full;
+		@apply md:max-w-xl w-full;
 	}
 
 	.logo-holder {
-		@apply flex items-center justify-center;
-	}
-
-	.lower-section {
-		@apply flex;
+		@apply hidden md:block flex items-center justify-center;
 	}
 
 	.atomic-dex {
-		@apply py-2 border border-line-color rounded-xl flex justify-center mx-6;
+		@apply py-2 border border-line-color rounded-xl flex justify-center md:mx-6;
 	}
 </style>
