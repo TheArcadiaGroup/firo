@@ -1,4 +1,5 @@
 <script lang="ts">
+	// TODO: @Mike replace this with the staking page
 	import { Jumper } from 'svelte-loading-spinners';
 </script>
 

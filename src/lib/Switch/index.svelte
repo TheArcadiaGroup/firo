@@ -5,12 +5,14 @@
 	const dispatch = createEventDispatcher();
 
 	onMount(() => {
+		// Stop populating the global scope within functions, always use either let or const
 		var btn = document.getElementById('btn');
 		var left = document.getElementById('left');
 		var right = document.getElementById('right');
 	});
 
 	function leftClick() {
+		// These values must be initialized before
 		btn.style.left = '0';
 		left.style.color = '#FFFFFF';
 		right.style.color = '#000000B3';
@@ -19,6 +21,7 @@
 	}
 
 	function rightClick() {
+		// Its bad practice to do this, initialize these elements within this component's scope and use them accordingly
 		btn.style.left = '400px';
 		right.style.color = '#FFFFFF';
 		left.style.color = '#000000B3';
