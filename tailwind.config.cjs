@@ -5,7 +5,7 @@ module.exports = {
 	theme: {
 		extend: {
 			screens: {
-				sm: '480',
+				sm: '480px',
 				md: '768px',
 				lg: '976px',
 				xl: '1440px'
@@ -14,7 +14,7 @@ module.exports = {
 				sans: ['Source Sans Pro']
 			},
 
-			color: {
+			colors: {
 				white: 'white',
 				transparent: 'transparent',
 				maincolor: '#9B1C2E',
