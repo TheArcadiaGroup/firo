@@ -44,7 +44,7 @@
 	}
 
 	.top-section > .right {
-		@apply hidden md:block;
+		@apply hidden md:inline;
 	}
 
 	.mid-section {
@@ -60,7 +60,7 @@
 	}
 
 	.right {
-		@apply md:max-w-xs w-full;
+		@apply md:max-w-xs w-full self-start;
 	}
 
 	.left {
@@ -68,7 +68,7 @@
 	}
 
 	.logo-holder {
-		@apply hidden md:block flex items-center justify-center;
+		@apply hidden md:inline md:flex md:items-center md:justify-center;
 	}
 
 	.atomic-dex {
