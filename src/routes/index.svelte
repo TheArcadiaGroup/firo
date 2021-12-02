@@ -21,6 +21,7 @@
 		<div class="left">
 			<StakingAprBar />
 		</div>
+		<div class="right" />
 	</div>
 
 	<div class="lower-section">
@@ -39,28 +40,36 @@
 </main>
 
 <style lang="postcss">
+	main {
+		@apply flex flex-col justify-center font-sans mx-4;
+	}
+
 	.top-section {
-		@apply md:flex md:items-center w-full md:max-w-4xl self-center md:justify-between;
+		@apply md:flex md:items-center w-full md:max-w-4xl xl:max-w-6xl self-center md:justify-between xl:justify-around;
 	}
 
 	.top-section > .right {
 		@apply hidden md:inline;
 	}
 
+	.mid-section > .right {
+		@apply hidden md:inline;
+	}
+
+	.lower-section > .right {
+		@apply self-start;
+	}
+
 	.mid-section {
-		@apply flex items-center w-full max-w-4xl self-center justify-between;
+		@apply flex items-center w-full max-w-4xl xl:max-w-6xl self-center md:justify-between xl:justify-around;
 	}
 
 	.lower-section {
-		@apply md:flex items-center w-full max-w-4xl self-center justify-between;
-	}
-
-	main {
-		@apply flex flex-col justify-center font-sans mx-4;
+		@apply md:flex items-center w-full max-w-4xl xl:max-w-6xl self-center md:justify-between xl:justify-around;
 	}
 
 	.right {
-		@apply md:max-w-xs w-full self-start;
+		@apply md:max-w-xs w-full;
 	}
 
 	.left {
