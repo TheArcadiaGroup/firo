@@ -1,5 +1,77 @@
-<script lang="ts">
-	import Main from '$lib/Main/index.svelte';
+<script>
+	import Stake from '$lib/Stake/index.svelte';
+	import Header from '$lib/Header/index.svelte';
+	import StakingAprBar from '$lib/StakingAprBar/index.svelte';
+	import StakingBalance from '$lib/StakingBalance/index.svelte';
 </script>
 
-<Main />
+<main>
+	<div class="top-section">
+		<div class="left">
+			<Header />
+		</div>
+		<div class="right">
+			<div class="logo-holder">
+				<img class="firo-grp-logo" src="/images/png/firo-group.png" alt="firo-group-logo" />
+			</div>
+		</div>
+	</div>
+
+	<div class="mid-section">
+		<div class="left">
+			<StakingAprBar />
+		</div>
+	</div>
+
+	<div class="lower-section">
+		<div class="left">
+			<Stake />
+		</div>
+		<div class="right">
+			<div>
+				<StakingBalance />
+				<div class="atomic-dex">
+					<img src="/images/png/atomic-dex.png" alt="atomic-dex" />
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<style lang="postcss">
+	.top-section {
+		@apply flex items-center w-full max-w-4xl self-center justify-between;
+	}
+
+	.mid-section {
+		@apply flex items-center w-full max-w-4xl self-center justify-between;
+	}
+
+	.lower-section {
+		@apply flex items-center w-full max-w-4xl self-center justify-between;
+	}
+
+	main {
+		@apply flex flex-col justify-center font-sans mx-4;
+	}
+
+	.right {
+		@apply max-w-xs w-full;
+	}
+
+	.left {
+		@apply max-w-xl w-full;
+	}
+
+	.logo-holder {
+		@apply flex items-center justify-center;
+	}
+
+	.lower-section {
+		@apply flex;
+	}
+
+	.atomic-dex {
+		@apply py-2 border border-line-color rounded-xl flex justify-center mx-6;
+	}
+</style>
