@@ -83,7 +83,7 @@
 	}
 
 	.title {
-		@apply font-bold text-2xl my-5;
+		@apply font-bold text-2xl my-4;
 	}
 
 	input {
@@ -128,6 +128,6 @@
 	}
 
 	.connect-wallet-button {
-		@apply mt-10 py-3 border border-maincolor rounded-3xl text-maincolor flex flex-col items-center text-2xl;
+		@apply mt-8 py-3 border border-maincolor rounded-3xl text-maincolor flex flex-col items-center text-2xl;
 	}
 </style>
