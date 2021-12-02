@@ -6,7 +6,6 @@
 
 <main class="bg-gray-700">
 	<Navbar />
-	<Drawer />
 </main>
 
 <style lang="postcss">
