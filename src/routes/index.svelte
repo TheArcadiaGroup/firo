@@ -45,7 +45,7 @@
 	}
 
 	.top-section {
-		@apply md:flex md:items-center w-full md:max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl self-center md:justify-between xl:justify-around;
+		@apply md:flex md:items-center w-full md:max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl xxxl:max-w-fourk self-center md:justify-between xl:justify-around;
 	}
 
 	.top-section > .right {
@@ -61,26 +61,30 @@
 	}
 
 	.mid-section {
-		@apply flex items-center w-full max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl self-center md:justify-between xl:justify-around;
+		@apply flex items-center w-full max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl xxxl:max-w-fourk self-center md:justify-between xl:justify-around;
 	}
 
 	.lower-section {
-		@apply md:flex items-center w-full max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl self-center md:justify-between xl:justify-around;
+		@apply md:flex items-center w-full max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl xxxl:max-w-fourk self-center md:justify-between xl:justify-around;
 	}
 
 	.right {
-		@apply md:max-w-xs xxl:max-w-md w-full;
+		@apply md:max-w-xs xxl:max-w-md xxxl:max-w-2xl w-full;
 	}
 
 	.left {
-		@apply md:max-w-xl xxl:max-w-4xl w-full;
+		@apply md:max-w-xl xxl:max-w-4xl xxxl:max-w-screen-xl w-full;
 	}
 
 	.logo-holder {
 		@apply hidden md:inline md:flex md:items-center md:justify-center;
 	}
 
+	.firo-grp-logo {
+		@apply xxxl:w-8/12;
+	}
+
 	.atomic-dex {
-		@apply py-2 border border-line-color rounded-xl flex justify-center md:mx-6;
+		@apply py-2 border border-line-color rounded-xl flex justify-center md:mx-6 xxl:border-2 xxxl:border-4 xxxl:h-24;
 	}
 </style>

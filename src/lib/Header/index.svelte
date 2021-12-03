@@ -10,10 +10,10 @@
 
 <style lang="postcss">
 	h2 {
-		@apply text-2xl xxl:text-4xl font-bold font-sans;
+		@apply text-2xl xxl:text-4xl xxxl:text-6xl font-bold font-sans;
 	}
 
 	.description {
-		@apply text-para-color mt-3 mb-7 xxl:text-xl xxl:mt-5;
+		@apply text-para-color mt-3 mb-7 xxl:text-xl xxxl:text-4xl xxl:mt-5 xxxl:mt-10 xxxl:mb-28 xxxl:leading-normal;
 	}
 </style>

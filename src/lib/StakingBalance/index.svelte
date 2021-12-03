@@ -3,7 +3,7 @@
 	<div>
 		<p>Unstaked</p>
 		<div class="unstaked-amount">
-			<img src="/images/png/Firo-symbol-1.png" alt="firo-symbol" />
+			<img class="firo-symbol" src="/images/png/Firo-symbol-1.png" alt="firo-symbol" />
 			<div class="unstaked-amount-value">
 				<p>-</p>
 				<p>FIRO</p>
@@ -14,11 +14,11 @@
 
 <style lang="postcss">
 	.balance {
-		@apply flex md:flex-col mt-3 md:mt-0 py-5 px-7 mb-5 md:mx-6 xxl:text-xl;
+		@apply flex md:flex-col mt-3 md:mt-0 py-5 px-7 mb-5 md:mx-6 xxl:text-xl xxxl:text-3xl xxxl:py-10 xxxl:px-10 xxxl:leading-normal;
 	}
 
 	.balance-title {
-		@apply text-2xl xxl:text-3xl mb-3 mr-8;
+		@apply text-2xl xxl:text-3xl xxxl:text-5xl mb-3 mr-8;
 	}
 
 	.unstaked-amount {
@@ -30,6 +30,10 @@
 	}
 
 	.component {
-		@apply rounded-xl border border-line-color bg-bg-primary;
+		@apply rounded-xl border border-line-color bg-bg-primary xxl:border-2 xxxl:border-4;
+	}
+
+	.firo-symbol {
+		@apply md:w-1/4 xxl:w-2/12;
 	}
 </style>

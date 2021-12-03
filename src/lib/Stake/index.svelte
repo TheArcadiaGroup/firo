@@ -79,24 +79,24 @@
 
 <style lang="postcss">
 	main {
-		@apply flex flex-col rounded-xl border border-line-color bg-bg-primary p-5 xxl:p-10;
+		@apply flex flex-col rounded-xl border border-line-color bg-bg-primary p-5 xxl:p-10 xxxl:p-16 xxl:border-2 xxxl:border-4;
 	}
 
 	.title {
-		@apply font-bold text-2xl xxl:text-4xl my-4 xxl:my-6;
+		@apply font-semibold text-2xl xxl:text-4xl xxxl:text-5xl my-4 xxl:my-6 xxxl:my-8;
 	}
 
-	input {
-		@apply h-8 w-full mr-3;
+	input[type='text'] {
+		@apply h-8 w-full mr-3 xxl:text-2xl xxxl:text-4xl xxxl:h-16;
 	}
 
 	.text-div {
-		@apply py-4 px-5 bg-white rounded-3xl border border-line-color flex;
+		@apply py-4 px-5 bg-white rounded-3xl border border-line-color flex xxxl:py-6 xxl:border-2 xxxl:border-4;
 		box-shadow: 0px 4px 20px rgba(170, 123, 123, 0.1);
 	}
 
 	.balance {
-		@apply text-black-lighter mr-3 xxl:text-xl;
+		@apply text-black-lighter mr-3 xxl:text-xl xxxl:text-3xl;
 	}
 
 	.max-balance {
@@ -104,11 +104,11 @@
 	}
 
 	.button > p {
-		@apply text-white xxl:text-xl;
+		@apply text-white xxl:text-xl xxxl:text-3xl;
 	}
 
 	.button {
-		@apply bg-maincolor py-1 px-3 rounded-2xl cursor-pointer;
+		@apply bg-maincolor h-full py-1 px-3 rounded-2xl cursor-pointer flex items-center justify-center xxxl:rounded-3xl;
 	}
 
 	.red-text {
@@ -120,7 +120,7 @@
 	}
 
 	.lower-text {
-		@apply flex justify-between mt-3 xxl:text-xl;
+		@apply flex justify-between mt-3 xxl:text-xl xxxl:text-3xl xxxl:mt-4;
 	}
 
 	.firo-lockup {
@@ -128,6 +128,6 @@
 	}
 
 	.connect-wallet-button {
-		@apply mt-8 py-3 border border-maincolor rounded-3xl text-maincolor flex flex-col items-center text-2xl xxl:text-3xl xxl:mt-10;
+		@apply mt-8 py-3 border border-maincolor rounded-3xl text-maincolor flex flex-col items-center text-2xl xxl:text-3xl xxxl:text-5xl xxl:mt-10 xxxl:mt-16 xxl:border-2 xxxl:py-6;
 	}
 </style>

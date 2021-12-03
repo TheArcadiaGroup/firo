@@ -42,7 +42,7 @@
 
 <style lang="postcss">
 	main {
-		@apply self-center w-full xxl:text-lg;
+		@apply self-center w-full xxl:text-xl xxxl:text-3xl;
 	}
 
 	.button-box {
@@ -50,7 +50,7 @@
 	}
 
 	.toggle-btn {
-		@apply py-3 px-10 cursor-pointer bg-transparent relative text-center duration-500 rounded-3xl w-full;
+		@apply py-3 px-10 cursor-pointer bg-transparent relative text-center duration-500 rounded-3xl w-full xxxl:py-5 xxxl:font-semibold;
 		border: 0;
 		outline: none;
 	}
