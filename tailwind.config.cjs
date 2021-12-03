@@ -8,8 +8,13 @@ module.exports = {
 				sm: '480px',
 				md: '768px',
 				lg: '976px',
-				xl: '1440px'
+				xl: '1440px',
+				xxl: '2000px',
+				xxxl: '3000px'
 			},
+			// maxWidth: {
+			// 	twok: ''
+			// },
 			fontFamily: {
 				sans: ['Source Sans Pro']
 			},
