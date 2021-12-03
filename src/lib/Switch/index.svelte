@@ -46,7 +46,7 @@
 	}
 
 	.button-box {
-		@apply relative rounded-3xl bg-white flex w-full;
+		@apply border-4 md:border-0 border-white relative rounded-3xl bg-white flex w-full;
 	}
 
 	.toggle-btn {

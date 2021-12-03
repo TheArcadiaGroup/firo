@@ -120,7 +120,7 @@
 	}
 
 	.lower-text {
-		@apply flex justify-between mt-3 xxl:text-xl xxxl:text-3xl xxxl:mt-4;
+		@apply flex justify-between font-semibold mt-3 xxl:text-xl xxxl:text-3xl xxxl:mt-4;
 	}
 
 	.firo-lockup {

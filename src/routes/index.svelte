@@ -65,7 +65,7 @@
 	}
 
 	.lower-section {
-		@apply md:flex items-center w-full max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl xxxl:max-w-fourk self-center md:justify-between xl:justify-around;
+		@apply md:flex items-center w-full max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl xxxl:max-w-fourk self-center md:justify-between xl:justify-around mb-16;
 	}
 
 	.right {
@@ -73,7 +73,7 @@
 	}
 
 	.left {
-		@apply md:max-w-xl xxl:max-w-4xl xxxl:max-w-screen-xl w-full;
+		@apply md:max-w-2xl xxl:max-w-4xl xxxl:max-w-screen-xl w-full;
 	}
 
 	.logo-holder {
