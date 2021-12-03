@@ -14,11 +14,11 @@
 
 <style lang="postcss">
 	.balance {
-		@apply flex md:flex-col mt-3 md:mt-0 py-5 px-7 mb-5 md:mx-6;
+		@apply flex md:flex-col mt-3 md:mt-0 py-5 px-7 mb-5 md:mx-6 xxl:text-xl;
 	}
 
 	.balance-title {
-		@apply text-2xl mb-3 mr-8;
+		@apply text-2xl xxl:text-3xl mb-3 mr-8;
 	}
 
 	.unstaked-amount {

@@ -79,15 +79,15 @@
 
 <style lang="postcss">
 	main {
-		@apply flex flex-col rounded-xl border border-line-color bg-bg-primary p-5;
+		@apply flex flex-col rounded-xl border border-line-color bg-bg-primary p-5 xxl:p-10;
 	}
 
 	.title {
-		@apply font-bold text-2xl my-4;
+		@apply font-bold text-2xl xxl:text-4xl my-4 xxl:my-6;
 	}
 
 	input {
-		@apply h-7 w-full mr-3;
+		@apply h-8 w-full mr-3;
 	}
 
 	.text-div {
@@ -96,7 +96,7 @@
 	}
 
 	.balance {
-		@apply text-black-lighter mr-3;
+		@apply text-black-lighter mr-3 xxl:text-xl;
 	}
 
 	.max-balance {
@@ -104,7 +104,7 @@
 	}
 
 	.button > p {
-		@apply text-white;
+		@apply text-white xxl:text-xl;
 	}
 
 	.button {
@@ -120,7 +120,7 @@
 	}
 
 	.lower-text {
-		@apply flex justify-between mt-3;
+		@apply flex justify-between mt-3 xxl:text-xl;
 	}
 
 	.firo-lockup {
@@ -128,6 +128,6 @@
 	}
 
 	.connect-wallet-button {
-		@apply mt-8 py-3 border border-maincolor rounded-3xl text-maincolor flex flex-col items-center text-2xl;
+		@apply mt-8 py-3 border border-maincolor rounded-3xl text-maincolor flex flex-col items-center text-2xl xxl:text-3xl xxl:mt-10;
 	}
 </style>

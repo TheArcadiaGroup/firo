@@ -43,7 +43,7 @@
 
 <style lang="postcss">
 	main {
-		@apply self-center w-full;
+		@apply self-center w-full xxl:text-lg;
 	}
 
 	.button-box {
