@@ -12,9 +12,9 @@ module.exports = {
 				xxl: '2000px',
 				xxxl: '3000px'
 			},
-			// maxWidth: {
-			// 	twok: ''
-			// },
+			maxWidth: {
+				fourk: '2500px'
+			},
 			fontFamily: {
 				sans: ['Source Sans Pro']
 			},
