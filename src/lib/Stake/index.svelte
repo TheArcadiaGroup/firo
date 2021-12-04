@@ -91,7 +91,7 @@
 	}
 
 	.text-div {
-		@apply py-4 px-5 bg-white rounded-3xl border border-line-color flex xxxl:py-6 xxl:border-2 xxxl:border-4;
+		@apply py-4 px-5 bg-white rounded-full border border-line-color flex xxxl:py-6 xxl:border-2 xxxl:border-4;
 		box-shadow: 0px 4px 20px rgba(170, 123, 123, 0.1);
 	}
 
@@ -108,7 +108,7 @@
 	}
 
 	.button {
-		@apply bg-maincolor h-full py-1 px-3 rounded-2xl cursor-pointer flex items-center justify-center xxxl:rounded-3xl;
+		@apply bg-maincolor h-full py-1 px-3 rounded-2xl cursor-pointer flex items-center justify-center xxxl:rounded-full;
 	}
 
 	.red-text {
@@ -128,6 +128,6 @@
 	}
 
 	.connect-wallet-button {
-		@apply mt-8 py-3 border border-maincolor rounded-3xl text-maincolor flex flex-col items-center text-2xl xxl:text-3xl xxxl:text-5xl xxl:mt-10 xxxl:mt-16 xxl:border-2 xxxl:py-6;
+		@apply mt-8 py-3 border border-maincolor rounded-full text-maincolor flex flex-col items-center text-2xl xxl:text-3xl xxxl:text-5xl xxl:mt-10 xxxl:mt-16 xxl:border-2 xxxl:py-6;
 	}
 </style>

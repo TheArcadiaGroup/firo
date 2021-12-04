@@ -46,11 +46,11 @@
 	}
 
 	.button-box {
-		@apply border-4 md:border-0 border-white relative rounded-3xl bg-white flex w-full;
+		@apply border-4 md:border-0 border-white relative rounded-full bg-white flex w-full;
 	}
 
 	.toggle-btn {
-		@apply py-3 px-10 cursor-pointer bg-transparent relative text-center duration-500 rounded-3xl w-full xxxl:py-5 xxxl:font-semibold;
+		@apply py-3 md:px-10 cursor-pointer bg-transparent relative text-center duration-500 rounded-full w-full xxxl:py-5 xxxl:font-semibold;
 		border: 0;
 		outline: none;
 	}
@@ -64,6 +64,6 @@
 	}
 
 	.btn {
-		@apply bg-maincolor rounded-3xl;
+		@apply bg-maincolor rounded-full;
 	}
 </style>
