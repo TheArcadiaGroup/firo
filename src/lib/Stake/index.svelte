@@ -72,9 +72,7 @@
 		{/if}
 	</div>
 
-	<div class="connect-wallet-button">
-		<p>Connect Wallet</p>
-	</div>
+	<button class="connect-wallet-button"> Connect Wallet </button>
 </main>
 
 <style lang="postcss">
@@ -128,6 +126,9 @@
 	}
 
 	.connect-wallet-button {
-		@apply mt-8 py-3 border border-maincolor rounded-full text-maincolor flex flex-col items-center text-2xl xxl:text-3xl xxxl:text-5xl xxl:mt-10 xxxl:mt-16 xxl:border-2 xxxl:py-6;
+		@apply mt-8 py-3 border border-maincolor text-maincolor h-14 rounded-[45px];
+		@apply text-base xxxl:text-3xl xxxl:py-4 xxxl:h-auto xxxl:rounded-full;
+		@apply transition-all;
+		@apply hover:bg-maincolor hover:text-white;
 	}
 </style>

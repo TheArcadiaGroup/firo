@@ -50,7 +50,8 @@
 	}
 
 	.toggle-btn {
-		@apply py-3 md:px-10 cursor-pointer bg-transparent relative text-center duration-500 rounded-full w-full xxxl:py-5 xxxl:font-semibold;
+		@apply py-3 md:px-10 cursor-pointer bg-transparent relative text-center duration-500 rounded-full;
+		@apply w-full xxxl:py-5 xxxl:font-semibold;
 		border: 0;
 		outline: none;
 	}
