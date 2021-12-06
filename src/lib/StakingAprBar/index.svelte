@@ -8,11 +8,11 @@
 
 <style lang="postcss">
 	.staking-apr-text {
-		@apply font-bold text-2xl xxl:text-4xl xxxl:text-5xl;
+		@apply font-bold text-xl md:text-2xl xxl:text-4xl xxxl:text-5xl;
 	}
 
 	.staking-apr {
-		@apply p-3 flex justify-between items-center mb-3 xxl:mb-6 xxl:py-5 xxl:px-10 xxxl:mb-16 xxxl:py-7 xxxl:px-20;
+		@apply p-4 md:p-3 flex justify-between items-center mb-3 xxl:mb-6 xxl:py-5 xxl:px-10 xxxl:mb-16 xxxl:py-7 xxxl:px-20;
 	}
 
 	.apr-value {
@@ -20,11 +20,11 @@
 	}
 
 	.undertext {
-		@apply xxl:text-lg xxxl:text-3xl;
+		@apply text-xs md:text-base xxl:text-lg xxxl:text-3xl;
 	}
 
 	.staking-apr-value-text {
-		@apply font-semibold text-3xl xxl:text-5xl xxxl:text-7xl;
+		@apply font-semibold text-xl md:text-3xl xxl:text-5xl xxxl:text-7xl;
 	}
 
 	.component {

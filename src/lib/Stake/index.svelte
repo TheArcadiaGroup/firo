@@ -81,20 +81,20 @@
 	}
 
 	.title {
-		@apply font-semibold text-2xl xxl:text-4xl xxxl:text-5xl my-4 xxl:my-6 xxxl:my-8;
+		@apply font-semibold text-xl md:text-2xl xxl:text-4xl xxxl:text-5xl my-4 xxl:my-6 xxxl:my-8;
 	}
 
 	input[type='text'] {
-		@apply h-8 w-full mr-3 xxl:text-2xl xxxl:text-4xl xxxl:h-16;
+		@apply md:h-8 w-full mr-3 text-xs md:text-base xxl:text-2xl xxxl:text-4xl xxxl:h-16;
 	}
 
 	.text-div {
-		@apply py-4 px-5 bg-white rounded-full border border-line-color flex xxxl:py-6 xxl:border-2 xxxl:border-4;
+		@apply py-2 px-3 md:py-4 md:px-5 bg-white rounded-full border border-line-color flex xxxl:py-6 xxl:border-2 xxxl:border-4;
 		box-shadow: 0px 4px 20px rgba(170, 123, 123, 0.1);
 	}
 
 	.balance {
-		@apply text-black-lighter mr-3 xxl:text-xl xxxl:text-3xl;
+		@apply text-black-lighter mr-3 text-sm md:text-base xxl:text-xl xxxl:text-3xl;
 	}
 
 	.max-balance {
@@ -102,11 +102,11 @@
 	}
 
 	.button > p {
-		@apply text-white xxl:text-xl xxxl:text-3xl;
+		@apply text-white text-xs md:text-base xxl:text-xl xxxl:text-3xl;
 	}
 
 	.button {
-		@apply bg-maincolor h-full py-1 px-3 rounded-2xl cursor-pointer flex items-center justify-center xxxl:rounded-full;
+		@apply bg-maincolor md:h-full py-1 px-2 md:px-3 rounded-2xl cursor-pointer flex items-center justify-center xxxl:rounded-full;
 	}
 
 	.red-text {
@@ -118,7 +118,7 @@
 	}
 
 	.lower-text {
-		@apply flex justify-between font-semibold mt-3 xxl:text-xl xxxl:text-3xl xxxl:mt-4;
+		@apply flex flex-col md:flex-row justify-between font-semibold mt-3 text-xs md:text-base xxl:text-xl xxxl:text-3xl xxxl:mt-4;
 	}
 
 	.firo-lockup {
@@ -126,7 +126,7 @@
 	}
 
 	.connect-wallet-button {
-		@apply mt-8 py-3 border border-maincolor text-maincolor h-14 rounded-[45px];
+		@apply mt-4 md:mt-8 py-2 md:py-3 border border-maincolor text-maincolor md:h-14 rounded-[45px];
 		@apply text-base xxxl:text-3xl xxxl:py-4 xxxl:h-auto xxxl:rounded-full;
 		@apply transition-all;
 		@apply hover:bg-maincolor hover:text-white;

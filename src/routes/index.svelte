@@ -92,6 +92,6 @@
 	}
 
 	.atomic-dex {
-		@apply py-2 border border-line-color rounded-xl flex justify-center md:mx-6 xxl:border-2 xxxl:border-4 xxxl:h-24;
+		@apply py-1 md:py-2 border border-line-color rounded-xl flex justify-center md:mx-6 xxl:border-2 xxxl:border-4 xxxl:h-24;
 	}
 </style>

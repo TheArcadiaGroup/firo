@@ -14,11 +14,11 @@
 
 <style lang="postcss">
 	.balance {
-		@apply flex md:flex-col mt-3 md:mt-0 py-5 px-7 mb-5 md:mx-6 xxl:text-xl xxxl:text-3xl xxxl:py-10 xxxl:px-10 xxxl:leading-normal;
+		@apply flex md:flex-col mt-3 md:mt-0 py-2 px-3 md:py-5 md:px-7 mb-3 md:mb-5 md:mx-6 text-xs md:text-base xxl:text-xl xxxl:text-3xl xxxl:py-10 xxxl:px-10 xxxl:leading-normal;
 	}
 
 	.balance-title {
-		@apply text-2xl xxl:text-3xl xxxl:text-5xl mb-3 mr-8;
+		@apply text-base md:text-2xl xxl:text-3xl xxxl:text-5xl mb-3 mr-8;
 	}
 
 	.unstaked-amount {
@@ -34,6 +34,6 @@
 	}
 
 	.firo-symbol {
-		@apply md:w-1/4 xxl:w-2/12;
+		@apply w-10 md:w-1/4 xxl:w-2/12;
 	}
 </style>
