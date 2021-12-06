@@ -14,6 +14,6 @@
 	}
 
 	.description {
-		@apply text-para-color mt-3 mb-7 xxl:text-xl xxxl:text-4xl xxl:mt-5 xxxl:mt-10 xxxl:mb-28 xxxl:leading-normal;
+		@apply text-para-color mt-2 mb-4 xxl:text-xl xxxl:text-4xl xxl:mt-5 xxxl:mt-10 xxxl:mb-28 xxxl:leading-normal;
 	}
 </style>

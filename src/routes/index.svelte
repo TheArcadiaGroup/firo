@@ -3,6 +3,12 @@
 	import Header from '$lib/Header/index.svelte';
 	import StakingAprBar from '$lib/StakingAprBar/index.svelte';
 	import StakingBalance from '$lib/StakingBalance/index.svelte';
+	import { onMount } from 'svelte';
+	import { isStaking } from '$lib/Navbar/navStore';
+
+	onMount(() => {
+		isStaking.set(true);
+	});
 </script>
 
 <main>
@@ -46,6 +52,7 @@
 
 	.top-section {
 		@apply md:flex md:items-center w-full md:max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl xxxl:max-w-fourk self-center md:justify-between xl:justify-around;
+		@apply md:mt-6 xl:mt-12 xxl:mt-16 xxxl:mt-28;
 	}
 
 	.top-section > .right {
@@ -65,7 +72,7 @@
 	}
 
 	.lower-section {
-		@apply md:flex items-center w-full max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl xxxl:max-w-fourk self-center md:justify-between xl:justify-around mb-16;
+		@apply md:flex items-center w-full max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl xxxl:max-w-fourk self-center md:justify-between xl:justify-around mb-16 md:mb-0;
 	}
 
 	.right {
