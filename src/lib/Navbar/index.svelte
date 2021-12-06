@@ -2,6 +2,7 @@
 	import { link } from '$lib/Navbar/navStore';
 	import { slide } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
+	import Divider from '$lib/Divider/index.svelte';
 
 	const dispatch = createEventDispatcher();
 
@@ -30,21 +31,29 @@
 			<ul>
 				<img class="firo-grp-logo" src="/images/png/firo-group.png" alt="firo-group-logo" />
 				<li>Get Firo</li>
+				<Divider />
 				<li>About</li>
+				<Divider />
 				<li>Community</li>
+				<Divider />
 				<li>Swap</li>
+				<Divider />
 				<li class:selected={isPage('staking')}>
 					<a href="/">Staking</a>
 				</li>
+				<Divider />
 				<li>
 					<a href="/my-stakes">My Stakes</a>
 				</li>
+				<Divider />
 				<li>
 					<a href="https://firo.org/guide/">Guides</a>
 				</li>
+				<Divider />
 				<li>
 					<a href="https://firo.org/blog/">Blog</a>
 				</li>
+				<Divider />
 				<li>Crowdfunding</li>
 				<button
 					on:click={() => {
