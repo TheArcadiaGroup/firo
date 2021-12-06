@@ -94,11 +94,11 @@
 
 <style lang="postcss">
 	main {
-		@apply fixed bottom-0 bg-white w-full h-3/4 z-50 pb-8 pt-12 rounded-tl-mobile rounded-tr-mobile md:rounded-none md:pb-0 md:pt-0 md:static md:h-full flex justify-center md:mt-6 xl:mt-12 xxxl:mt-24 text-center;
+		@apply fixed bottom-0 bg-white w-full h-3/4 z-50 pb-8 pt-12 rounded-tl-mobile rounded-tr-mobile md:rounded-none md:pb-0 md:pt-0 md:static md:h-full flex md:items-center justify-center md:mt-6 xl:mt-12 xxxl:mt-24 text-center;
 	}
 
 	.notmobile {
-		@apply hidden md:inline;
+		@apply hidden md:flex;
 	}
 
 	.mobile {
@@ -109,11 +109,11 @@
 	}
 
 	ul {
-		@apply flex flex-col items-center w-full h-full justify-between md:items-start md:flex-row md:items-center w-full md:justify-between xl:justify-around md:max-w-3xl xl:max-w-5xl xxl:text-xl xxxl:text-4xl xxl:max-w-7xl xxxl:max-w-fourk;
+		@apply flex flex-col items-center h-full justify-between md:items-start md:flex-row md:items-center w-full md:justify-between xl:justify-around md:max-w-3xl xl:max-w-5xl xxl:text-xl xxxl:text-4xl xxl:max-w-7xl xxxl:max-w-fourk;
 	}
 
 	div {
-		@apply flex flex-col w-full h-full md:items-start items-center w-full md:max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl xxxl:max-w-fourk;
+		@apply flex flex-col w-full h-full md:flex-row md:items-start items-center md:max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl xxxl:max-w-fourk;
 	}
 
 	li {
