@@ -1,12 +1,65 @@
 <script>
 	import { link } from '$lib/Navbar/navStore';
+	import { slide } from 'svelte/transition';
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
+	let showNav = false;
 
 	function isPage(page) {
 		return $link == page;
 	}
 </script>
 
-<main>
+<div class="mobile">
+	<img class="nav-img" src="/images/png/firo-group.png" alt="firo-group-logo" />
+	<button
+		on:click={() => {
+			dispatch('navclicked');
+			showNav = true;
+		}}
+	>
+		<img src="/images/png/menu.png" alt="menu" />
+	</button>
+</div>
+
+{#if showNav}
+	<main transition:slide>
+		<div>
+			<ul>
+				<img class="firo-grp-logo" src="/images/png/firo-group.png" alt="firo-group-logo" />
+				<li>Get Firo</li>
+				<li>About</li>
+				<li>Community</li>
+				<li>Swap</li>
+				<li class:selected={isPage('staking')}>
+					<a href="/">Staking</a>
+				</li>
+				<li>
+					<a href="/my-stakes">My Stakes</a>
+				</li>
+				<li>
+					<a href="https://firo.org/guide/">Guides</a>
+				</li>
+				<li>
+					<a href="https://firo.org/blog/">Blog</a>
+				</li>
+				<li>Crowdfunding</li>
+				<button
+					on:click={() => {
+						dispatch('navclicked');
+						showNav = false;
+					}}
+				>
+					<img src="/images/png/close.png" alt="close" />
+				</button>
+			</ul>
+		</div>
+	</main>
+{/if}
+
+<main class="notmobile">
 	<div>
 		<ul>
 			<li>Get Firo</li>
@@ -32,15 +85,26 @@
 
 <style lang="postcss">
 	main {
-		@apply flex justify-center md:mt-6 xl:mt-12 xxxl:mt-24;
+		@apply fixed bottom-0 bg-white w-full h-3/4 z-50 pb-8 pt-12 rounded-tl-mobile rounded-tr-mobile md:rounded-none md:pb-0 md:pt-0 md:static md:h-full flex justify-center md:mt-6 xl:mt-12 xxxl:mt-24 text-center;
+	}
+
+	.notmobile {
+		@apply hidden md:inline;
+	}
+
+	.mobile {
+		@apply flex flex-row justify-between items-center p-4 md:hidden;
+	}
+
+	.mobile > img {
 	}
 
 	ul {
-		@apply md:flex md:items-center w-full md:justify-between xl:justify-around md:max-w-3xl xl:max-w-5xl xxl:text-xl xxxl:text-4xl xxl:max-w-7xl xxxl:max-w-fourk;
+		@apply flex flex-col items-center w-full h-full justify-between md:items-start md:flex-row md:items-center w-full md:justify-between xl:justify-around md:max-w-3xl xl:max-w-5xl xxl:text-xl xxxl:text-4xl xxl:max-w-7xl xxxl:max-w-fourk;
 	}
 
 	div {
-		@apply w-full md:max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl xxxl:max-w-fourk;
+		@apply flex flex-col w-full h-full md:items-start items-center w-full md:max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl xxxl:max-w-fourk;
 	}
 
 	li {
@@ -49,5 +113,13 @@
 
 	.selected {
 		@apply font-bold;
+	}
+
+	.firo-grp-logo {
+		@apply md:hidden w-28;
+	}
+
+	.nav-img {
+		@apply w-16;
 	}
 </style>

@@ -33,6 +33,9 @@ module.exports = {
 					lighter: '#00000099',
 					lightest: '#00000080'
 				}
+			},
+			borderRadius: {
+				mobile: '2rem'
 			}
 		}
 	},
