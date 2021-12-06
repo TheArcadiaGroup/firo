@@ -4,10 +4,10 @@
 	import StakingAprBar from '$lib/StakingAprBar/index.svelte';
 	import StakingBalance from '$lib/StakingBalance/index.svelte';
 	import { onMount } from 'svelte';
-	import { isStaking } from '$lib/Navbar/navStore';
+	import { link } from '$lib/Navbar/navStore';
 
 	onMount(() => {
-		isStaking.set(true);
+		link.set('staking');
 	});
 </script>
 

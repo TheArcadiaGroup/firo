@@ -1,5 +1,9 @@
 <script>
-	import { isStaking } from '$lib/Navbar/navStore';
+	import { link } from '$lib/Navbar/navStore';
+
+	function isPage(page) {
+		return $link == page;
+	}
 </script>
 
 <main>
@@ -9,14 +13,18 @@
 			<li>About</li>
 			<li>Community</li>
 			<li>Swap</li>
-			<li class:selected={$isStaking}>
+			<li class:selected={isPage('staking')}>
 				<a href="/">Staking</a>
 			</li>
-			<li class:selected={!$isStaking}>
+			<li>
 				<a href="/my-stakes">My Stakes</a>
 			</li>
-			<li>Guides</li>
-			<li>Blog</li>
+			<li>
+				<a href="https://firo.org/guide/">Guides</a>
+			</li>
+			<li>
+				<a href="https://firo.org/blog/">Blog</a>
+			</li>
 			<li>Crowdfunding</li>
 		</ul>
 	</div>
