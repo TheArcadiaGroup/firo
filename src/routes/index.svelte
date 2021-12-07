@@ -11,7 +11,7 @@
 	});
 </script>
 
-<main>
+<div class="main">
 	<div class="top-section">
 		<div class="left">
 			<Header />
@@ -43,10 +43,10 @@
 			</div>
 		</div>
 	</div>
-</main>
+</div>
 
 <style lang="postcss">
-	main {
+	.main {
 		@apply flex flex-col justify-center font-sans mx-4;
 	}
 
