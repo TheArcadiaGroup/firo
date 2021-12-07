@@ -1,48 +1,40 @@
 <script>
-	import { onMount } from 'svelte';
-	import { createEventDispatcher } from 'svelte';
-
-	const dispatch = createEventDispatcher();
+	import { isStaking } from '../Stake/stakingStore';
 
 	let left, right;
 
-	onMount(() => {
-		left = document.getElementById('left');
-		right = document.getElementById('right');
-	});
+	function toggleClass() {
+		left.classList.toggle('btn');
+		right.classList.toggle('btn');
+	}
 
 	function leftClick() {
-		left.style.color = '#FFFFFF';
-		right.style.color = '#000000B3';
-		right.classList.remove('btn');
-		left.classList.add('btn');
-
-		dispatch('leftClicked');
+		toggleClass();
+		isStaking.set(true);
 	}
 
 	function rightClick() {
-		right.style.color = '#FFFFFF';
-		left.style.color = '#000000B3';
-		left.classList.remove('btn');
-		right.classList.add('btn');
-
-		dispatch('rightClicked');
+		toggleClass();
+		isStaking.set(false);
 	}
 </script>
 
-<main>
+<div class="main">
 	<div class="form-box">
 		<div class="button-box">
-			<button type="button" class="toggle-btn btn" id="left" on:click={leftClick}>Stake FIRO</button
+			<button type="button" bind:this={left} class="toggle-btn btn" on:click={leftClick}
+				>Stake FIRO</button
 			>
-			<button type="button" class="toggle-btn" id="right" on:click={rightClick}>Unstake</button>
+			<button type="button" bind:this={right} class="toggle-btn not-btn" on:click={rightClick}
+				>Unstake</button
+			>
 		</div>
 	</div>
-</main>
+</div>
 
 <style lang="postcss">
-	main {
-		@apply self-center w-full text-sm md:text-base xxl:text-xl xxxl:text-3xl;
+	.main {
+		@apply self-center rounded-full w-full text-sm md:text-base xxl:text-xl xxxl:text-3xl text-black-light;
 	}
 
 	.button-box {
@@ -56,15 +48,7 @@
 		outline: none;
 	}
 
-	#left {
-		@apply text-white;
-	}
-
-	#right {
-		@apply text-black-light;
-	}
-
 	.btn {
-		@apply bg-maincolor rounded-full;
+		@apply bg-maincolor text-white;
 	}
 </style>

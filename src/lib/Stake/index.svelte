@@ -1,10 +1,11 @@
 <script>
 	import Switch from '$lib/Switch/index.svelte';
 	import { onMount } from 'svelte';
+	import { isStaking } from './stakingStore';
 
 	var input;
 	let inputValue;
-	let isStaking = true;
+	isStaking.set(true);
 	onMount(() => {
 		input = document.getElementById('text-input');
 	});
@@ -22,19 +23,11 @@
 	function inputMax() {
 		input.value = balance;
 	}
-
-	function leftClicked() {
-		isStaking = true;
-	}
-
-	function rightClicked() {
-		isStaking = false;
-	}
 </script>
 
-<main>
-	<Switch on:leftClicked={leftClicked} on:rightClicked={rightClicked} />
-	{#if isStaking}
+<div class="main">
+	<Switch />
+	{#if $isStaking}
 		<p class="title">Stake FIRO</p>
 	{:else}
 		<p class="title">Unstake FIRO</p>
@@ -57,10 +50,10 @@
 	</div>
 
 	<div class="lower-text">
-		{#if isStaking}
+		{#if $isStaking}
 			<p class="firo-lockup">FIRO Lockup = 365 Days + Reward Lockup = 365 Days</p>
 		{/if}
-		{#if isStaking}
+		{#if $isStaking}
 			<p class="until-x-firo">
 				<span class="red-text">{730} Days</span> Until <span class="red-text">{12} FIRO</span> Reward
 			</p>
@@ -73,10 +66,10 @@
 	</div>
 
 	<button class="connect-wallet-button"> Connect Wallet </button>
-</main>
+</div>
 
 <style lang="postcss">
-	main {
+	.main {
 		@apply flex flex-col rounded-xl border border-line-color bg-bg-primary p-5 xxl:p-10 xxxl:p-16 xxl:border-2 xxxl:border-4;
 	}
 
