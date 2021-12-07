@@ -16,7 +16,8 @@ module.exports = {
 				fourk: '2500px'
 			},
 			fontFamily: {
-				sans: ['Source Sans Pro']
+				sans: ['Source Sans Pro'],
+				dmsans: ['DM Sans', 'sans-serif']
 			},
 			colors: {
 				...require('tailwindcss/defaultTheme').colors,
