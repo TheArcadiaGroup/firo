@@ -70,7 +70,7 @@
 
 <div class="main notmobile">
 	<img class="desktop-logo" src="/images/png/firo-group.png" alt="firo-group-logo" />
-	<div class="divider">
+	<!-- <div class="divider">
 		<ul>
 			<li>Get Firo</li>
 			<li>About</li>
@@ -90,7 +90,7 @@
 			</li>
 			<li>Crowdfunding</li>
 		</ul>
-	</div>
+	</div> -->
 </div>
 
 <style lang="postcss">
