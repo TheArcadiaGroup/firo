@@ -1,3 +1,7 @@
+<script>
+	import { walletConnected } from '$lib/Stake/stakingStore';
+</script>
+
 <h2>Earn FIRO by Staking your LP Tokens</h2>
 <p class="description">
 	You can stake your FIRO/WBNB Pancakeswap liquidity provision tokens here to earn additional BEP20
@@ -8,20 +12,24 @@
 	FIRO on BSC.
 </p>
 <div class="btn-holder">
-	<button> View Account Summary </button>
+	{#if $walletConnected}
+		<button> View Account Summary </button>
+	{:else}
+		<button> Connect Wallet </button>
+	{/if}
 </div>
 
 <style lang="postcss">
 	h2 {
-		@apply text-xl md:text-2xl xxl:text-4xl xxxl:text-6xl font-bold font-sans;
+		@apply text-xl md:text-2xl xl:text-3xl xxl:text-4xl xxxl:text-6xl font-bold font-sans;
 	}
 
 	.description {
-		@apply text-para-color mt-2 mb-4 text-sm md:text-base xxl:text-xl xxxl:text-4xl xxl:mt-5 xxxl:mt-10 xxxl:mb-28 xxxl:leading-normal md:mb-8 xl:mb-[52px];
+		@apply text-para-color mt-2 mb-4 text-sm md:text-base xxl:text-xl xxxl:text-4xl xxl:mt-5 xxxl:mt-10 xxxl:mb-28 xxxl:leading-normal md:mb-8 xl:mb-[20px];
 	}
 
 	button {
-		@apply border border-maincolor md:mb-8 xl:mb-[52px] border-opacity-0  rounded-[120px] py-[14px] px-[60px] xxxl:py-[28px] xxxl:px-[120px] bg-maincolor text-white hover:bg-white hover:border-opacity-100 hover:text-maincolor duration-500;
+		@apply w-full md:w-auto border border-maincolor mb-4 md:mb-8 xl:mb-[20px] xxl:mb-[40px] xxxl:mb-[80px] xxxl:border-opacity-0 rounded-[120px] py-[9px] md:py-[14px] px-[60px] xxxl:py-[28px] xxxl:px-[120px] bg-maincolor text-white hover:bg-white hover:border-opacity-100 hover:text-maincolor transition-all;
 		@apply text-sm md:text-base xxl:text-xl xxxl:text-4xl;
 	}
 

@@ -12,7 +12,7 @@
 	}
 
 	.staking-apr {
-		@apply p-4 md:p-3 flex justify-between items-center mb-3 xxl:mb-6 xxl:py-5 xxl:px-10 xxxl:mb-16 xxxl:py-7 xxxl:px-20;
+		@apply p-4 md:p-3 flex justify-between items-center mb-3 xxl:mb-6 xxl:py-5 xxl:px-10 xxxl:mb-12 xxxl:py-7 xxxl:px-20;
 	}
 
 	.apr-value {

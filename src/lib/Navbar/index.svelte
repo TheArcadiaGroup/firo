@@ -131,6 +131,6 @@
 	}
 
 	.desktop-logo {
-		@apply hidden md:inline absolute left-[60px] lg:top-[15px] xl:top-[30px] xl:left-[150px] xxl:left-[120px] xxxl:left-[300px] xxxl:top-[60px] md:w-[100px] xl:w-[150px] xxxl:w-[300px];
+		@apply hidden md:inline absolute left-[60px] lg:top-[15px] xl:top-[30px] xl:left-[150px] xxl:left-[120px] xxxl:left-[300px] xxxl:top-[60px] md:w-[90px] xl:w-[105px] xxxl:w-[210px];
 	}
 </style>

@@ -1,7 +1,7 @@
 <script>
 	import Switch from '$lib/Switch/index.svelte';
 	import { onMount } from 'svelte';
-	import { isStaking } from './stakingStore';
+	import { isStaking, walletConnected } from './stakingStore';
 
 	var input;
 	let inputValue;
@@ -28,9 +28,9 @@
 <div class="main">
 	<Switch />
 	{#if $isStaking}
-		<p class="title">Stake FIRO</p>
+		<p class="title">Stake LP TOKEN</p>
 	{:else}
-		<p class="title">Unstake FIRO</p>
+		<p class="title">Unstake LP TOKEN</p>
 	{/if}
 
 	<div class="text-div">
@@ -39,7 +39,7 @@
 			bind:value={inputValue}
 			type="text"
 			on:keypress={isInputNumber}
-			placeholder="0 FIRO"
+			placeholder="0 LP TOKEN"
 		/>
 		<div class="max-balance">
 			<p class="balance">Balance: {balance}</p>
@@ -51,7 +51,7 @@
 
 	<div class="lower-text">
 		{#if $isStaking}
-			<p class="firo-lockup">FIRO Lockup = 365 Days + Reward Lockup = 365 Days</p>
+			<p class="firo-lockup">LP Lockup = 365 Days + Reward Lockup = 365 Days</p>
 		{/if}
 		{#if $isStaking}
 			<p class="until-x-firo">
@@ -65,7 +65,11 @@
 		{/if}
 	</div>
 
-	<button class="connect-wallet-button"> Connect Wallet </button>
+	{#if $walletConnected}
+		<button class="connect-wallet-button"> {$isStaking ? 'Stake' : 'Unstake'} </button>
+	{:else}
+		<button class="connect-wallet-button"> Connect Wallet </button>
+	{/if}
 </div>
 
 <style lang="postcss">

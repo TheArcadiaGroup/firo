@@ -23,10 +23,10 @@
 	<div class="form-box">
 		<div class="button-box">
 			<button type="button" bind:this={left} class="toggle-btn btn" on:click={leftClick}
-				>Stake FIRO</button
+				>Stake LP TOKEN</button
 			>
 			<button type="button" bind:this={right} class="toggle-btn not-btn" on:click={rightClick}
-				>Unstake</button
+				>Unstake LP TOKEN</button
 			>
 		</div>
 	</div>
