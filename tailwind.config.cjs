@@ -8,12 +8,19 @@ module.exports = {
 				sm: '480px',
 				md: '768px',
 				lg: '976px',
-				xl: '1440px'
+				xl: '1440px',
+				xxl: '2000px',
+				xxxl: '3000px'
+			},
+			maxWidth: {
+				fourk: '2500px'
 			},
 			fontFamily: {
-				sans: ['Source Sans Pro']
+				sans: ['Source Sans Pro'],
+				dmsans: ['DM Sans', 'sans-serif']
 			},
-			color: {
+			colors: {
+				...require('tailwindcss/defaultTheme').colors,
 				white: 'white',
 				transparent: 'transparent',
 				maincolor: '#9B1C2E',
@@ -23,10 +30,13 @@ module.exports = {
 				'bg-primary': '#EDF1F5',
 				black: {
 					default: '#000000',
-					light: 'rgba(0,0,0,0,0.7)',
-					lighter: 'rgba(0,0,0,0,0.6)',
-					lightest: 'rgba(0,0,0,0,0.5)'
+					light: '#000000B3',
+					lighter: '#00000099',
+					lightest: '#00000080'
 				}
+			},
+			borderRadius: {
+				mobile: '2rem'
 			}
 		}
 	},
