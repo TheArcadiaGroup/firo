@@ -41,7 +41,7 @@
 					<NoWallet>Available LP TOKEN</NoWallet>
 				{/if}
 				<p class="atomidex-title">Swap on Atomixdex</p>
-				<a href="" class="atomic-dex">
+				<a href="!#" class="atomic-dex">
 					<img src="/images/png/atomic-dex.png" alt="atomic-dex" />
 				</a>
 			</div>
@@ -79,6 +79,7 @@
 		@apply md:max-w-2xl xl:max-w-3xl xxl:max-w-4xl xxxl:max-w-screen-xl w-full;
 	}
 
+	/* TODO: Which is it here md:inline or md:flex? */
 	.logo-holder {
 		@apply hidden md:inline md:flex md:items-center md:justify-center;
 	}

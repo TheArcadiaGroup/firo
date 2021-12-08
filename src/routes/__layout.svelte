@@ -6,6 +6,8 @@
 
 	let darkOverlay = false;
 
+	// TODO: For such a function that could potentially be used elsewhere, have it in the utils folder and import it like so
+	// import {capitalizeFirstLetter} from '$utils' if you have an index.ts file in there.
 	function capitalizeFirstLetter(text: string) {
 		const arr = text.split(' ');
 
