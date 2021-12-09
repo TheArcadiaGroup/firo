@@ -124,7 +124,7 @@
 
 	.connect-wallet-button {
 		@apply mt-4 md:mt-8 py-2 md:py-3 border border-maincolor text-maincolor md:h-14 rounded-[45px];
-		@apply text-base xxxl:text-3xl xxxl:py-4 xxxl:h-auto xxxl:rounded-full;
+		@apply text-sm md:text-base xxl:text-xl xxxl:text-4xl xxxl:py-6 xxxl:h-auto xxxl:rounded-full;
 		@apply transition-all;
 		@apply hover:bg-maincolor hover:text-white;
 	}
