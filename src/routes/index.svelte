@@ -56,7 +56,7 @@
 
 	.top-section {
 		@apply md:flex md:items-center w-full md:max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl xxxl:max-w-fourk self-center md:justify-between xl:justify-around;
-		@apply md:mt-6 xl:mt-12 xxl:mt-16 xxxl:mt-28;
+		@apply md:mt-10 xl:mt-20 xxl:mt-24 xxxl:mt-36;
 	}
 
 	.top-section > .right {
@@ -64,6 +64,10 @@
 	}
 
 	.lower-section > .right {
+		@apply self-start;
+	}
+
+	.lower-section > .left {
 		@apply self-start;
 	}
 
@@ -79,9 +83,8 @@
 		@apply md:max-w-2xl xl:max-w-3xl xxl:max-w-4xl xxxl:max-w-screen-xl w-full;
 	}
 
-	/* TODO: Which is it here md:inline or md:flex? */
 	.logo-holder {
-		@apply hidden md:inline md:flex md:items-center md:justify-center;
+		@apply hidden md:flex md:items-center md:justify-center;
 	}
 
 	.firo-grp-logo {

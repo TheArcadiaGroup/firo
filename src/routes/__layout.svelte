@@ -3,21 +3,9 @@
 	import Navbar from '$lib/Navbar/index.svelte';
 	import { fade } from 'svelte/transition';
 	import { link } from '$lib/Navbar/navStore';
+	import { capitalizeFirstLetter } from '$utils/index';
 
 	let darkOverlay = false;
-
-	// TODO: For such a function that could potentially be used elsewhere, have it in the utils folder and import it like so
-	// import {capitalizeFirstLetter} from '$utils' if you have an index.ts file in there.
-	function capitalizeFirstLetter(text: string) {
-		const arr = text.split(' ');
-
-		for (var i = 0; i < arr.length; i++) {
-			arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-		}
-
-		const str2 = arr.join(' ');
-		return str2;
-	}
 </script>
 
 <svelte:head>
