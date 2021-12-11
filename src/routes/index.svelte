@@ -4,8 +4,8 @@
 	import StakingAprBar from '$lib/StakingAprBar/index.svelte';
 	import UnlockedRewards from '$lib/UnlockedRewards/index.svelte';
 	import AvailableLpToken from '$lib/AvailableLpToken/index.svelte';
-	import { link } from '$lib/Navbar/navStore';
-	import { walletConnected } from '$lib/Stake/stakingStore';
+	import { link } from '$stores/navStore';
+	import { walletConnected } from '$stores/stakingStore';
 	import NoWallet from '$lib/NoWallet/index.svelte';
 	import { onMount } from 'svelte';
 

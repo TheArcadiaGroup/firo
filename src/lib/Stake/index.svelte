@@ -1,7 +1,7 @@
 <script>
 	import Switch from '$lib/Switch/index.svelte';
 	import { onMount } from 'svelte';
-	import { isStaking, walletConnected } from './stakingStore';
+	import { isStaking, walletConnected } from '$stores/stakingStore';
 
 	var input;
 	let inputValue;

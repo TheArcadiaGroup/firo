@@ -1,5 +1,5 @@
 <script>
-	import { link } from '$lib/Navbar/navStore';
+	import { link } from '$stores/navStore';
 	import { slide } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
 	import Divider from '$lib/Divider/index.svelte';
@@ -107,7 +107,9 @@
 	}
 
 	ul {
-		@apply flex flex-col items-center h-full justify-between md:items-start md:flex-row md:items-center w-full md:justify-between xl:justify-around md:max-w-3xl xl:max-w-5xl xxl:text-xl xxxl:text-4xl xxl:max-w-7xl xxxl:max-w-fourk;
+		@apply flex flex-col items-center h-full justify-between md:flex-row md:items-center;
+		@apply w-full md:justify-between xl:justify-around;
+		@apply md:max-w-3xl xl:max-w-5xl xxl:text-xl xxxl:text-4xl xxl:max-w-7xl xxxl:max-w-fourk;
 	}
 
 	.divider {

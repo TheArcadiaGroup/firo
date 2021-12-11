@@ -1,5 +1,13 @@
 <script>
-	import { walletConnected } from '$lib/Stake/stakingStore';
+	import { walletConnected } from '$stores/stakingStore';
+	import { appSigner } from '$stores/wallet';
+	import { connectToWallet } from '$utils/walletConnection';
+
+	let signedIn = false;
+
+	$: ((val) => {
+		signedIn = !!val;
+	})($appSigner);
 </script>
 
 <h2>Earn FIRO by Staking your LP Tokens</h2>
@@ -15,7 +23,7 @@
 	{#if $walletConnected}
 		<button> View Account Summary </button>
 	{:else}
-		<button> Connect Wallet </button>
+		<button on:click={async () => await connectToWallet()}> Connect Wallet </button>
 	{/if}
 </div>
 
