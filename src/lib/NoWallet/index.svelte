@@ -1,4 +1,8 @@
-<div class="component">
+<script>
+	export let first = false;
+</script>
+
+<div class="component" class:first>
 	<p class="title">
 		<slot />
 	</p>
@@ -10,8 +14,10 @@
 
 <style lang="postcss">
 	.component {
-		@apply rounded-xl border border-line-color bg-bg-primary xxl:border-2 xxxl:border-4 h-[189px] xxl:h-[200px] xxxl:h-[350px] cursor-not-allowed;
-		@apply flex items-center justify-around md:flex-col mt-3 md:mt-0 py-2 px-3 md:py-3 md:px-5 mb-3 md:mb-5 md:mx-6 text-sm md:text-base xxl:text-xl xxxl:text-4xl xxxl:py-8 xxxl:px-8;
+		@apply rounded-xl border border-line-color xxl:border-2 xxxl:border-4;
+		@apply bg-bg-primary h-[120px] md:h-[185px] xl:h-[195px] xxl:h-[215px] xxxl:h-[350px] cursor-pointer;
+		@apply flex items-center justify-around flex-col w-full;
+		@apply mt-3 md:mt-0 py-2 px-3 md:py-2 md:px-5 mb-3 md:mb-5 md:mx-6 text-[10px] md:text-base xxl:text-lg xxxl:text-3xl xxxl:py-6 xxxl:px-8;
 	}
 
 	.content {
@@ -19,14 +25,18 @@
 	}
 
 	.title {
-		@apply text-base md:text-xl xxl:text-3xl xxxl:text-5xl text-center justify-self-start;
+		@apply text-xs md:text-xl xxl:text-2xl xxxl:text-4xl text-center justify-self-start;
 	}
 
 	img {
-		@apply w-[25px] xxxl:w-[75px] mb-4;
+		@apply w-[18px] md:w-[25px] xxxl:w-[75px] mb-2 md:mb-4;
 	}
 
 	.description {
 		@apply opacity-30 font-dmsans font-semibold;
+	}
+
+	.first {
+		@apply mr-4;
 	}
 </style>

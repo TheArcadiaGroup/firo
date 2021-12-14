@@ -29,7 +29,7 @@
 	}
 
 	button {
-		@apply w-full md:w-auto border border-maincolor mb-4 md:mb-8 xl:mb-[20px] xxl:mb-[40px] xxxl:mb-[80px] xxxl:border-opacity-0 rounded-[120px] py-[9px] md:py-[14px] px-[60px] xxxl:py-[28px] xxxl:px-[120px] bg-maincolor text-white hover:bg-white hover:border-opacity-100 hover:text-maincolor transition-all;
+		@apply w-full md:w-auto border border-maincolor mb-4 md:mb-8 xl:mb-[20px] xxl:mb-[40px] xxxl:mb-[80px] xxxl:border-opacity-0 rounded-[120px] px-[60px] py-[9px] md:py-[14px] xxxl:py-[28px] xxxl:px-[120px] bg-maincolor text-white hover:bg-white hover:border-opacity-100 hover:text-maincolor transition-all;
 		@apply text-sm md:text-base xxl:text-xl xxxl:text-4xl;
 	}
 

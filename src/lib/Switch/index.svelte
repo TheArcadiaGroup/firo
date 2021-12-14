@@ -34,7 +34,8 @@
 
 <style lang="postcss">
 	.main {
-		@apply self-center rounded-full w-full text-sm md:text-base xxl:text-xl xxxl:text-3xl text-black-light;
+		@apply self-center rounded-full w-full text-black-light;
+		@apply text-sm md:text-base xxl:text-xl xxxl:text-4xl;
 	}
 
 	.button-box {
@@ -42,8 +43,9 @@
 	}
 
 	.toggle-btn {
-		@apply py-2 md:py-3 md:px-10 cursor-pointer bg-transparent relative text-center duration-500 rounded-full;
-		@apply w-full xxxl:py-5 xxxl:font-semibold;
+		@apply md:px-10 cursor-pointer bg-transparent relative text-center duration-500 rounded-full;
+		@apply w-full xxxl:font-semibold;
+		@apply py-[9px] md:py-[14px] xxxl:py-[28px];
 		border: 0;
 		outline: none;
 	}

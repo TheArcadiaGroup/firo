@@ -74,7 +74,7 @@
 
 <style lang="postcss">
 	.main {
-		@apply flex flex-col rounded-xl border border-line-color bg-bg-primary p-5 xxl:p-10 xxxl:p-16 xxl:border-2 xxxl:border-4;
+		@apply flex flex-col rounded-xl border border-line-color bg-bg-primary p-4 md:p-8 xl:py-14 xxl:p-10 xxxl:p-20 xxl:border-2 xxxl:border-4 h-full;
 	}
 
 	.title {
@@ -82,7 +82,7 @@
 	}
 
 	input[type='text'] {
-		@apply md:h-8 w-full mr-3 text-xs md:text-base xxl:text-2xl xxxl:text-4xl xxxl:h-16;
+		@apply md:h-8 w-full mr-3 text-base xxl:text-2xl xxxl:text-4xl xxxl:h-16 outline-none;
 	}
 
 	.text-div {
@@ -103,7 +103,7 @@
 	}
 
 	.button {
-		@apply bg-maincolor md:h-full py-1 px-2 md:px-3 rounded-2xl cursor-pointer flex items-center justify-center xxxl:rounded-full;
+		@apply bg-maincolor md:h-full py-1 px-2 md:px-3 xxxl:px-6 rounded-2xl cursor-pointer flex items-center justify-center xxxl:rounded-full;
 	}
 
 	.red-text {
@@ -124,7 +124,7 @@
 
 	.connect-wallet-button {
 		@apply mt-4 md:mt-8 py-2 md:py-3 border border-maincolor text-maincolor md:h-14 rounded-[45px];
-		@apply text-sm md:text-base xxl:text-xl xxxl:text-4xl xxxl:py-6 xxxl:h-auto xxxl:rounded-full;
+		@apply text-[18px] md:text-base xxl:text-xl xxxl:text-4xl xxxl:py-6 xxxl:h-auto xxxl:rounded-full;
 		@apply transition-all;
 		@apply hover:bg-maincolor hover:text-white;
 	}

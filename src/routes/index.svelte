@@ -34,11 +34,15 @@
 		<div class="right">
 			<div>
 				{#if $walletConnected}
-					<UnlockedRewards />
-					<AvailableLpToken />
+					<div class="component-holder">
+						<UnlockedRewards />
+						<AvailableLpToken />
+					</div>
 				{:else}
-					<NoWallet>Unlocked Rewards</NoWallet>
-					<NoWallet>Available LP TOKEN</NoWallet>
+					<div class="component-holder">
+						<NoWallet first="true">Unlocked Rewards</NoWallet>
+						<NoWallet>Available LP TOKEN</NoWallet>
+					</div>
 				{/if}
 				<p class="atomidex-title">Swap on Atomixdex</p>
 				<a href="!#" class="atomic-dex">
@@ -96,6 +100,10 @@
 	}
 
 	.atomidex-title {
-		@apply font-bold md:ml-6 xxl:text-lg xxxl:text-3xl leading-normal md:mb-1 xl:mb-2 xxl:mb-3 xxxl:mb-4;
+		@apply font-bold md:ml-6 xxl:text-lg xxxl:text-3xl leading-normal mb-3 md:mb-2 xl:mb-3 xxl:mb-4 xxxl:mb-6;
+	}
+
+	.component-holder {
+		@apply flex w-full md:flex-col;
 	}
 </style>
