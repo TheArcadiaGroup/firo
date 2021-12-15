@@ -1,5 +1,8 @@
 <script>
 	import { walletConnected } from '$lib/Stake/stakingStore';
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
 </script>
 
 <h2>Earn FIRO by Staking your LP Tokens</h2>
@@ -13,9 +16,13 @@
 </p>
 <div class="btn-holder">
 	{#if $walletConnected}
-		<a href="/accountSummary">
-			<button> View Account Summary </button>
-		</a>
+		<button
+			on:click={() => {
+				dispatch('activateAccountSummary');
+			}}
+		>
+			View Account Summary
+		</button>
 	{:else}
 		<button> Connect Wallet </button>
 	{/if}

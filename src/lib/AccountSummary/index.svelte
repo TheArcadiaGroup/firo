@@ -1,14 +1,21 @@
 <script lang="ts">
 	import StakeProgress from '$lib/StakeProgress/index.svelte';
-	import { slide } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
 </script>
 
-<div class="main" transition:slide>
+<div class="main" transition:fly={{ y: 200, duration: 1000 }}>
 	<div class="account-summary-header">
 		<h2>Account Summary</h2>
-		<a href="/">
-			<img src="/images/svg/red-cross.svg" alt="close-icon" />
-		</a>
+		<img
+			on:click={() => {
+				dispatch('deactivateAccountSummary');
+			}}
+			src="/images/svg/red-cross.svg"
+			alt="close-icon"
+		/>
 	</div>
 
 	<div class="top holder">
@@ -71,9 +78,9 @@
 
 	<div class="my-stakes">
 		<h3 class="my-stakes-title">My Stakes</h3>
-		<StakeProgress first={true} progress={0.3} />
-		<StakeProgress progress={0.7} />
-		<StakeProgress progress={0.4} />
+		<StakeProgress first={true} />
+		<StakeProgress />
+		<StakeProgress />
 	</div>
 
 	<button>Unstake all positions</button>
@@ -181,7 +188,7 @@
 		@apply md:w-auto md:relative;
 	}
 
-	.account-summary-header > a > img {
-		@apply md:h-[40px] md:w-[40px];
+	.account-summary-header > img {
+		@apply md:h-[40px] md:w-[40px] cursor-pointer;
 	}
 </style>
