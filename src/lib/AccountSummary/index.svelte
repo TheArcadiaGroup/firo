@@ -32,7 +32,7 @@
 		</div>
 	{/if}
 
-	<div class="account-summary-header">
+	<div class="account-summary-header" class:blurry={$darkOverlay}>
 		<h2>Account Summary</h2>
 		<img
 			on:click={() => {
@@ -43,7 +43,7 @@
 		/>
 	</div>
 
-	<div class="top holder">
+	<div class="top holder" class:blurry={$darkOverlay}>
 		<div class="data-holder shield">
 			<img src="/images/svg/shield.svg" alt="shield-icon" />
 			<div>
@@ -69,7 +69,7 @@
 		</div>
 	</div>
 
-	<div class="data-holder mobile">
+	<div class="data-holder mobile" class:blurry={$darkOverlay}>
 		<img src="/images/svg/banking.svg" alt="banking-icon" />
 		<div>
 			<p class="data-text">Total Unlocked LP Balance</p>
@@ -77,7 +77,7 @@
 		</div>
 	</div>
 
-	<div class="bottom holder">
+	<div class="bottom holder" class:blurry={$darkOverlay}>
 		<div class="data-holder shield">
 			<img src="/images/svg/pending.svg" alt="pending-icon" />
 			<div>
@@ -86,9 +86,9 @@
 			</div>
 		</div>
 
-		<div class="vl" />
+		<div class="vl" class:blurry={$darkOverlay} />
 
-		<div class="award data-holder">
+		<div class="award data-holder" class:blurry={$darkOverlay}>
 			<img src="/images/svg/award.svg" alt="award-icon" />
 			<div>
 				<p class="data-text">Total Realized <br />Rewards</p>
@@ -97,7 +97,7 @@
 		</div>
 	</div>
 
-	<div class="withdraw-button-holder">
+	<div class="withdraw-button-holder" class:blurry={$darkOverlay}>
 		<button
 			class="withdraw-button"
 			on:click={() => {
@@ -107,7 +107,7 @@
 		>
 	</div>
 
-	<div class="my-stakes">
+	<div class="my-stakes" class:blurry={$darkOverlay}>
 		<h3 class="my-stakes-title">My Stakes</h3>
 		<StakeProgress first={true} />
 		<StakeProgress />
@@ -115,6 +115,7 @@
 	</div>
 
 	<button
+		class:blurry={$darkOverlay}
 		on:click={() => {
 			darkOverlay.set(!$darkOverlay);
 			unstakePopupActive = !unstakePopupActive;
@@ -231,5 +232,9 @@
 	.popup-holder {
 		@apply fixed top-0 left-0 right-0 bottom-0 h-screen w-screen z-50 px-4;
 		@apply justify-center items-center flex;
+	}
+
+	.blurry {
+		@apply md:filter md:blur;
 	}
 </style>
