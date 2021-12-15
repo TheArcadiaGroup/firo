@@ -33,11 +33,11 @@
 
 <div class="main">
 	{#if !first}
-		<hr class="top" />
+		<hr class="top mobile" />
 	{/if}
 
 	<div class="top">
-		<p class="locked">{15} LP locked</p>
+		<p class="locked">{15} LP<br class="desktop" />locked</p>
 		<p class="unlocked" class:text-maincolor={progressBar > 0.5}>{15} LP unlocked</p>
 		<div class="end" />
 	</div>
@@ -68,7 +68,7 @@
 
 <style lang="postcss">
 	.top {
-		@apply flex font-medium text-xs mb-3 justify-between;
+		@apply flex font-medium text-xs md:text-base mb-3 md:mb-2 justify-between items-end text-subtext2 md:text-greytext;
 	}
 
 	.locked {
@@ -85,7 +85,7 @@
 	}
 
 	.progress {
-		@apply h-4 bg-[#d8d8d8] rounded-[30px] w-full mb-3;
+		@apply h-4 bg-[#d8d8d8] rounded-[30px] w-full mb-3 md:mb-4;
 	}
 
 	.progress-done {
@@ -95,11 +95,11 @@
 	}
 
 	.mid {
-		@apply flex font-medium text-xs mb-3 justify-between px-1 leading-3;
+		@apply flex font-medium text-xs md:text-base mb-3 justify-between px-1 leading-3 text-subtext2 md:text-greytext;
 	}
 
 	hr.dashed {
-		@apply border-t-2 border-dashed border-maincolor mb-3;
+		@apply border-t-2 md:border-t border-dashed border-maincolor mb-3;
 	}
 
 	hr.top {
@@ -107,11 +107,11 @@
 	}
 
 	.bottom {
-		@apply flex font-medium text-xs justify-between px-1;
+		@apply flex font-medium text-xs md:text-base justify-between px-1 md:text-greytext;
 	}
 
 	.vl {
-		@apply border-l-2 border-dashed border-maincolor;
+		@apply border-l-2 md:border-l border-dashed border-maincolor;
 	}
 
 	.bottom > p {
@@ -119,6 +119,14 @@
 	}
 
 	.total-time {
-		@apply flex font-medium text-xs justify-center px-1 text-maincolor text-center leading-3 mb-5;
+		@apply flex font-medium text-xs md:text-sm justify-center px-1 text-maincolor text-center leading-3 mb-5;
+	}
+
+	.mobile {
+		@apply md:hidden;
+	}
+
+	.desktop {
+		@apply hidden md:flex;
 	}
 </style>

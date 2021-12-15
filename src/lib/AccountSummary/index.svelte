@@ -171,14 +171,14 @@
 	}
 
 	.withdraw-button {
-		@apply md:w-auto md:absolute md:top-[-28px] md:right-[200px];
+		@apply md:w-auto md:absolute md:top-[-28px] md:right-[225px];
 	}
 
 	.withdraw-button-holder {
 		@apply md:w-auto md:relative;
 	}
 
-	.account-summary-header {
+	.account-summary-header > img {
 		@apply md:h-[40px] md:w-[40px];
 	}
 </style>
