@@ -20,7 +20,7 @@
 	<p class="info"><span>{350} FIRO</span> will be sent to your wallet</p>
 	<p class="amount">Amount to withdraw</p>
 	<TextInput />
-	<button>Withdraw Realized Rewards</button>
+	<button>Confirm and Withdraw</button>
 </div>
 
 <style lang="postcss">
