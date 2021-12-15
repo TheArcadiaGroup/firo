@@ -3,25 +3,20 @@
 	import { fly } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
 	import { darkOverlay } from '$lib/Navbar/navStore';
+	import WithdrawPopup from '$lib/WithdrawPopup/index.svelte';
 
 	const dispatch = createEventDispatcher();
-	let withdrawPopupActive: boolean = true;
+	let withdrawPopupActive: boolean = false;
 </script>
 
 <div class="main" transition:fly={{ y: 200, duration: 1000 }}>
 	{#if withdrawPopupActive}
 		<div class="popup-holder">
-			<div class="withdraw-popup">
-				<img
-					on:click={() => {
-						darkOverlay.set(!$darkOverlay);
-						withdrawPopupActive = !withdrawPopupActive;
-					}}
-					src="/images/svg/red-cross.svg"
-					alt="close-icon"
-				/>
-				<h4>Withdraw Realized Rewards</h4>
-			</div>
+			<WithdrawPopup
+				on:deactivatePopup={() => {
+					withdrawPopupActive = !withdrawPopupActive;
+				}}
+			/>
 		</div>
 	{/if}
 
@@ -205,7 +200,7 @@
 	}
 
 	.withdraw-button {
-		@apply md:w-auto md:absolute md:top-[-28px] md:right-[225px];
+		@apply md:w-auto mt-4 md:mt-0 md:absolute md:top-[-28px] md:right-[225px];
 	}
 
 	.withdraw-button-holder {
@@ -219,17 +214,5 @@
 	.popup-holder {
 		@apply fixed top-0 left-0 right-0 bottom-0 h-screen w-screen z-50 px-4;
 		@apply justify-center items-center flex;
-	}
-
-	.withdraw-popup {
-		@apply flex flex-col bg-white rounded-[10px] p-4 w-full;
-	}
-
-	.withdraw-popup > img {
-		@apply self-end;
-	}
-
-	h4 {
-		@apply font-bold text-xl;
 	}
 </style>
