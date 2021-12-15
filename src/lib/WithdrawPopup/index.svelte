@@ -33,7 +33,7 @@
 	}
 
 	h4 {
-		@apply font-black text-xl mb-8;
+		@apply font-black text-2xl mb-8;
 	}
 
 	.info {
