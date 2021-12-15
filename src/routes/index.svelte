@@ -40,7 +40,7 @@
 					</div>
 				{:else}
 					<div class="component-holder">
-						<NoWallet first="true">Unlocked Rewards</NoWallet>
+						<NoWallet first={true}>Unlocked Rewards</NoWallet>
 						<NoWallet>Available LP TOKEN</NoWallet>
 					</div>
 				{/if}
