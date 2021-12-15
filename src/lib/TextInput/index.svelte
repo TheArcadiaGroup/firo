@@ -38,7 +38,7 @@
 	}
 
 	.text-div {
-		@apply py-2 px-3 md:py-4 md:px-5 bg-white rounded-full border border-line-color flex xxxl:py-6 xxl:border-2 xxxl:border-4;
+		@apply py-2 px-3 md:py-3 md:px-5 bg-white rounded-full border border-line-color flex xxxl:py-6 xxl:border-2 xxxl:border-4;
 		box-shadow: 0px 4px 20px rgba(170, 123, 123, 0.1);
 	}
 
