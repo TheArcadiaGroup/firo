@@ -1,28 +1,13 @@
 <script lang="ts">
+	import { convertDate, dateDifference } from '$utils/index';
+
 	export let first: boolean = false;
-	export let progress = 0.7;
-	export let stakedOn = new Date(2021, 11, 1);
-	export let unlockedOn = new Date(2021, 11, 1);
-	export let rewardOn = new Date(2021, 11, 1);
-
-	const monthNames = [
-		'Jan',
-		'Feb',
-		'Mar',
-		'Apr',
-		'May',
-		'Jun',
-		'Jul',
-		'Aug',
-		'Sep',
-		'Oct',
-		'Nov',
-		'Dec'
-	];
-
-	function convertDate(date: Date) {
-		return `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
-	}
+	export let stakedOn = new Date(2021, 11, 1, 12, 54, 35);
+	export let unlockedOn = new Date(2022, 0, 1, 16, 48, 39);
+	export let rewardOn = new Date(2022, 1, 1, 3, 24, 45);
+	const totalTime = rewardOn.getTime() - stakedOn.getTime();
+	const progressTime = new Date().getTime() - stakedOn.getTime();
+	const progress = progressTime / totalTime;
 
 	let progressBar = 0;
 
@@ -47,22 +32,22 @@
 	</div>
 
 	<div class="mid">
-		<p class="locked">Staked on<br />{convertDate(stakedOn)}</p>
+		<p class="locked">{stakedOn.toLocaleTimeString()}<br />{convertDate(stakedOn)}</p>
 		<p class="unlocked" class:text-maincolor={progressBar > 0.5}>
-			Unlocked on<br />{convertDate(unlockedOn)}
+			{unlockedOn.toLocaleTimeString()}<br />{convertDate(unlockedOn)}
 		</p>
-		<p class="end">Reward on<br />{convertDate(rewardOn)}</p>
+		<p class="end">{rewardOn.toLocaleTimeString()}<br />{convertDate(rewardOn)}</p>
 	</div>
 
 	<div class="bottom">
-		<p>19:12:53:27</p>
+		<p>{dateDifference(unlockedOn, stakedOn)}</p>
 		<div class="vl" />
-		<p>19:12:53:27</p>
+		<p>{dateDifference(rewardOn, unlockedOn)}</p>
 	</div>
 	<hr class="dashed" />
 
 	<div class="total-time">
-		Total Time Until Reward<br />19:12:53:27
+		Total Time Until Reward<br />{dateDifference(rewardOn, stakedOn)}
 	</div>
 </div>
 
