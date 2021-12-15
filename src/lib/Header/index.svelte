@@ -13,7 +13,9 @@
 </p>
 <div class="btn-holder">
 	{#if $walletConnected}
-		<button> View Account Summary </button>
+		<a href="/accountSummary">
+			<button> View Account Summary </button>
+		</a>
 	{:else}
 		<button> Connect Wallet </button>
 	{/if}

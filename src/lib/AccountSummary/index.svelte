@@ -1,11 +1,14 @@
 <script lang="ts">
 	import StakeProgress from '$lib/StakeProgress/index.svelte';
+	import { slide } from 'svelte/transition';
 </script>
 
-<div class="main">
+<div class="main" transition:slide>
 	<div class="account-summary-header">
 		<h2>Account Summary</h2>
-		<img src="/images/svg/red-cross.svg" alt="close-icon" />
+		<a href="/">
+			<img src="/images/svg/red-cross.svg" alt="close-icon" />
+		</a>
 	</div>
 
 	<div class="top holder">
@@ -178,7 +181,7 @@
 		@apply md:w-auto md:relative;
 	}
 
-	.account-summary-header > img {
+	.account-summary-header > a > img {
 		@apply md:h-[40px] md:w-[40px];
 	}
 </style>
