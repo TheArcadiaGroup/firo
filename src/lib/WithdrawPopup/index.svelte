@@ -1,11 +1,13 @@
 <script>
 	import { darkOverlay } from '$lib/Navbar/navStore';
 	import { createEventDispatcher } from 'svelte';
+	import TextInput from '$lib/TextInput/index.svelte';
+	import { scale } from 'svelte/transition';
 
 	const dispatch = createEventDispatcher();
 </script>
 
-<div class="withdraw-popup">
+<div class="withdraw-popup" transition:scale>
 	<img
 		on:click={() => {
 			darkOverlay.set(!$darkOverlay);
@@ -17,6 +19,8 @@
 	<h4>Withdraw Realized Rewards</h4>
 	<p class="info"><span>{350} FIRO</span> will be sent to your wallet</p>
 	<p class="amount">Amount to withdraw</p>
+	<TextInput />
+	<button>Withdraw Realized Rewards</button>
 </div>
 
 <style lang="postcss">
@@ -42,5 +46,12 @@
 
 	.amount {
 		@apply text-black-default opacity-50 mb-2;
+	}
+
+	button {
+		@apply w-full md:w-auto bg-maincolor text-white md:text-lg;
+		@apply hover:bg-white hover:border-opacity-100 hover:text-maincolor transition-all;
+		@apply border border-maincolor rounded-[45px];
+		@apply py-2 mb-7 mt-5 md:py-0 md:px-[148px] mx-auto md:h-[56px];
 	}
 </style>
