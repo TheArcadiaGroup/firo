@@ -103,7 +103,7 @@
 	}
 
 	.mobile {
-		@apply flex flex-row justify-between items-center p-4 md:hidden;
+		@apply flex flex-row justify-between items-center p-5 md:hidden;
 	}
 
 	ul {
