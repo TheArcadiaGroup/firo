@@ -2,11 +2,29 @@
 	import StakeProgress from '$lib/StakeProgress/index.svelte';
 	import { fly } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
+	import { darkOverlay } from '$lib/Navbar/navStore';
 
 	const dispatch = createEventDispatcher();
+	let withdrawPopupActive: boolean = true;
 </script>
 
 <div class="main" transition:fly={{ y: 200, duration: 1000 }}>
+	{#if withdrawPopupActive}
+		<div class="popup-holder">
+			<div class="withdraw-popup">
+				<img
+					on:click={() => {
+						darkOverlay.set(!$darkOverlay);
+						withdrawPopupActive = !withdrawPopupActive;
+					}}
+					src="/images/svg/red-cross.svg"
+					alt="close-icon"
+				/>
+				<h4>Withdraw Realized Rewards</h4>
+			</div>
+		</div>
+	{/if}
+
 	<div class="account-summary-header">
 		<h2>Account Summary</h2>
 		<img
@@ -73,7 +91,13 @@
 	</div>
 
 	<div class="withdraw-button-holder">
-		<button class="withdraw-button">Withdraw Realized Rewards</button>
+		<button
+			class="withdraw-button"
+			on:click={() => {
+				darkOverlay.set(!$darkOverlay);
+				withdrawPopupActive = !withdrawPopupActive;
+			}}>Withdraw Realized Rewards</button
+		>
 	</div>
 
 	<div class="my-stakes">
@@ -92,7 +116,7 @@
 	}
 
 	.main {
-		@apply px-5 md:max-w-[1000px] md:mx-auto md:flex md:flex-col;
+		@apply px-5 md:max-w-[1000px] md:mx-auto md:flex md:flex-col z-40;
 	}
 
 	.account-summary-header {
@@ -128,7 +152,7 @@
 		@apply w-full md:w-auto bg-maincolor text-white md:text-lg;
 		@apply hover:bg-white hover:border-opacity-100 hover:text-maincolor transition-all;
 		@apply border border-maincolor rounded-[45px];
-		@apply py-2 mb-7 md:py-0 px-[148px] mx-auto md:h-[56px];
+		@apply py-2 mb-7 md:py-0 md:px-[148px] mx-auto md:h-[56px];
 	}
 
 	.my-stakes-title {
@@ -190,5 +214,22 @@
 
 	.account-summary-header > img {
 		@apply md:h-[40px] md:w-[40px] cursor-pointer;
+	}
+
+	.popup-holder {
+		@apply fixed top-0 left-0 right-0 bottom-0 h-screen w-screen z-50 px-4;
+		@apply justify-center items-center flex;
+	}
+
+	.withdraw-popup {
+		@apply flex flex-col bg-white rounded-[10px] p-4 w-full;
+	}
+
+	.withdraw-popup > img {
+		@apply self-end;
+	}
+
+	h4 {
+		@apply font-bold text-xl;
 	}
 </style>

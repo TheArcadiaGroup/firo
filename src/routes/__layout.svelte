@@ -2,10 +2,8 @@
 	import '$styles/tailwind.css';
 	import Navbar from '$lib/Navbar/index.svelte';
 	import { fade } from 'svelte/transition';
-	import { link } from '$lib/Navbar/navStore';
+	import { darkOverlay, link } from '$lib/Navbar/navStore';
 	import { capitalizeFirstLetter } from '$utils/index';
-
-	let darkOverlay = false;
 </script>
 
 <svelte:head>
@@ -13,12 +11,12 @@
 </svelte:head>
 
 <main>
-	{#if darkOverlay}
+	{#if $darkOverlay}
 		<div transition:fade class="darker" />
 	{/if}
 	<Navbar
 		on:navclicked={() => {
-			darkOverlay = !darkOverlay;
+			darkOverlay.set(!$darkOverlay);
 		}}
 	/>
 	<slot />

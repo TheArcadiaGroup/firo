@@ -53,7 +53,7 @@
 
 <style lang="postcss">
 	.top {
-		@apply flex font-medium text-xs md:text-base mb-3 md:mb-2 justify-between items-end text-subtext2 md:text-greytext;
+		@apply flex font-medium text-xs md:text-base mb-3 md:mb-2 justify-between items-end text-subtext2 md:text-greytext md:font-medium;
 	}
 
 	.locked {
@@ -80,7 +80,7 @@
 	}
 
 	.mid {
-		@apply flex font-medium text-xs md:text-base mb-3 justify-between px-1 leading-3 text-subtext2 md:text-greytext;
+		@apply flex font-medium text-xs md:text-base mb-3 justify-between px-1 leading-3 text-subtext2 md:text-greytext md:font-medium;
 	}
 
 	hr.dashed {
@@ -92,7 +92,7 @@
 	}
 
 	.bottom {
-		@apply flex font-medium text-xs md:text-base justify-between px-1 md:text-greytext;
+		@apply flex font-medium text-xs md:text-base justify-between px-1 md:text-greytext md:font-medium;
 	}
 
 	.vl {
