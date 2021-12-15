@@ -4,9 +4,11 @@
 	import { createEventDispatcher } from 'svelte';
 	import { darkOverlay } from '$lib/Navbar/navStore';
 	import WithdrawPopup from '$lib/WithdrawPopup/index.svelte';
+	import UnstakePopup from '$lib/UnstakePopup/index.svelte';
 
 	const dispatch = createEventDispatcher();
 	let withdrawPopupActive: boolean = false;
+	let unstakePopupActive: boolean = false;
 </script>
 
 <div class="main" transition:fly={{ y: 200, duration: 1000 }}>
@@ -15,6 +17,16 @@
 			<WithdrawPopup
 				on:deactivatePopup={() => {
 					withdrawPopupActive = !withdrawPopupActive;
+				}}
+			/>
+		</div>
+	{/if}
+
+	{#if unstakePopupActive}
+		<div class="popup-holder">
+			<UnstakePopup
+				on:deactivatePopup={() => {
+					unstakePopupActive = !unstakePopupActive;
 				}}
 			/>
 		</div>
@@ -102,7 +114,12 @@
 		<StakeProgress />
 	</div>
 
-	<button>Unstake all positions</button>
+	<button
+		on:click={() => {
+			darkOverlay.set(!$darkOverlay);
+			unstakePopupActive = !unstakePopupActive;
+		}}>Unstake all positions</button
+	>
 </div>
 
 <style lang="postcss">
