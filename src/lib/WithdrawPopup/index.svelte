@@ -1,5 +1,5 @@
 <script>
-	import { darkOverlay } from '$lib/Navbar/navStore';
+	import { darkOverlay } from '$stores/navStore';
 	import { createEventDispatcher } from 'svelte';
 	import TextInput from '$lib/TextInput/index.svelte';
 	import { scale } from 'svelte/transition';

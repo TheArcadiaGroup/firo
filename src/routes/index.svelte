@@ -4,12 +4,12 @@
 	import StakingAprBar from '$lib/StakingAprBar/index.svelte';
 	import UnlockedRewards from '$lib/UnlockedRewards/index.svelte';
 	import AvailableLpToken from '$lib/AvailableLpToken/index.svelte';
-	import { link } from '$lib/Navbar/navStore';
-	import { walletConnected } from '$lib/Stake/stakingStore';
+	import { link } from '$stores/navStore';
+	import { walletConnected } from '$stores/stakingStore';
 	import NoWallet from '$lib/NoWallet/index.svelte';
 	import { onMount } from 'svelte';
 	import AccountSummary from '$lib/AccountSummary/index.svelte';
-	import { showAccountSummary } from '$lib/AccountSummary/accountSummaryStore';
+	import { showAccountSummary } from '$stores/accountSummaryStore';
 
 	onMount(() => {
 		link.set('staking');

@@ -1,6 +1,6 @@
 <script>
 	import Switch from '$lib/Switch/index.svelte';
-	import { isStaking, walletConnected } from './stakingStore';
+	import { isStaking, walletConnected } from '$stores/stakingStore';
 	import TextInput from '$lib/TextInput/index.svelte';
 
 	isStaking.set(true);

@@ -1,5 +1,5 @@
 <script>
-	import { isStaking } from '$lib/Stake/stakingStore';
+	import { isStaking } from '$stores/stakingStore';
 	import { scale } from 'svelte/transition';
 </script>
 

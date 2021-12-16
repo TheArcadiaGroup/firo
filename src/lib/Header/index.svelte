@@ -1,6 +1,14 @@
 <script>
-	import { walletConnected } from '$lib/Stake/stakingStore';
+	import { walletConnected } from '$stores/stakingStore';
+	import { connectToWallet } from '$utils/walletConnection';
+	import { appSigner } from '$stores/wallet';
 	import { createEventDispatcher } from 'svelte';
+
+	let signedIn = false;
+
+	$: ((val) => {
+		signedIn = !!val;
+	})($appSigner);
 
 	const dispatch = createEventDispatcher();
 </script>
@@ -24,7 +32,7 @@
 			View Account Summary
 		</button>
 	{:else}
-		<button> Connect Wallet </button>
+		<button on:click={async () => await connectToWallet()}> Connect Wallet </button>
 	{/if}
 </div>
 

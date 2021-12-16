@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { convertDate, dateDifference } from '$utils/index';
+	import { convertDate, dateDifference } from '$utils';
 
 	export let first: boolean = false;
 	export let stakedOn = new Date(2021, 11, 1, 12, 54, 35);

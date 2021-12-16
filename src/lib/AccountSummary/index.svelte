@@ -2,7 +2,7 @@
 	import StakeProgress from '$lib/StakeProgress/index.svelte';
 	import { fly } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
-	import { darkOverlay } from '$lib/Navbar/navStore';
+	import { darkOverlay } from '$stores/navStore';
 	import WithdrawPopup from '$lib/WithdrawPopup/index.svelte';
 	import UnstakePopup from '$lib/UnstakePopup/index.svelte';
 

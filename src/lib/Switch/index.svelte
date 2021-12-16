@@ -1,5 +1,5 @@
 <script>
-	import { isStaking } from '../Stake/stakingStore';
+	import { isStaking } from '$stores/stakingStore';
 
 	let left, right;
 
