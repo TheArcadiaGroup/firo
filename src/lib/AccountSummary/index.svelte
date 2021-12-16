@@ -86,7 +86,7 @@
 			</div>
 		</div>
 
-		<div class="vl" class:blurry={$darkOverlay} />
+		<div class="vl desktop" class:blurry={$darkOverlay} />
 
 		<div class="award data-holder" class:blurry={$darkOverlay}>
 			<img src="/images/svg/award.svg" alt="award-icon" />
@@ -129,7 +129,7 @@
 	}
 
 	.main {
-		@apply px-5 md:max-w-[1000px] md:mx-auto md:flex md:flex-col z-40 py-14;
+		@apply px-5 md:max-w-[1000px] md:mx-auto md:flex md:flex-col z-40 md:py-14;
 	}
 
 	.account-summary-header {
@@ -198,7 +198,7 @@
 	}
 
 	.bottom > .data-holder {
-		@apply border-none;
+		@apply md:border-none;
 	}
 
 	.top > .data-holder {
@@ -206,7 +206,7 @@
 	}
 
 	.bottom {
-		@apply border border-line-color rounded-[10px] md:mb-0 md:items-center py-[55px];
+		@apply md:border md:border-line-color rounded-[10px] md:mb-0 md:items-center md:py-[55px];
 	}
 
 	.top {
