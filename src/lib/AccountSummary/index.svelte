@@ -101,7 +101,7 @@
 		<button
 			class="withdraw-button"
 			on:click={() => {
-				darkOverlay.set(!$darkOverlay);
+				darkOverlay.set(true);
 				withdrawPopupActive = !withdrawPopupActive;
 			}}>Withdraw Realized Rewards</button
 		>
@@ -117,7 +117,7 @@
 	<button
 		class:blurry={$darkOverlay}
 		on:click={() => {
-			darkOverlay.set(!$darkOverlay);
+			darkOverlay.set(true);
 			unstakePopupActive = !unstakePopupActive;
 		}}>Unstake all positions</button
 	>

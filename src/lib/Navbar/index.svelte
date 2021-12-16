@@ -1,5 +1,5 @@
 <script>
-	import { darkOverlay, link } from '$lib/Navbar/navStore';
+	import { link } from '$lib/Navbar/navStore';
 	import { slide, fade } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
 	import Divider from '$lib/Divider/index.svelte';
@@ -70,7 +70,7 @@
 {/if}
 
 {#if !$showAccountSummary}
-	<div class="main notmobile" class:blurry={$darkOverlay} transition:fade>
+	<div class="main notmobile" transition:fade>
 		<img class="desktop-logo" src="/images/png/firo-group.png" alt="firo-group-logo" />
 		<!-- <div class="divider">
 			<ul>
@@ -136,9 +136,5 @@
 
 	.desktop-logo {
 		@apply hidden md:inline absolute left-[60px] lg:top-[15px] xl:top-[30px] xl:left-[150px] xxl:left-[120px] xxxl:left-[300px] xxxl:top-[60px] md:w-[90px] xl:w-[105px] xxxl:w-[210px];
-	}
-
-	.blurry {
-		@apply md:filter md:blur;
 	}
 </style>

@@ -9,7 +9,7 @@
 <div class="withdraw-popup" transition:scale>
 	<img
 		on:click={() => {
-			darkOverlay.set(!$darkOverlay);
+			darkOverlay.set(false);
 			dispatch('deactivatePopup');
 		}}
 		src="/images/svg/red-cross.svg"
