@@ -69,7 +69,7 @@
 
 <style lang="postcss">
 	.main {
-		@apply flex flex-col justify-center font-sans mx-4 md:mb-4;
+		@apply flex flex-col justify-center font-sans mx-4 md:mb-4 xl:mb-8;
 	}
 
 	.top-section {
