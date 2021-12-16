@@ -129,7 +129,7 @@
 	}
 
 	.main {
-		@apply px-5 md:max-w-[1000px] md:mx-auto md:flex md:flex-col z-40;
+		@apply px-5 md:max-w-[1000px] md:mx-auto md:flex md:flex-col z-40 py-14;
 	}
 
 	.account-summary-header {

@@ -1,8 +1,9 @@
 <script>
 	import { darkOverlay, link } from '$lib/Navbar/navStore';
-	import { slide } from 'svelte/transition';
+	import { slide, fade } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
 	import Divider from '$lib/Divider/index.svelte';
+	import { showAccountSummary } from '$lib/AccountSummary/accountSummaryStore';
 
 	const dispatch = createEventDispatcher();
 
@@ -68,30 +69,32 @@
 	</div>
 {/if}
 
-<div class="main notmobile" class:blurry={$darkOverlay}>
-	<img class="desktop-logo" src="/images/png/firo-group.png" alt="firo-group-logo" />
-	<!-- <div class="divider">
-		<ul>
-			<li>Get Firo</li>
-			<li>About</li>
-			<li>Community</li>
-			<li>Swap</li>
-			<li class:selected={isPage('staking')}>
-				<a href="/">Staking</a>
-			</li>
-			<li>
-				<a href="/my-stakes">My Stakes</a>
-			</li>
-			<li>
-				<a href="https://firo.org/guide/">Guides</a>
-			</li>
-			<li>
-				<a href="https://firo.org/blog/">Blog</a>
-			</li>
-			<li>Crowdfunding</li>
-		</ul>
-	</div> -->
-</div>
+{#if !$showAccountSummary}
+	<div class="main notmobile" class:blurry={$darkOverlay} transition:fade>
+		<img class="desktop-logo" src="/images/png/firo-group.png" alt="firo-group-logo" />
+		<!-- <div class="divider">
+			<ul>
+				<li>Get Firo</li>
+				<li>About</li>
+				<li>Community</li>
+				<li>Swap</li>
+				<li class:selected={isPage('staking')}>
+					<a href="/">Staking</a>
+				</li>
+				<li>
+					<a href="/my-stakes">My Stakes</a>
+				</li>
+				<li>
+					<a href="https://firo.org/guide/">Guides</a>
+				</li>
+				<li>
+					<a href="https://firo.org/blog/">Blog</a>
+				</li>
+				<li>Crowdfunding</li>
+			</ul>
+		</div> -->
+	</div>
+{/if}
 
 <style lang="postcss">
 	.main {

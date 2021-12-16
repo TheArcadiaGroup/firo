@@ -9,18 +9,17 @@
 	import NoWallet from '$lib/NoWallet/index.svelte';
 	import { onMount } from 'svelte';
 	import AccountSummary from '$lib/AccountSummary/index.svelte';
-
-	let showAccountSummary: boolean = false;
+	import { showAccountSummary } from '$lib/AccountSummary/accountSummaryStore';
 
 	onMount(() => {
 		link.set('staking');
 	});
 </script>
 
-{#if showAccountSummary}
+{#if $showAccountSummary}
 	<AccountSummary
 		on:deactivateAccountSummary={() => {
-			showAccountSummary = !showAccountSummary;
+			showAccountSummary.set(false);
 		}}
 	/>
 {:else}
@@ -29,7 +28,7 @@
 			<div class="left">
 				<Header
 					on:activateAccountSummary={() => {
-						showAccountSummary = !showAccountSummary;
+						showAccountSummary.set(true);
 					}}
 				/>
 			</div>
