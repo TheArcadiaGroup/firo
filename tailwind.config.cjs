@@ -25,6 +25,8 @@ module.exports = {
 				transparent: 'transparent',
 				maincolor: '#9B1C2E',
 				subtext: '#B1B5C3',
+				subtext2: '#AEBBC5',
+				greytext: '#888888',
 				'para-color': 'rgba(136, 136, 136, 0.7)',
 				'line-color': '#E6E8EC',
 				'bg-primary': '#EDF1F5',

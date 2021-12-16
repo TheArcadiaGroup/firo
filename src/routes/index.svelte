@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Stake from '$lib/Stake/index.svelte';
 	import Header from '$lib/Header/index.svelte';
 	import StakingAprBar from '$lib/StakingAprBar/index.svelte';
@@ -8,50 +8,68 @@
 	import { walletConnected } from '$stores/stakingStore';
 	import NoWallet from '$lib/NoWallet/index.svelte';
 	import { onMount } from 'svelte';
+	import AccountSummary from '$lib/AccountSummary/index.svelte';
+	import { showAccountSummary } from '$stores/accountSummaryStore';
 
 	onMount(() => {
 		link.set('staking');
 	});
 </script>
 
-<div class="main">
-	<div class="top-section">
-		<div class="left">
-			<Header />
-		</div>
-		<div class="right">
-			<div class="logo-holder">
-				<img class="firo-grp-logo" src="/images/png/firo-group.png" alt="firo-group-logo" />
+{#if $showAccountSummary}
+	<AccountSummary
+		on:deactivateAccountSummary={() => {
+			showAccountSummary.set(false);
+		}}
+	/>
+{:else}
+	<div class="main">
+		<div class="top-section">
+			<div class="left">
+				<Header
+					on:activateAccountSummary={() => {
+						showAccountSummary.set(true);
+					}}
+				/>
+			</div>
+			<div class="right">
+				<div class="logo-holder">
+					<img class="firo-grp-logo" src="/images/png/firo-group.png" alt="firo-group-logo" />
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="lower-section">
-		<div class="left">
-			<StakingAprBar />
-			<Stake />
-		</div>
-		<div class="right">
-			<div>
-				{#if $walletConnected}
-					<UnlockedRewards />
-					<AvailableLpToken />
-				{:else}
-					<NoWallet>Unlocked Rewards</NoWallet>
-					<NoWallet>Available LP TOKEN</NoWallet>
-				{/if}
-				<p class="atomidex-title">Swap on Atomixdex</p>
-				<a href="!#" class="atomic-dex">
-					<img src="/images/png/atomic-dex.png" alt="atomic-dex" />
-				</a>
+		<div class="lower-section">
+			<div class="left">
+				<StakingAprBar />
+				<Stake />
+			</div>
+			<div class="right">
+				<div>
+					{#if $walletConnected}
+						<div class="component-holder">
+							<UnlockedRewards />
+							<AvailableLpToken />
+						</div>
+					{:else}
+						<div class="component-holder">
+							<NoWallet first={true}>Unlocked Rewards</NoWallet>
+							<NoWallet>Available LP TOKEN</NoWallet>
+						</div>
+					{/if}
+					<p class="atomidex-title">Swap on Atomixdex</p>
+					<a href="!#" class="atomic-dex">
+						<img src="/images/png/atomic-dex.png" alt="atomic-dex" />
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+{/if}
 
 <style lang="postcss">
 	.main {
-		@apply flex flex-col justify-center font-sans mx-4 md:mb-4;
+		@apply flex flex-col justify-center font-sans mx-4 md:mb-4 xl:mb-8;
 	}
 
 	.top-section {
@@ -96,6 +114,10 @@
 	}
 
 	.atomidex-title {
-		@apply font-bold md:ml-6 xxl:text-lg xxxl:text-3xl leading-normal md:mb-1 xl:mb-2 xxl:mb-3 xxxl:mb-4;
+		@apply font-bold md:ml-6 xxl:text-lg xxxl:text-3xl leading-normal mb-3 md:mb-2 xl:mb-3 xxl:mb-4 xxxl:mb-6;
+	}
+
+	.component-holder {
+		@apply flex w-full md:flex-col;
 	}
 </style>

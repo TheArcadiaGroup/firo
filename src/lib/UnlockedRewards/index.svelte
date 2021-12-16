@@ -20,11 +20,11 @@
 
 <style lang="postcss">
 	.balance {
-		@apply flex md:flex-col mt-3 md:mt-0 py-2 px-3 md:py-5 md:px-7 mb-3 md:mb-3 md:mx-6 text-sm md:text-xl xxl:text-2xl xxxl:text-4xl xxxl:py-10 xxxl:px-10 xxxl:leading-normal;
+		@apply flex flex-col mt-3 md:mt-0 py-2 px-3 md:py-5 md:px-7 mb-3 md:mb-3 md:mx-6 text-sm md:text-xl xxl:text-2xl xxxl:text-4xl xxxl:py-10 xxxl:px-10 xxxl:leading-normal mr-4 w-full;
 	}
 
 	.balance-title {
-		@apply text-base md:text-xl xl:text-2xl xxl:text-3xl xxxl:text-5xl mb-1 mr-8;
+		@apply text-sm font-semibold md:font-normal md:text-xl xl:text-2xl xxl:text-3xl xxxl:text-5xl mb-1 md:mr-8;
 	}
 
 	.unstaked-amount {

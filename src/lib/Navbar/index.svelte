@@ -1,8 +1,9 @@
 <script>
 	import { link } from '$stores/navStore';
-	import { slide } from 'svelte/transition';
+	import { slide, fade } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
 	import Divider from '$lib/Divider/index.svelte';
+	import { showAccountSummary } from '$stores/accountSummaryStore';
 
 	const dispatch = createEventDispatcher();
 
@@ -17,8 +18,8 @@
 	<img class="nav-img" src="/images/png/firo-group.png" alt="firo-group-logo" />
 	<button
 		on:click={() => {
-			dispatch('navclicked');
-			showNav = true;
+			// dispatch('navclicked');
+			// showNav = true;
 		}}
 	>
 		<img src="/images/png/menu.png" alt="menu" />
@@ -68,30 +69,32 @@
 	</div>
 {/if}
 
-<div class="main notmobile">
-	<img class="desktop-logo" src="/images/png/firo-group.png" alt="firo-group-logo" />
-	<!-- <div class="divider">
-		<ul>
-			<li>Get Firo</li>
-			<li>About</li>
-			<li>Community</li>
-			<li>Swap</li>
-			<li class:selected={isPage('staking')}>
-				<a href="/">Staking</a>
-			</li>
-			<li>
-				<a href="/my-stakes">My Stakes</a>
-			</li>
-			<li>
-				<a href="https://firo.org/guide/">Guides</a>
-			</li>
-			<li>
-				<a href="https://firo.org/blog/">Blog</a>
-			</li>
-			<li>Crowdfunding</li>
-		</ul>
-	</div> -->
-</div>
+{#if !$showAccountSummary}
+	<div class="main notmobile" transition:fade>
+		<img class="desktop-logo" src="/images/png/firo-group.png" alt="firo-group-logo" />
+		<!-- <div class="divider">
+			<ul>
+				<li>Get Firo</li>
+				<li>About</li>
+				<li>Community</li>
+				<li>Swap</li>
+				<li class:selected={isPage('staking')}>
+					<a href="/">Staking</a>
+				</li>
+				<li>
+					<a href="/my-stakes">My Stakes</a>
+				</li>
+				<li>
+					<a href="https://firo.org/guide/">Guides</a>
+				</li>
+				<li>
+					<a href="https://firo.org/blog/">Blog</a>
+				</li>
+				<li>Crowdfunding</li>
+			</ul>
+		</div> -->
+	</div>
+{/if}
 
 <style lang="postcss">
 	.main {
@@ -103,7 +106,8 @@
 	}
 
 	.mobile {
-		@apply flex flex-row justify-between items-center p-4 md:hidden;
+		@apply flex flex-row justify-between items-center p-5 md:hidden mb-8 md:mb-0;
+		box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
 	}
 
 	ul {

@@ -26,15 +26,15 @@
 
 <style lang="postcss">
 	.balance {
-		@apply flex md:flex-col mt-3 md:mt-0 py-2 px-3 md:py-5 md:px-7 mb-3 md:mb-5 md:mx-6 text-sm md:text-xl xxl:text-2xl xxxl:text-4xl xxxl:py-10 xxxl:px-10 xxxl:leading-normal;
+		@apply flex flex-col mt-3 md:mt-0 py-2 px-3 md:py-5 md:px-7 mb-3 md:mb-5 md:mx-6 text-sm md:text-xl xxl:text-2xl xxxl:text-4xl xxxl:py-10 xxxl:px-10 xxxl:leading-normal w-full;
 	}
 
 	.balance-title {
-		@apply text-base md:text-xl xl:text-2xl xxl:text-3xl xxxl:text-5xl mb-1 mr-8;
+		@apply text-sm md:text-xl xl:text-2xl xxl:text-3xl xxxl:text-5xl mb-1 md:mr-8 font-semibold md:font-normal;
 	}
 
 	.unstaked-amount {
-		@apply flex;
+		@apply flex mb-2 md:mb-0;
 	}
 
 	.unstaked-amount-value {
@@ -58,8 +58,8 @@
 	}
 
 	button {
-		@apply w-full md:w-auto border border-maincolor border-opacity-0 rounded-[120px] py-[4px] md:py-[9px] px-[24px] xxxl:py-[23px] xxxl:px-[120px] bg-maincolor text-white hover:bg-white hover:border-opacity-100 hover:text-maincolor hover:bg-transparent transition-all;
-		@apply text-sm md:text-base xxl:text-xl xxxl:text-4xl;
+		@apply w-full md:w-auto border border-maincolor border-opacity-0 rounded-[120px] py-[8px] md:py-[9px] md:px-[24px] xxxl:py-[23px] xxxl:px-[120px] bg-maincolor text-white hover:bg-white hover:border-opacity-100 hover:text-maincolor hover:bg-transparent transition-all;
+		@apply text-xs md:text-base xxl:text-xl xxxl:text-4xl;
 	}
 
 	.btn-holder {

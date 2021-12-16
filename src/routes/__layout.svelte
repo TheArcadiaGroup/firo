@@ -2,15 +2,13 @@
 	import '$styles/tailwind.css';
 	import Navbar from '$lib/Navbar/index.svelte';
 	import { fade } from 'svelte/transition';
-	import { link } from '$stores/navStore';
+	import { darkOverlay, link } from '$stores/navStore';
+	import { capitalizeFirstLetter } from '$utils/index';
 	import Toast from '$lib/Toast/index.svelte';
-	import { capitalizeFirstLetter } from '$utils';
 	import { onMount } from 'svelte';
 	import { refreshWalletConnection } from '$utils/walletConnection';
 	import { appSigner } from '$stores/wallet';
 	import { walletConnected } from '$stores/stakingStore';
-
-	let darkOverlay = false;
 
 	onMount(async () => {
 		await refreshWalletConnection();
@@ -26,12 +24,12 @@
 </svelte:head>
 
 <main>
-	{#if darkOverlay}
+	{#if $darkOverlay}
 		<div transition:fade class="darker" />
 	{/if}
 	<Navbar
 		on:navclicked={() => {
-			darkOverlay = !darkOverlay;
+			darkOverlay.set(!$darkOverlay);
 		}}
 	/>
 	<slot />
