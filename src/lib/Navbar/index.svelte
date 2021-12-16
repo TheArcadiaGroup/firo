@@ -17,8 +17,8 @@
 	<img class="nav-img" src="/images/png/firo-group.png" alt="firo-group-logo" />
 	<button
 		on:click={() => {
-			dispatch('navclicked');
-			showNav = true;
+			// dispatch('navclicked');
+			// showNav = true;
 		}}
 	>
 		<img src="/images/png/menu.png" alt="menu" />
@@ -103,7 +103,8 @@
 	}
 
 	.mobile {
-		@apply flex flex-row justify-between items-center p-5 md:hidden;
+		@apply flex flex-row justify-between items-center p-5 md:hidden mb-8 md:mb-0;
+		box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
 	}
 
 	ul {
