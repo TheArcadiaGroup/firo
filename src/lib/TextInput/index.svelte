@@ -1,5 +1,5 @@
 <script>
-	export let balance = 200;
+	export let balance = 0;
 
 	let inputValue;
 	let input;

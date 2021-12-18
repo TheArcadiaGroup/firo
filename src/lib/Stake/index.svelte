@@ -1,7 +1,18 @@
 <script>
+	// External
 	import Switch from '$lib/Switch/index.svelte';
-	import { isStaking, walletConnected } from '$stores/stakingStore';
+	import {
+		isStaking,
+		lockUpDuration,
+		vestingDuration,
+		walletConnected
+	} from '$stores/stakingStore';
 	import TextInput from '$lib/TextInput/index.svelte';
+	import {
+		lpTokenBalance,
+		pendingFiroRewardsBalance,
+		totalLockedLPTokenBalance
+	} from '$stores/accountSummaryStore';
 
 	isStaking.set(true);
 </script>
@@ -14,11 +25,14 @@
 		<p class="title">Unstake LP TOKEN</p>
 	{/if}
 
-	<TextInput />
+	<TextInput balance={$isStaking ? $lpTokenBalance : $totalLockedLPTokenBalance} />
 
 	<div class="lower-text">
 		{#if $isStaking}
-			<p class="firo-lockup">LP Lockup = 365 Days + Reward Lockup = 365 Days</p>
+			<p class="firo-lockup">
+				LP Lockup = {$vestingDuration / (60 * 60 * 24)} Days + Reward Lockup = {$lockUpDuration /
+					(60 * 60 * 24)} Days
+			</p>
 		{/if}
 		{#if $isStaking}
 			<p class="until-x-firo">
@@ -26,14 +40,24 @@
 			</p>
 		{:else}
 			<p class="until-x-firo">
-				Unstaking will take <span class="red-text">{730} Days</span> and nullify your reward of
-				<span class="red-text">{12} FIRO</span>
+				Unstaking will take <span class="red-text">{$lockUpDuration / (60 * 60 * 24)} Days</span>
+				and nullify your reward of
+				<span class="red-text">{$pendingFiroRewardsBalance} FIRO</span>
 			</p>
 		{/if}
 	</div>
 
+	<!-- TODO: PREVENT USERS FROM CLICKING BUTTON WHEN THEY ADDED MORE TOKENS THAN THEY HAVE -->
 	{#if $walletConnected}
-		<button class="connect-wallet-button"> {$isStaking ? 'Stake' : 'Unstake'} </button>
+		<button
+			class="connect-wallet-button"
+			disabled={($lpTokenBalance <= 0 && $isStaking) ||
+				($totalLockedLPTokenBalance <= 0 && !$isStaking)}
+			class:cursor-not-allowed={($lpTokenBalance <= 0 && $isStaking) ||
+				($totalLockedLPTokenBalance <= 0 && !$isStaking)}
+		>
+			{$isStaking ? 'Stake' : 'Unstake'}
+		</button>
 	{:else}
 		<button class="connect-wallet-button"> Connect Wallet </button>
 	{/if}

@@ -1,4 +1,6 @@
 <script>
+	import { lpTokenBalance, totalLockedLPTokenBalance } from '$stores/accountSummaryStore';
+
 	import { isStaking } from '$stores/stakingStore';
 	import { scale } from 'svelte/transition';
 </script>
@@ -12,14 +14,19 @@
 				<img class="binance-chain" src="/images/svg/binance-chain.svg" alt="binance-chain" />
 			</div>
 			<div class="unstaked-amount-value">
-				<p>{250}</p>
+				<p>{$lpTokenBalance}</p>
 				<p>LP TOKEN</p>
 			</div>
 		</div>
 	</div>
 	{#if !$isStaking}
 		<div class="btn-holder" transition:scale>
-			<button> Unstake all positions </button>
+			<button
+				disabled={$totalLockedLPTokenBalance <= 0}
+				class:cursor-not-allowed={$totalLockedLPTokenBalance <= 0}
+			>
+				Unstake all positions
+			</button>
 		</div>
 	{/if}
 </div>

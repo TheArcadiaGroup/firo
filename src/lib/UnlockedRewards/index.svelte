@@ -1,3 +1,7 @@
+<script>
+	import { realizedFiroRewardsBalance } from '$stores/accountSummaryStore';
+</script>
+
 <div class="component balance">
 	<p class="balance-title">Unlocked Rewards</p>
 	<div>
@@ -7,7 +11,7 @@
 				<img class="binance-chain" src="/images/svg/binance-chain.svg" alt="binance-chain" />
 			</div>
 			<div class="unstaked-amount-value">
-				<p>{250}</p>
+				<p>{$realizedFiroRewardsBalance}</p>
 				<p>FIRO</p>
 			</div>
 		</div>

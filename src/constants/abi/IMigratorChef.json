@@ -1,0 +1,21 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "contract IERC20Upgradeable",
+				"name": "token",
+				"type": "address"
+			}
+		],
+		"name": "migrate",
+		"outputs": [
+			{
+				"internalType": "contract IERC20Upgradeable",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]

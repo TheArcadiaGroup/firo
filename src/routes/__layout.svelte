@@ -9,13 +9,25 @@
 	import { refreshWalletConnection } from '$utils/walletConnection';
 	import { appSigner } from '$stores/wallet';
 	import { walletConnected } from '$stores/stakingStore';
+	import {
+		initMasterChefContract,
+		getLockUpDuration,
+		getVestingDuration
+	} from '$utils/contractInteractions/masterChef';
 
 	onMount(async () => {
 		await refreshWalletConnection();
 	});
 
-	$: ((connectStatus: boolean) => {
+	$: (async (connectStatus: boolean) => {
 		walletConnected.set(connectStatus);
+
+		if (connectStatus) {
+			// Not required but used to show contract functions
+			console.log(await initMasterChefContract());
+			console.log(await getVestingDuration());
+			console.log(await getLockUpDuration());
+		}
 	})(!!$appSigner);
 </script>
 

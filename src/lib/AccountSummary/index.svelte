@@ -5,6 +5,13 @@
 	import { darkOverlay } from '$stores/navStore';
 	import WithdrawPopup from '$lib/WithdrawPopup/index.svelte';
 	import UnstakePopup from '$lib/UnstakePopup/index.svelte';
+	import {
+		lpTokenBalance,
+		pendingFiroRewardsBalance,
+		realizedFiroRewardsBalance,
+		totalLockedLPTokenBalance,
+		totalUnlockedLPTokenBalance
+	} from '$stores/accountSummaryStore';
 
 	const dispatch = createEventDispatcher();
 	let withdrawPopupActive: boolean = false;
@@ -48,7 +55,7 @@
 			<img src="/images/svg/shield.svg" alt="shield-icon" />
 			<div>
 				<p class="data-text">Total LP Balance</p>
-				<p class="value">{350} LP TOKEN</p>
+				<p class="value">{$lpTokenBalance} LP TOKEN</p>
 			</div>
 		</div>
 
@@ -56,7 +63,7 @@
 			<img src="/images/svg/money.svg" alt="money-icon" />
 			<div>
 				<p class="data-text">Total Locked <br />LP Balance</p>
-				<p class="value">{150} LP TOKEN</p>
+				<p class="value">{$totalLockedLPTokenBalance} LP TOKEN</p>
 			</div>
 		</div>
 
@@ -64,7 +71,7 @@
 			<img src="/images/svg/banking.svg" alt="banking-icon" />
 			<div>
 				<p class="data-text">Total Unlocked LP Balance</p>
-				<p class="value">{200} LP TOKEN</p>
+				<p class="value">{$totalUnlockedLPTokenBalance} LP TOKEN</p>
 			</div>
 		</div>
 	</div>
@@ -73,7 +80,7 @@
 		<img src="/images/svg/banking.svg" alt="banking-icon" />
 		<div>
 			<p class="data-text">Total Unlocked LP Balance</p>
-			<p class="value">{200} LP TOKEN</p>
+			<p class="value">{$totalUnlockedLPTokenBalance} LP TOKEN</p>
 		</div>
 	</div>
 
@@ -82,7 +89,7 @@
 			<img src="/images/svg/pending.svg" alt="pending-icon" />
 			<div>
 				<p class="data-text">Total Pending Rewards</p>
-				<p class="value">{350} FIRO</p>
+				<p class="value">{$pendingFiroRewardsBalance} FIRO</p>
 			</div>
 		</div>
 
@@ -92,7 +99,7 @@
 			<img src="/images/svg/award.svg" alt="award-icon" />
 			<div>
 				<p class="data-text">Total Realized <br />Rewards</p>
-				<p class="value">{150} FIRO</p>
+				<p class="value">{$realizedFiroRewardsBalance} FIRO</p>
 			</div>
 		</div>
 	</div>
