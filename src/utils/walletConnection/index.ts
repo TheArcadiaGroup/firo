@@ -134,7 +134,8 @@ const isBinance = (provider: any) => {
 	}
 
 	// 1337 for Ganache local development
-	if (chainId === 56 || chainId === 97 || chainId === 1337) {
+	// 31337 is for hardhat
+	if (chainId === 56 || chainId === 97 || chainId === 1337 || chainId === 31337) {
 		return true;
 	} else {
 		toastError('Error: This Application only Supports the Binance Smartchain');

@@ -1,4 +1,6 @@
 <script>
+	import { stakingOrUnstakeAmount } from '$stores/stakingStore';
+
 	export let balance = 0;
 
 	let inputValue;
@@ -13,7 +15,12 @@
 
 	function inputMax() {
 		input.value = balance;
+		inputValue = balance;
 	}
+
+	$: ((value) => {
+		stakingOrUnstakeAmount.set(parseFloat(value));
+	})(inputValue);
 </script>
 
 <div class="text-div">

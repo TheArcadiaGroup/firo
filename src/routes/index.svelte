@@ -10,10 +10,22 @@
 	import { onMount } from 'svelte';
 	import AccountSummary from '$lib/AccountSummary/index.svelte';
 	import { showAccountSummary } from '$stores/accountSummaryStore';
+	import { getPoolInfoByIndex, getUserLockInfo } from '$utils/contractInteractions/masterChef';
+	import { userAddress } from '$stores/wallet';
+	import { getUserInfoWithIndex } from '$utils/contractInteractions/staking';
+	import { ethers } from 'ethers';
 
 	onMount(() => {
 		link.set('staking');
 	});
+
+	const triggerAction = async () => {
+		$userAddress && console.log(await getUserLockInfo($userAddress));
+		console.log(await getPoolInfoByIndex(0));
+		const result = $userAddress && (await getUserInfoWithIndex(0, $userAddress));
+		console.log(ethers.utils.formatEther(result?.amount));
+		console.log(ethers.utils.formatEther(result?.rewardDebt));
+	};
 </script>
 
 {#if $showAccountSummary}
@@ -32,7 +44,7 @@
 					}}
 				/>
 			</div>
-			<div class="right">
+			<div class="right" on:click={triggerAction}>
 				<div class="logo-holder">
 					<img class="firo-grp-logo" src="/images/png/firo-group.png" alt="firo-group-logo" />
 				</div>
@@ -57,7 +69,7 @@
 							<NoWallet>Available LP TOKEN</NoWallet>
 						</div>
 					{/if}
-					<p class="atomidex-title">Swap on Atomixdex</p>
+					<p class="atomidex-title">Swap on AtomixDex</p>
 					<a href="!#" class="atomic-dex">
 						<img src="/images/png/atomic-dex.png" alt="atomic-dex" />
 					</a>

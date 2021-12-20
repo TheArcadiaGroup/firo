@@ -1,6 +1,6 @@
-import { getLPTokenContract, getMasterChefContract } from '$constants/contracts';
+import { getMasterChefContract } from '$constants/contracts';
 import { lockUpDuration, vestingDuration } from '$stores/stakingStore';
-import { appProvider, appSigner, userAddress } from '$stores/wallet';
+import { appProvider, appSigner } from '$stores/wallet';
 import { ethersBigNumberToNumber } from '$utils/helpers/ethersHelpers';
 import { ethers } from 'ethers';
 import type { Pool } from 'src/global';
@@ -11,9 +11,7 @@ export const getPoolLength = async () => {
 	try {
 		const poolLength = await masterChefContract.poolLength();
 
-		console.log(poolLength);
-
-		return poolLength;
+		return ethers.utils.formatUnits(poolLength, 0);
 	} catch (err) {
 		console.log(err.message);
 		return 0;
@@ -21,12 +19,12 @@ export const getPoolLength = async () => {
 };
 
 // Get Pool Info
-export const getPoolInfo: (poolIndex: number) => Promise<Pool | null> = async (
+export const getPoolInfoByIndex: (poolIndex: number) => Promise<Pool | null> = async (
 	poolIndex: number
 ) => {
 	try {
 		const masterChefContract = getMasterChefContract(get(appProvider));
-		const poolInfo = await masterChefContract.getPoolInfo(poolIndex);
+		const poolInfo = await masterChefContract.poolInfo(poolIndex);
 
 		return poolInfo;
 	} catch (err) {
@@ -38,29 +36,6 @@ export const getPoolInfo: (poolIndex: number) => Promise<Pool | null> = async (
 // Get Contract Init Info
 export const initMasterChefContract = async () => {
 	const masterChefContract = getMasterChefContract(get(appSigner));
-
-	console.log(await masterChefContract.deployed());
-};
-
-// Get LP Token Balance
-export const getLPTokenBalance = async (poolIndex: number, userAddress: string) => {
-	try {
-		const pool = await getPoolInfo(poolIndex);
-
-		// Get LP Token address
-		if (pool && pool.lpToken) {
-			const lpTokenContract = getLPTokenContract(pool.lpToken, get(appProvider));
-
-			const balanceInEthers = await lpTokenContract.getBalance(userAddress);
-
-			return ethersBigNumberToNumber(balanceInEthers);
-		}
-
-		return 0;
-	} catch (err) {
-		console.log(err.message);
-		return 0;
-	}
 };
 
 // Get pools where user has staked tokens
@@ -75,6 +50,20 @@ export const getUserStakedPoolsData = (userAddress: string) => {
 			}
 		]
 	};
+};
+
+// get lock info
+export const getUserLockInfo = async (userAddress: string) => {
+	try {
+		const masterChefContract = getMasterChefContract(get(appProvider));
+
+		const lockInfo = await masterChefContract.getLockInfo(userAddress);
+
+		return lockInfo;
+	} catch (err) {
+		console.log(err);
+		return null;
+	}
 };
 
 // Get the Total tokens a user can unstake

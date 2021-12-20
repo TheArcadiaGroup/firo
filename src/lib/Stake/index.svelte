@@ -2,8 +2,10 @@
 	// External
 	import Switch from '$lib/Switch/index.svelte';
 	import {
+		isApproved,
 		isStaking,
 		lockUpDuration,
+		stakingOrUnstakeAmount,
 		vestingDuration,
 		walletConnected
 	} from '$stores/stakingStore';
@@ -11,10 +13,73 @@
 	import {
 		lpTokenBalance,
 		pendingFiroRewardsBalance,
+		selectedPool,
 		totalLockedLPTokenBalance
 	} from '$stores/accountSummaryStore';
+	import { onMount } from 'svelte';
+	import { getLPTokenBalanceBasedOnPoolToken } from '$utils/contractInteractions/tokenBalances';
+	import { getPoolInfoByIndex, getPoolLength } from '$utils/contractInteractions/masterChef';
+	import { userAddress } from '$stores/wallet';
+	import { getUserInfoWithIndex, stakeLPTokens } from '$utils/contractInteractions/staking';
+	import {
+		checkMasterchefAllowance,
+		increaseMasterChefAllowance
+	} from '$utils/contractInteractions/lpToken';
+	import { ethers } from 'ethers';
 
 	isStaking.set(true);
+
+	const loadStakeBalances = async () => {
+		// Get the pool length
+		const lastPoolIndex = await getPoolLength();
+
+		// Set default pool
+		selectedPool.set(lastPoolIndex && typeof lastPoolIndex === 'number' ? lastPoolIndex - 1 : 0);
+
+		// Get first pool if above fails
+		const lastPool =
+			lastPoolIndex && typeof lastPoolIndex === 'number'
+				? await getPoolInfoByIndex(lastPoolIndex - 1)
+				: await getPoolInfoByIndex(0);
+		const poolLpTokenAddress = lastPool?.lpToken;
+
+		const tokenBalance = await getLPTokenBalanceBasedOnPoolToken(poolLpTokenAddress, $userAddress);
+
+		// Update Store
+		lpTokenBalance.set(tokenBalance);
+	};
+
+	const loadUnstakeBalances = async () => {
+		const result = await getUserInfoWithIndex(0, $userAddress);
+
+		totalLockedLPTokenBalance.set(parseFloat(ethers.utils.formatEther(result?.amount)));
+
+		console.log('LOCKED AMOUNT: ', ethers.utils.formatEther(result?.amount));
+		console.log('REWARD DEBT: ', ethers.utils.formatEther(result?.rewardDebt));
+	};
+
+	const buttonDisabled = () => {
+		// Always allow approval requests
+		if ($isApproved) {
+			return false;
+		} else {
+			return (
+				($lpTokenBalance <= 0 && $isStaking && $stakingOrUnstakeAmount <= $lpTokenBalance) ||
+				($totalLockedLPTokenBalance <= 0 &&
+					!$isStaking &&
+					$stakingOrUnstakeAmount <= $totalLockedLPTokenBalance)
+			);
+		}
+	};
+
+	// Check Masterchef allowance everytime useraddress changes
+	$: (async (userAddress) => {
+		if (userAddress) {
+			isApproved.set((await checkMasterchefAllowance(userAddress)) > 0);
+			await loadStakeBalances();
+			await loadUnstakeBalances();
+		}
+	})($userAddress);
 </script>
 
 <div class="main">
@@ -50,13 +115,12 @@
 	<!-- TODO: PREVENT USERS FROM CLICKING BUTTON WHEN THEY ADDED MORE TOKENS THAN THEY HAVE -->
 	{#if $walletConnected}
 		<button
+			on:click={() => (!$isApproved ? increaseMasterChefAllowance() : stakeLPTokens())}
 			class="connect-wallet-button"
-			disabled={($lpTokenBalance <= 0 && $isStaking) ||
-				($totalLockedLPTokenBalance <= 0 && !$isStaking)}
-			class:cursor-not-allowed={($lpTokenBalance <= 0 && $isStaking) ||
-				($totalLockedLPTokenBalance <= 0 && !$isStaking)}
+			disabled={buttonDisabled()}
+			class:cursor-not-allowed={buttonDisabled()}
 		>
-			{$isStaking ? 'Stake' : 'Unstake'}
+			{!$isApproved ? 'Approve' : $isStaking ? 'Stake' : 'Unstake'}
 		</button>
 	{:else}
 		<button class="connect-wallet-button"> Connect Wallet </button>
