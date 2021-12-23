@@ -17,8 +17,10 @@
 		</div>
 	</div>
 	<p class="time">
-		Total Time Until Reward <br />
-		{'19:12:53:27'}
+		{#if $realizedFiroRewardsBalance > 0}
+			<!-- Total Time Until Reward <br />
+			{'19:12:53:27'} -->
+		{/if}
 	</p>
 </div>
 

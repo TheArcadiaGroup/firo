@@ -30,12 +30,10 @@
 	import {
 		getLockUpDuration,
 		getPendingFiroTokens,
-		getUserLockInfo,
 		getVestingDuration
 	} from '$utils/contractInteractions/masterChef';
 	import Time from 'svelte-time';
 	import { realizedFiroRewards } from '$utils/contractInteractions/vesting';
-	import { onChainTimeToLocalTime } from '$utils/helpers/showTimeInLocalTime';
 
 	isStaking.set(true);
 
@@ -48,9 +46,6 @@
 			unStakeLpTokens();
 		}
 	};
-
-	// Total Days and token reward
-	let daysToReward = 0;
 
 	// Check Masterchef allowance everytime useraddress changes
 	$: (async (userAddress) => {
@@ -66,15 +61,6 @@
 			// Check pending firos
 			const pendingFiros = await getPendingFiroTokens($selectedPool, userAddress);
 			pendingFiroRewardsBalance.set(pendingFiros);
-
-			const lockInfo = await getUserLockInfo(userAddress);
-			let maxWaitingTime = 0;
-			lockInfo.map((lockData) => {
-				maxWaitingTime =
-					lockData.unlockableAt > maxWaitingTime ? lockData.unlockableAt : maxWaitingTime;
-			});
-
-			daysToReward = maxWaitingTime;
 		}
 	})($userAddress);
 
@@ -104,17 +90,12 @@
 			</p>
 		{/if}
 		{#if $isStaking}
-			{#if daysToReward !== 0}
+			{#if $pendingFiroRewardsBalance > 0}
 				<p class="until-x-firo">
-					<span class="red-text">
-						<Time
-							timestamp={onChainTimeToLocalTime(daysToReward)}
-							format="hh"
-							live={1000 * 30}
-							relative
-						/>
+					<!-- <span class="red-text">
+						{$vestingDuration}
 					</span>
-					Until <span class="red-text">{$pendingFiroRewardsBalance} FIRO</span> Reward
+					Until <span class="red-text">{$pendingFiroRewardsBalance} FIRO</span> Reward -->
 				</p>
 			{/if}
 		{:else}
