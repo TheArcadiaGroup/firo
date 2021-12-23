@@ -61,7 +61,7 @@ export const loadStakeBalances = async () => {
 };
 
 export const loadUnstakeBalances = async () => {
-	const result = await getUserInfoWithIndex(0, get(userAddress));
+	const result = await getUserInfoWithIndex(get(selectedPool), get(userAddress));
 
 	const value = +ethers.utils.formatEther(result?.amount);
 

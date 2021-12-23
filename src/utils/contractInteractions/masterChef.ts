@@ -1,6 +1,6 @@
 import { getMasterChefContract } from '$constants/contracts';
 import { lockUpDuration, vestingDuration } from '$stores/stakingStore';
-import { appProvider, appSigner, userAddress } from '$stores/wallet';
+import { appProvider, appSigner } from '$stores/wallet';
 import { ethersBigNumberToNumber } from '$utils/helpers/ethersHelpers';
 import { toastError, toastSuccess } from '$utils/toastNotification';
 import { ethers } from 'ethers';

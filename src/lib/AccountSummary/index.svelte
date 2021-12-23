@@ -146,6 +146,7 @@
 		>
 	</div>
 
+	<!-- 
 	<div class="my-stakes" class:blurry={withdrawPopupActive || unstakePopupActive}>
 		<h3 class="my-stakes-title">My Stakes</h3>
 		<StakeProgress first={true} />
@@ -158,7 +159,7 @@
 		on:click={() => {
 			unstakePopupActive = !unstakePopupActive;
 		}}>Unstake all positions</button
-	>
+	> -->
 </div>
 
 <style lang="postcss">

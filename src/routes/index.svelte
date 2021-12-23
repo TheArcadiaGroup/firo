@@ -9,25 +9,14 @@
 	import NoWallet from '$lib/NoWallet/index.svelte';
 	import { onMount } from 'svelte';
 	import AccountSummary from '$lib/AccountSummary/index.svelte';
-	import { selectedPool, showAccountSummary } from '$stores/accountSummaryStore';
-	import { getUserLockInfo } from '$utils/contractInteractions/masterChef';
-	import { userAddress } from '$stores/wallet';
-	import { getUserInfoWithIndex } from '$utils/contractInteractions/staking';
-	import { ethers } from 'ethers';
+	import { showAccountSummary } from '$stores/accountSummaryStore';
 
 	onMount(() => {
 		link.set('staking');
 	});
 
 	const triggerAction = async () => {
-		const lockInfo = await getUserLockInfo($userAddress);
-
-		console.log(lockInfo);
-
-		// console.log(await getPoolInfoByIndex(0));
-		const result = $userAddress && (await getUserInfoWithIndex($selectedPool, $userAddress));
-		console.log(ethers.utils.formatEther(result?.amount));
-		console.log(ethers.utils.formatEther(result?.rewardDebt));
+		// Dev use
 	};
 </script>
 

@@ -33,7 +33,6 @@
 		getUserLockInfo,
 		getVestingDuration
 	} from '$utils/contractInteractions/masterChef';
-	import { dayjs } from 'svelte-time';
 	import Time from 'svelte-time';
 	import { realizedFiroRewards } from '$utils/contractInteractions/vesting';
 	import { onChainTimeToLocalTime } from '$utils/helpers/showTimeInLocalTime';

@@ -5,7 +5,7 @@ import { appProvider, appSigner } from '$stores/wallet';
 import { toastError, toastSuccess } from '$utils/toastNotification';
 import { ethers } from 'ethers';
 import { get } from 'svelte/store';
-import { loadStakeBalances, loadUnstakeBalances } from './tokenBalances';
+import { loadUnstakeBalances } from './tokenBalances';
 
 export const stakeLPTokens = async () => {
 	try {
@@ -48,7 +48,9 @@ export const getUserInfoWithIndex = async (index: number, userAddress: string) =
 		return userInfo;
 	} catch (err) {
 		console.log(err);
-		return null;
+		return {
+			amount: 0
+		};
 	}
 };
 
