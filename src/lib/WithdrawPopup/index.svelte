@@ -3,7 +3,6 @@
 	import { createEventDispatcher } from 'svelte';
 	import TextInput from '$lib/TextInput/index.svelte';
 	import { scale, fade } from 'svelte/transition';
-	import Time from 'svelte-time';
 	import { getUserLockInfo, unlockLpTokens } from '$utils/contractInteractions/masterChef';
 	import { userAddress } from '$stores/wallet';
 
@@ -50,11 +49,12 @@
 					>
 						<div class="text-black-default opacity-50 mx-4">
 							Unlocked on:
-							<Time
+							{new Date(lockInfo.unlockableAt * 1000)}
+							<!-- <Time
 								class="ml-1"
 								timestamp={lockInfo.unlockableAt * 1000}
 								format="YYYY-MM-DDTHH:mm:ss UTC"
-							/>
+							/> -->
 						</div>
 						<div
 							class="lpWithdrawBtn max-h-full text-base cursor-pointer"

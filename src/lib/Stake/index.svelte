@@ -32,7 +32,6 @@
 		getPendingFiroTokens,
 		getVestingDuration
 	} from '$utils/contractInteractions/masterChef';
-	import Time from 'svelte-time';
 	import { realizedFiroRewards } from '$utils/contractInteractions/vesting';
 
 	isStaking.set(true);
