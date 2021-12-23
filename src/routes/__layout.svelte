@@ -8,7 +8,7 @@
 	import { refreshWalletConnection } from '$utils/walletConnection';
 	import { appSigner } from '$stores/wallet';
 	import { walletConnected } from '$stores/stakingStore';
-	// import contractEvents from '$utils/contractEvents';
+	import contractEvents from '$utils/contractEvents';
 	onMount(async () => {
 		await refreshWalletConnection();
 	});
@@ -17,7 +17,7 @@
 		walletConnected.set(connectStatus);
 
 		if (connectStatus) {
-			// contractEvents();
+			contractEvents();
 		}
 	})(!!$appSigner);
 </script>

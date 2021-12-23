@@ -1,8 +1,9 @@
 import { ethers } from 'ethers';
-import { firoToken, masterChef, vestingContract } from './contractAddresses';
+import { firoToken, lockingContract, masterChef, vestingContract } from './contractAddresses';
 import FiroTokenAbi from '$constants/abi/FiroToken.json';
 import MasterChefAbi from '$constants/abi/MasterChef.json';
 import VestingAbi from '$constants/abi/Vesting.json';
+import LockingAbi from '$constants/abi/Locking.json';
 import LPTokenAbi from '$constants/abi/LPTokenAbi.json';
 
 // Firo
@@ -15,9 +16,14 @@ export const getMasterChefContract = (provider: ethers.Signer | ethers.providers
 	return new ethers.Contract(masterChef, MasterChefAbi, provider);
 };
 
-// Masterchef
+// Vesting Contract
 export const getVestingContract = (provider: ethers.Signer | ethers.providers.Provider) => {
 	return new ethers.Contract(vestingContract, VestingAbi, provider);
+};
+
+// Locking Contract
+export const getLockingContract = (provider: ethers.Signer | ethers.providers.Provider) => {
+	return new ethers.Contract(lockingContract, LockingAbi, provider);
 };
 
 export const getLPTokenContract = (
