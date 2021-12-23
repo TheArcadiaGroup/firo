@@ -1,5 +1,6 @@
 <script>
 	import { darkOverlay } from '$stores/navStore';
+	import { lockUpDuration } from '$stores/stakingStore';
 	import { createEventDispatcher } from 'svelte';
 	import { scale } from 'svelte/transition';
 
@@ -18,7 +19,8 @@
 	<h4>Are you sure you want to unstake all your positions?</h4>
 	<p class="desktop">Your Unstaked LP TOKEN will be sent to your wallet</p>
 	<p class="info">
-		Unstaking will take <span>{2} days</span> and nullify your <span>FIRO</span> reward
+		Unstaking will take <span>{$lockUpDuration / (60 * 60 * 24)} days</span> and will nullify your
+		<span>FIRO</span> reward
 	</p>
 	<button>Confirm and Unstake all positions</button>
 </div>

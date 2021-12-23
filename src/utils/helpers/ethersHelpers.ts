@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 
 export const ethersBigNumberToNumber = (ethersBigNumber: ethers.BigNumberish) => {
 	try {
-		return parseFloat(ethers.utils.formatEther(ethersBigNumber));
+		return +ethers.utils.formatEther(ethersBigNumber);
 	} catch (err) {
 		console.log(err);
 		throw err;

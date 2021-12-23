@@ -14,72 +14,77 @@
 		lpTokenBalance,
 		pendingFiroRewardsBalance,
 		selectedPool,
-		totalLockedLPTokenBalance
+		totalStakedLPBalance
 	} from '$stores/accountSummaryStore';
-	import { onMount } from 'svelte';
-	import { getLPTokenBalanceBasedOnPoolToken } from '$utils/contractInteractions/tokenBalances';
-	import { getPoolInfoByIndex, getPoolLength } from '$utils/contractInteractions/masterChef';
-	import { userAddress } from '$stores/wallet';
-	import { getUserInfoWithIndex, stakeLPTokens } from '$utils/contractInteractions/staking';
+	import { appProvider, userAddress } from '$stores/wallet';
+	import { stakeLPTokens, unStakeLpTokens } from '$utils/contractInteractions/staking';
 	import {
 		checkMasterchefAllowance,
 		increaseMasterChefAllowance
 	} from '$utils/contractInteractions/lpToken';
-	import { ethers } from 'ethers';
+	import {
+		loadStakeBalances,
+		loadUnstakeBalances,
+		loadWithdrawableLPTokens
+	} from '$utils/contractInteractions/tokenBalances';
+	import {
+		getLockUpDuration,
+		getPendingFiroTokens,
+		getUserLockInfo,
+		getVestingDuration
+	} from '$utils/contractInteractions/masterChef';
+	import { dayjs } from 'svelte-time';
+	import Time from 'svelte-time';
+	import { realizedFiroRewards } from '$utils/contractInteractions/vesting';
+	import { onChainTimeToLocalTime } from '$utils/helpers/showTimeInLocalTime';
 
 	isStaking.set(true);
 
-	const loadStakeBalances = async () => {
-		// Get the pool length
-		const lastPoolIndex = await getPoolLength();
-
-		// Set default pool
-		selectedPool.set(lastPoolIndex && typeof lastPoolIndex === 'number' ? lastPoolIndex - 1 : 0);
-
-		// Get first pool if above fails
-		const lastPool =
-			lastPoolIndex && typeof lastPoolIndex === 'number'
-				? await getPoolInfoByIndex(lastPoolIndex - 1)
-				: await getPoolInfoByIndex(0);
-		const poolLpTokenAddress = lastPool?.lpToken;
-
-		const tokenBalance = await getLPTokenBalanceBasedOnPoolToken(poolLpTokenAddress, $userAddress);
-
-		// Update Store
-		lpTokenBalance.set(tokenBalance);
-	};
-
-	const loadUnstakeBalances = async () => {
-		const result = await getUserInfoWithIndex(0, $userAddress);
-
-		totalLockedLPTokenBalance.set(parseFloat(ethers.utils.formatEther(result?.amount)));
-
-		console.log('LOCKED AMOUNT: ', ethers.utils.formatEther(result?.amount));
-		console.log('REWARD DEBT: ', ethers.utils.formatEther(result?.rewardDebt));
-	};
-
-	const buttonDisabled = () => {
-		// Always allow approval requests
-		if ($isApproved) {
-			return false;
+	const stakeButtonAction = () => {
+		if (!$isApproved) {
+			increaseMasterChefAllowance();
+		} else if ($isStaking) {
+			stakeLPTokens();
 		} else {
-			return (
-				($lpTokenBalance <= 0 && $isStaking && $stakingOrUnstakeAmount <= $lpTokenBalance) ||
-				($totalLockedLPTokenBalance <= 0 &&
-					!$isStaking &&
-					$stakingOrUnstakeAmount <= $totalLockedLPTokenBalance)
-			);
+			unStakeLpTokens();
 		}
 	};
+
+	// Total Days and token reward
+	let daysToReward = 0;
 
 	// Check Masterchef allowance everytime useraddress changes
 	$: (async (userAddress) => {
 		if (userAddress) {
-			isApproved.set((await checkMasterchefAllowance(userAddress)) > 0);
+			const allowance = await checkMasterchefAllowance(userAddress);
+			console.log('ALLOWANCE: ', allowance > 0);
+			isApproved.set(allowance > 0);
 			await loadStakeBalances();
 			await loadUnstakeBalances();
+			await realizedFiroRewards(userAddress);
+			await loadWithdrawableLPTokens();
+
+			// Check pending firos
+			const pendingFiros = await getPendingFiroTokens($selectedPool, userAddress);
+			pendingFiroRewardsBalance.set(pendingFiros);
+
+			const lockInfo = await getUserLockInfo(userAddress);
+			let maxWaitingTime = 0;
+			lockInfo.map((lockData) => {
+				maxWaitingTime =
+					lockData.unlockableAt > maxWaitingTime ? lockData.unlockableAt : maxWaitingTime;
+			});
+
+			daysToReward = maxWaitingTime;
 		}
 	})($userAddress);
+
+	$: (async (_appProvider) => {
+		if (_appProvider) {
+			await getLockUpDuration();
+			await getVestingDuration();
+		}
+	})($appProvider);
 </script>
 
 <div class="main">
@@ -90,19 +95,29 @@
 		<p class="title">Unstake LP TOKEN</p>
 	{/if}
 
-	<TextInput balance={$isStaking ? $lpTokenBalance : $totalLockedLPTokenBalance} />
+	<TextInput balance={$isStaking ? $lpTokenBalance : $totalStakedLPBalance} />
 
 	<div class="lower-text">
 		{#if $isStaking}
 			<p class="firo-lockup">
-				LP Lockup = {$vestingDuration / (60 * 60 * 24)} Days + Reward Lockup = {$lockUpDuration /
+				LP Lockup = {$lockUpDuration / (60 * 60 * 24)} Days + Reward Lockup = {$vestingDuration /
 					(60 * 60 * 24)} Days
 			</p>
 		{/if}
 		{#if $isStaking}
-			<p class="until-x-firo">
-				<span class="red-text">{730} Days</span> Until <span class="red-text">{12} FIRO</span> Reward
-			</p>
+			{#if daysToReward !== 0}
+				<p class="until-x-firo">
+					<span class="red-text">
+						<Time
+							timestamp={onChainTimeToLocalTime(daysToReward)}
+							format="hh"
+							live={1000 * 30}
+							relative
+						/>
+					</span>
+					Until <span class="red-text">{$pendingFiroRewardsBalance} FIRO</span> Reward
+				</p>
+			{/if}
 		{:else}
 			<p class="until-x-firo">
 				Unstaking will take <span class="red-text">{$lockUpDuration / (60 * 60 * 24)} Days</span>
@@ -115,10 +130,20 @@
 	<!-- TODO: PREVENT USERS FROM CLICKING BUTTON WHEN THEY ADDED MORE TOKENS THAN THEY HAVE -->
 	{#if $walletConnected}
 		<button
-			on:click={() => (!$isApproved ? increaseMasterChefAllowance() : stakeLPTokens())}
+			on:click={stakeButtonAction}
 			class="connect-wallet-button"
-			disabled={buttonDisabled()}
-			class:cursor-not-allowed={buttonDisabled()}
+			disabled={($lpTokenBalance <= 0 &&
+				$isStaking &&
+				$stakingOrUnstakeAmount <= $lpTokenBalance) ||
+				($totalStakedLPBalance <= 0 &&
+					!$isStaking &&
+					$stakingOrUnstakeAmount <= $totalStakedLPBalance)}
+			class:cursor-not-allowed={($lpTokenBalance <= 0 &&
+				$isStaking &&
+				$stakingOrUnstakeAmount <= $lpTokenBalance) ||
+				($totalStakedLPBalance <= 0 &&
+					!$isStaking &&
+					$stakingOrUnstakeAmount <= $totalStakedLPBalance)}
 		>
 			{!$isApproved ? 'Approve' : $isStaking ? 'Stake' : 'Unstake'}
 		</button>

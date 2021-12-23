@@ -1,5 +1,5 @@
 <script>
-	import { lpTokenBalance, totalLockedLPTokenBalance } from '$stores/accountSummaryStore';
+	import { lpTokenBalance, totalStakedLPBalance } from '$stores/accountSummaryStore';
 
 	import { isStaking } from '$stores/stakingStore';
 	import { scale } from 'svelte/transition';
@@ -22,8 +22,8 @@
 	{#if !$isStaking}
 		<div class="btn-holder" transition:scale>
 			<button
-				disabled={$totalLockedLPTokenBalance <= 0}
-				class:cursor-not-allowed={$totalLockedLPTokenBalance <= 0}
+				disabled={$totalStakedLPBalance <= 0}
+				class:cursor-not-allowed={$totalStakedLPBalance <= 0}
 			>
 				Unstake all positions
 			</button>

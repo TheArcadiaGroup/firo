@@ -1,7 +1,8 @@
 import { getMasterChefContract } from '$constants/contracts';
 import { lockUpDuration, vestingDuration } from '$stores/stakingStore';
-import { appProvider, appSigner } from '$stores/wallet';
+import { appProvider, appSigner, userAddress } from '$stores/wallet';
 import { ethersBigNumberToNumber } from '$utils/helpers/ethersHelpers';
+import { toastError, toastSuccess } from '$utils/toastNotification';
 import { ethers } from 'ethers';
 import type { Pool } from 'src/global';
 import { get } from 'svelte/store';
@@ -22,12 +23,27 @@ export const getPoolLength = async () => {
 export const getPoolInfoByIndex: (poolIndex: number) => Promise<Pool | null> = async (
 	poolIndex: number
 ) => {
+	const masterChefContract = getMasterChefContract(get(appSigner));
 	try {
-		const masterChefContract = getMasterChefContract(get(appProvider));
 		const poolInfo = await masterChefContract.poolInfo(poolIndex);
 
 		return poolInfo;
 	} catch (err) {
+		// Check if pool does not exist
+		// if (get(userAddress) === deployerAcc) {
+		// 	// Create the first pool
+		// 	const transaction = await masterChefContract.add(
+		// 		ethers.utils.parseEther('1000000'),
+		// 		'0x64c71da9C9539239C526b3176BB9ddB17b024804',
+		// 		true
+		// 	);
+
+		// 	console.log(transaction);
+
+		// 	// We will now only have one pool with index 0;
+		// 	return await getPoolInfoByIndex(0);
+		// }
+
 		console.log(err.message);
 		return null;
 	}
@@ -59,7 +75,21 @@ export const getUserLockInfo = async (userAddress: string) => {
 
 		const lockInfo = await masterChefContract.getLockInfo(userAddress);
 
-		return lockInfo;
+		let lockArray = [];
+
+		for (let i = 0; i < lockInfo?.amounts.length; i++) {
+			lockArray.push({
+				index: i,
+				amount: +parseFloat(ethers.utils.formatEther(lockInfo?.amounts[i])).toFixed(4),
+				isWithdrawn: lockInfo?.isWithdrawns[i],
+				unlockableAt: +parseFloat(ethers.utils.formatUnits(lockInfo?.unlockableAts[i], 0)).toFixed(
+					4
+				),
+				tokens: lockInfo?.tokens[i]
+			});
+		}
+
+		return lockArray;
 	} catch (err) {
 		console.log(err);
 		return null;
@@ -80,6 +110,7 @@ export const getPendingFiroTokens = async (poolIndex: number, userAddress: strin
 		const masterChefContract = getMasterChefContract(get(appProvider));
 
 		const pendingFirosInEthers = await masterChefContract.pendingFiro(poolIndex, userAddress);
+		console.log('PENDING FIROS: ', ethersBigNumberToNumber(pendingFirosInEthers));
 
 		return ethersBigNumberToNumber(pendingFirosInEthers);
 	} catch (err) {
@@ -121,5 +152,47 @@ export const getVestingDuration = async () => {
 	} catch (err) {
 		console.log(err);
 		return 0;
+	}
+};
+
+// Unlock Vested Firo Tokens
+export const unlockVestedFiroTokens = async (userAddress: string) => {
+	try {
+		const masterChefContract = getMasterChefContract(get(appSigner));
+
+		const transaction = (await masterChefContract.unlockVesting(
+			userAddress
+		)) as ethers.providers.TransactionResponse;
+		await transaction.wait(1);
+
+		toastSuccess('Tokens Successfully Transfered to Token');
+
+		return;
+	} catch (error) {
+		console.log(error);
+
+		toastError(error.message || 'Token Transfer Failed');
+		return;
+	}
+};
+
+// Unlock Tokens - app only allows to unlock all that are locked
+export const unlockLpTokens = async (userAddress: string, index: number) => {
+	try {
+		const masterChefContract = getMasterChefContract(get(appSigner));
+
+		const transaction = await masterChefContract.unlock(userAddress, index);
+
+		transaction.wait(1);
+
+		toastSuccess('Tokens Successfully Transfered to Wallet');
+
+		return true;
+	} catch (error) {
+		console.log(error);
+
+		toastError(error.message || 'Token Transfer Failed');
+
+		return false;
 	}
 };

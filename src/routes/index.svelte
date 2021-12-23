@@ -9,8 +9,8 @@
 	import NoWallet from '$lib/NoWallet/index.svelte';
 	import { onMount } from 'svelte';
 	import AccountSummary from '$lib/AccountSummary/index.svelte';
-	import { showAccountSummary } from '$stores/accountSummaryStore';
-	import { getPoolInfoByIndex, getUserLockInfo } from '$utils/contractInteractions/masterChef';
+	import { selectedPool, showAccountSummary } from '$stores/accountSummaryStore';
+	import { getUserLockInfo } from '$utils/contractInteractions/masterChef';
 	import { userAddress } from '$stores/wallet';
 	import { getUserInfoWithIndex } from '$utils/contractInteractions/staking';
 	import { ethers } from 'ethers';
@@ -20,9 +20,12 @@
 	});
 
 	const triggerAction = async () => {
-		$userAddress && console.log(await getUserLockInfo($userAddress));
-		console.log(await getPoolInfoByIndex(0));
-		const result = $userAddress && (await getUserInfoWithIndex(0, $userAddress));
+		const lockInfo = await getUserLockInfo($userAddress);
+
+		console.log(lockInfo);
+
+		// console.log(await getPoolInfoByIndex(0));
+		const result = $userAddress && (await getUserInfoWithIndex($selectedPool, $userAddress));
 		console.log(ethers.utils.formatEther(result?.amount));
 		console.log(ethers.utils.formatEther(result?.rewardDebt));
 	};
@@ -69,7 +72,7 @@
 							<NoWallet>Available LP TOKEN</NoWallet>
 						</div>
 					{/if}
-					<p class="atomidex-title">Swap on AtomixDex</p>
+					<p class="atomidex-title">Swap on AtomicDex</p>
 					<a href="!#" class="atomic-dex">
 						<img src="/images/png/atomic-dex.png" alt="atomic-dex" />
 					</a>

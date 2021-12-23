@@ -2,26 +2,45 @@
 	import StakeProgress from '$lib/StakeProgress/index.svelte';
 	import { fly } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
-	import { darkOverlay } from '$stores/navStore';
 	import WithdrawPopup from '$lib/WithdrawPopup/index.svelte';
 	import UnstakePopup from '$lib/UnstakePopup/index.svelte';
 	import {
 		lpTokenBalance,
 		pendingFiroRewardsBalance,
 		realizedFiroRewardsBalance,
-		totalLockedLPTokenBalance,
+		totalStakedLPBalance,
 		totalUnlockedLPTokenBalance
 	} from '$stores/accountSummaryStore';
+	import { unlockLpTokens, unlockVestedFiroTokens } from '$utils/contractInteractions/masterChef';
+	import { userAddress } from '$stores/wallet';
 
 	const dispatch = createEventDispatcher();
 	let withdrawPopupActive: boolean = false;
+	let clickedPopup: 'FIRO' | 'LP' = 'FIRO';
 	let unstakePopupActive: boolean = false;
+
+	const closePopup = (e) => {
+		if (!(e.target as any).closest('.withdraw-popup')) {
+			withdrawPopupActive = false;
+			unstakePopupActive = false;
+		}
+	};
 </script>
 
 <div class="main" transition:fly={{ y: 200, duration: 1000 }}>
 	{#if withdrawPopupActive}
-		<div class="popup-holder">
+		<div class="popup-holder" on:click={closePopup}>
 			<WithdrawPopup
+				token={clickedPopup}
+				balance={clickedPopup === 'FIRO'
+					? $realizedFiroRewardsBalance
+					: $totalUnlockedLPTokenBalance}
+				on:confirmButtonClicked={async () => {
+					if (clickedPopup === 'FIRO') {
+						// Withdraw Firo
+						await unlockVestedFiroTokens($userAddress);
+					}
+				}}
 				on:deactivatePopup={() => {
 					withdrawPopupActive = !withdrawPopupActive;
 				}}
@@ -30,7 +49,7 @@
 	{/if}
 
 	{#if unstakePopupActive}
-		<div class="popup-holder">
+		<div class="popup-holder" on:click={closePopup}>
 			<UnstakePopup
 				on:deactivatePopup={() => {
 					unstakePopupActive = !unstakePopupActive;
@@ -39,7 +58,7 @@
 		</div>
 	{/if}
 
-	<div class="account-summary-header" class:blurry={$darkOverlay}>
+	<div class="account-summary-header" class:blurry={withdrawPopupActive || unstakePopupActive}>
 		<h2>Account Summary</h2>
 		<img
 			on:click={() => {
@@ -50,7 +69,7 @@
 		/>
 	</div>
 
-	<div class="top holder" class:blurry={$darkOverlay}>
+	<div class="top holder" class:blurry={withdrawPopupActive || unstakePopupActive}>
 		<div class="data-holder shield">
 			<img src="/images/svg/shield.svg" alt="shield-icon" />
 			<div>
@@ -62,8 +81,8 @@
 		<div class="data-holder money">
 			<img src="/images/svg/money.svg" alt="money-icon" />
 			<div>
-				<p class="data-text">Total Locked <br />LP Balance</p>
-				<p class="value">{$totalLockedLPTokenBalance} LP TOKEN</p>
+				<p class="data-text">Total Staked <br />LP Balance</p>
+				<p class="value">{$totalStakedLPBalance} LP TOKEN</p>
 			</div>
 		</div>
 
@@ -76,7 +95,7 @@
 		</div>
 	</div>
 
-	<div class="data-holder mobile" class:blurry={$darkOverlay}>
+	<div class="data-holder mobile" class:blurry={withdrawPopupActive || unstakePopupActive}>
 		<img src="/images/svg/banking.svg" alt="banking-icon" />
 		<div>
 			<p class="data-text">Total Unlocked LP Balance</p>
@@ -84,7 +103,20 @@
 		</div>
 	</div>
 
-	<div class="bottom holder" class:blurry={$darkOverlay}>
+	<div
+		class="withdraw-button-holder unlock-btn"
+		class:blurry={withdrawPopupActive || unstakePopupActive}
+	>
+		<button
+			class="withdraw-button"
+			on:click={() => {
+				clickedPopup = 'LP';
+				withdrawPopupActive = !withdrawPopupActive;
+			}}>Withdraw Unlocked LP</button
+		>
+	</div>
+
+	<div class="bottom holder" class:blurry={withdrawPopupActive || unstakePopupActive}>
 		<div class="data-holder shield">
 			<img src="/images/svg/pending.svg" alt="pending-icon" />
 			<div>
@@ -93,9 +125,9 @@
 			</div>
 		</div>
 
-		<div class="vl desktop" class:blurry={$darkOverlay} />
+		<div class="vl desktop" class:blurry={withdrawPopupActive || unstakePopupActive} />
 
-		<div class="award data-holder" class:blurry={$darkOverlay}>
+		<div class="award data-holder" class:blurry={withdrawPopupActive || unstakePopupActive}>
 			<img src="/images/svg/award.svg" alt="award-icon" />
 			<div>
 				<p class="data-text">Total Realized <br />Rewards</p>
@@ -104,17 +136,17 @@
 		</div>
 	</div>
 
-	<div class="withdraw-button-holder" class:blurry={$darkOverlay}>
+	<div class="withdraw-button-holder" class:blurry={withdrawPopupActive || unstakePopupActive}>
 		<button
 			class="withdraw-button"
 			on:click={() => {
-				darkOverlay.set(true);
+				clickedPopup = 'FIRO';
 				withdrawPopupActive = !withdrawPopupActive;
 			}}>Withdraw Realized Rewards</button
 		>
 	</div>
 
-	<div class="my-stakes" class:blurry={$darkOverlay}>
+	<div class="my-stakes" class:blurry={withdrawPopupActive || unstakePopupActive}>
 		<h3 class="my-stakes-title">My Stakes</h3>
 		<StakeProgress first={true} />
 		<StakeProgress />
@@ -122,9 +154,8 @@
 	</div>
 
 	<button
-		class:blurry={$darkOverlay}
+		class:blurry={withdrawPopupActive || unstakePopupActive}
 		on:click={() => {
-			darkOverlay.set(true);
 			unstakePopupActive = !unstakePopupActive;
 		}}>Unstake all positions</button
 	>
@@ -213,7 +244,7 @@
 	}
 
 	.bottom {
-		@apply md:border md:border-line-color rounded-[10px] md:mb-0 md:items-center md:py-[55px];
+		@apply md:border md:border-line-color rounded-[10px] md:mb-0 md:items-center md:py-[55px] md:mt-20;
 	}
 
 	.top {
@@ -225,11 +256,15 @@
 	}
 
 	.withdraw-button {
-		@apply md:w-auto mt-4 md:mt-0 md:absolute md:top-[-28px] md:right-[225px];
+		@apply md:w-[512px] mt-4 md:mt-0 md:absolute md:right-[225px];
 	}
 
 	.withdraw-button-holder {
-		@apply md:w-auto md:relative;
+		@apply w-full md:relative -mt-4 md:mt-4;
+	}
+
+	.unlock-btn {
+		@apply md:mt-0;
 	}
 
 	.account-summary-header > img {
@@ -239,6 +274,11 @@
 	.popup-holder {
 		@apply fixed top-0 left-0 right-0 bottom-0 h-screen w-screen z-50 px-4;
 		@apply justify-center items-center flex;
+	}
+
+	.popup-holder::after {
+		content: '';
+		@apply fixed top-0 bottom-0 left-0 right-0 z-[-1] bg-black-light;
 	}
 
 	.blurry {

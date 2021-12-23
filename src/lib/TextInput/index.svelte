@@ -2,6 +2,7 @@
 	import { stakingOrUnstakeAmount } from '$stores/stakingStore';
 
 	export let balance = 0;
+	export let placeholder = '0 LP TOKEN';
 
 	let inputValue;
 	let input;
@@ -19,7 +20,8 @@
 	}
 
 	$: ((value) => {
-		stakingOrUnstakeAmount.set(parseFloat(value));
+		const parsedValue = value ? +value : 0;
+		stakingOrUnstakeAmount.set(parsedValue ? parsedValue : 0);
 	})(inputValue);
 </script>
 
@@ -29,7 +31,7 @@
 		bind:this={input}
 		type="text"
 		on:keypress={isInputNumber}
-		placeholder="0 LP TOKEN"
+		{placeholder}
 	/>
 	<div class="max-balance">
 		<p class="balance">Balance: {balance}</p>
