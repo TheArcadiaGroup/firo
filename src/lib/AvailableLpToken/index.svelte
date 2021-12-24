@@ -13,7 +13,11 @@
 	<div>
 		<div class="unstaked-amount">
 			<div class="logo-container">
-				<img class="firo-symbol" src="/images/png/lp-token.png" alt="firo-symbol" />
+				<img
+					class="firo-symbol scale-95"
+					src="/images/png/pancakeswap-cake-logo.png"
+					alt="firo-symbol"
+				/>
 				<img class="binance-chain" src="/images/svg/binance-chain.svg" alt="binance-chain" />
 			</div>
 			<div class="unstaked-amount-value">
