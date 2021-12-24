@@ -1,5 +1,4 @@
 <script lang="ts">
-	import StakeProgress from '$lib/StakeProgress/index.svelte';
 	import { fly } from 'svelte/transition';
 	import { createEventDispatcher } from 'svelte';
 	import WithdrawPopup from '$lib/WithdrawPopup/index.svelte';
@@ -9,10 +8,9 @@
 		pendingFiroRewardsBalance,
 		realizedFiroRewardsBalance,
 		totalLockedLPBalance,
-		totalStakedLPBalance,
 		totalUnlockedLPTokenBalance
 	} from '$stores/accountSummaryStore';
-	import { unlockLpTokens, unlockVestedFiroTokens } from '$utils/contractInteractions/masterChef';
+	import { unlockVestedFiroTokens } from '$utils/contractInteractions/masterChef';
 	import { userAddress } from '$stores/wallet';
 
 	const dispatch = createEventDispatcher();
@@ -28,7 +26,7 @@
 	};
 </script>
 
-<div class="main" transition:fly={{ y: 200, duration: 1000 }}>
+<div class="main" transition:fly={{ y: 200, duration: 500 }}>
 	{#if withdrawPopupActive}
 		<div class="popup-holder" on:click={closePopup}>
 			<WithdrawPopup
@@ -110,6 +108,7 @@
 	>
 		<button
 			class="withdraw-button"
+			class:cursor-not-allowed={$totalUnlockedLPTokenBalance <= 0}
 			on:click={() => {
 				clickedPopup = 'LP';
 				withdrawPopupActive = !withdrawPopupActive;
@@ -140,27 +139,14 @@
 	<div class="withdraw-button-holder" class:blurry={withdrawPopupActive || unstakePopupActive}>
 		<button
 			class="withdraw-button"
+			disabled={$realizedFiroRewardsBalance <= 0}
+			class:cursor-not-allowed={$realizedFiroRewardsBalance <= 0}
 			on:click={() => {
 				clickedPopup = 'FIRO';
 				withdrawPopupActive = !withdrawPopupActive;
 			}}>Withdraw Realized Rewards</button
 		>
 	</div>
-
-	<!-- 
-	<div class="my-stakes" class:blurry={withdrawPopupActive || unstakePopupActive}>
-		<h3 class="my-stakes-title">My Stakes</h3>
-		<StakeProgress first={true} />
-		<StakeProgress />
-		<StakeProgress />
-	</div>
-
-	<button
-		class:blurry={withdrawPopupActive || unstakePopupActive}
-		on:click={() => {
-			unstakePopupActive = !unstakePopupActive;
-		}}>Unstake all positions</button
-	> -->
 </div>
 
 <style lang="postcss">
@@ -208,10 +194,10 @@
 		@apply py-2 mb-7 md:py-0 md:px-[148px] mx-auto md:h-[56px];
 	}
 
-	/* .my-stakes-title {
+	.my-stakes-title {
 		@apply text-lg md:text-3xl font-semibold;
 		@apply mb-5 md:mt-[78px];
-	} */
+	}
 
 	.mobile {
 		@apply md:hidden;

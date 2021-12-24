@@ -1,14 +1,20 @@
-import { getLPTokenContract, getMasterChefContract } from '$constants/contracts';
+import {
+	getLPTokenContract,
+	getMasterChefContract,
+	getVestingContract
+} from '$constants/contracts';
 import {
 	selectedPool,
 	lpTokenBalance,
 	totalStakedLPBalance,
 	totalUnlockedLPTokenBalance,
 	totalLockedLPBalance,
-	pendingFiroRewardsBalance
+	pendingFiroRewardsBalance,
+	realizedFiroRewardsBalance
 } from '$stores/accountSummaryStore';
 import { appProvider } from '$stores/wallet';
 import { getUTCTimeStamp } from '$utils/helpers/showTimeInLocalTime';
+import { getCurrentBlockTimestampMilliseconds } from '$utils/onChainFuncs';
 import { ethers } from 'ethers';
 import type { LockInfo, UserInfo } from 'src/global';
 import { get } from 'svelte/store';
@@ -90,7 +96,6 @@ export const getUserPendingRewards = async (userAddress: string) => {
 
 		return +ethers.utils.formatEther(pendingFiroAmt);
 	} catch (error) {
-		console.log(error);
 		return 0;
 	}
 };
@@ -106,17 +111,19 @@ export const getLpTokenLockInfoBalance = async (userAddress: string) => {
 		// Update unlocked lp tokens store
 		let unlockedLPBalance = 0;
 
-		lockInfo.amounts.map(async (amt, i) => {
-			const unlockTimestamp = +ethers.utils.formatUnits(lockInfo.unlockableAts[i], 0) * 1000;
-			const now = getUTCTimeStamp();
+		await Promise.all(
+			lockInfo.amounts.map(async (amt, i) => {
+				const unlockTimestamp = +ethers.utils.formatUnits(lockInfo.unlockableAts[i], 0) * 1000;
+				const blockTime = await getCurrentBlockTimestampMilliseconds();
 
-			if (unlockTimestamp < now) {
-				// is still locked
-				lockedLPBalance += +ethers.utils.formatEther(lockInfo.amounts[i]);
-			} else {
-				unlockedLPBalance += +ethers.utils.formatEther(lockInfo.amounts[i]);
-			}
-		});
+				if (unlockTimestamp < blockTime) {
+					// is still locked
+					lockedLPBalance += +ethers.utils.formatEther(amt);
+				} else {
+					unlockedLPBalance += +ethers.utils.formatEther(amt);
+				}
+			})
+		);
 
 		// Update store
 		totalLockedLPBalance.set(lockedLPBalance);
@@ -134,9 +141,29 @@ export const getLpTokenLockInfoBalance = async (userAddress: string) => {
 	}
 };
 
+// Get the amount that can be unlocked from vesting
+export const realizedFiroRewards = async (userAddress: string) => {
+	try {
+		const vestingContract = getVestingContract(get(appProvider));
+
+		const realizedRewards = await vestingContract.getUnlockable(userAddress);
+
+		realizedFiroRewardsBalance.set(+ethers.utils.formatEther(realizedRewards));
+
+		console.log('REALIZED REWARDS: ', +ethers.utils.formatEther(realizedRewards));
+
+		return +ethers.utils.formatEther(realizedRewards);
+	} catch (error) {
+		console.log(error);
+		realizedFiroRewardsBalance.set(0);
+		return 0;
+	}
+};
+
 export const loadAllBalances = async (userAddress: string) => {
 	await getUserLPTokenBalance(userAddress);
 	await getStakedLPTokensBalance(userAddress);
 	await getUserPendingRewards(userAddress);
+	await realizedFiroRewards(userAddress);
 	await getLpTokenLockInfoBalance(userAddress);
 };

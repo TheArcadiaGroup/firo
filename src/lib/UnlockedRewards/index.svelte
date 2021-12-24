@@ -16,12 +16,12 @@
 			</div>
 		</div>
 	</div>
-	<p class="time">
+	<!-- <p class="time">
 		{#if $realizedFiroRewardsBalance > 0}
-			<!-- Total Time Until Reward <br />
-			{'19:12:53:27'} -->
+			Total Time Until Reward <br />
+			{'19:12:53:27'}
 		{/if}
-	</p>
+	</p> -->
 </div>
 
 <style lang="postcss">

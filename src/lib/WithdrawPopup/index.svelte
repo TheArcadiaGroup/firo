@@ -4,10 +4,18 @@
 	import TextInput from '$lib/TextInput/index.svelte';
 	import { scale, fade } from 'svelte/transition';
 	import { getUserLockInfo, unlockLpTokens } from '$utils/contractInteractions/masterChef';
-	import { userAddress } from '$stores/wallet';
+	import { appProvider, userAddress } from '$stores/wallet';
+	import { getCurrentBlockTimestampMilliseconds } from '$utils/onChainFuncs';
 
 	export let token: 'FIRO' | 'LP' = 'FIRO';
 	export let balance: number = 0;
+
+	let blockTime = 0;
+
+	$: (async (provider) => provider && (blockTime = await getCurrentBlockTimestampMilliseconds()))(
+		$appProvider
+	);
+
 	const dispatch = createEventDispatcher();
 </script>
 
@@ -43,26 +51,25 @@
 				Loading...
 			{:then lockInfoArr}
 				{#each lockInfoArr as lockInfo, index}
-					<div
-						class="lockedData w-full flex justify-between items-center md:text-lg"
-						transition:fade
-					>
-						<div class="text-black-default opacity-50 mx-4">
-							Unlocked on:
-							{new Date(lockInfo.unlockableAt * 1000)}
-							<!-- <Time
-								class="ml-1"
-								timestamp={lockInfo.unlockableAt * 1000}
-								format="YYYY-MM-DDTHH:mm:ss UTC"
-							/> -->
-						</div>
+					{#if blockTime > lockInfo.unlockableAt * 1000}
 						<div
-							class="lpWithdrawBtn max-h-full text-base cursor-pointer"
-							on:click={() => unlockLpTokens($userAddress, index)}
+							class="lockedData w-full flex justify-between items-center md:text-lg"
+							transition:fade
 						>
-							Withdraw {lockInfo.amount} LP
+							<div class="text-black-default opacity-50 mx-4">
+								Unlocked on:
+								{new Date(lockInfo.unlockableAt * 1000).toUTCString()}
+							</div>
+							<div
+								class="lpWithdrawBtn max-h-full text-base cursor-pointer w-1/2"
+								class:disabled={blockTime < lockInfo.unlockableAt * 1000}
+								disabled={blockTime < lockInfo.unlockableAt * 1000}
+								on:click={() => unlockLpTokens($userAddress, index)}
+							>
+								Withdraw {lockInfo.amount} LP
+							</div>
 						</div>
-					</div>
+					{/if}
 				{/each}
 			{:catch}
 				No History to Show
@@ -108,6 +115,10 @@
 		@apply border border-maincolor rounded-[45px];
 		@apply py-2 px-10 flex items-center justify-center;
 		@apply hover:bg-white hover:border-opacity-100 hover:text-maincolor transition-all bg-maincolor text-white;
+	}
+
+	.disabled {
+		@apply bg-white text-gray-900 cursor-not-allowed hover:text-gray-900;
 	}
 
 	.text-holder {

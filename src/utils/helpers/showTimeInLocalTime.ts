@@ -1,3 +1,6 @@
+import { appProvider } from '$stores/wallet';
+import { get } from 'svelte/store';
+
 const getMilliSecondsOffset = () => {
 	// Get minutes and return in milliseconds
 	return new Date().getTimezoneOffset() * 60 * 1000;
@@ -5,10 +8,6 @@ const getMilliSecondsOffset = () => {
 
 export const localeTimeToOnChainTime = () => {
 	return Date.now() + getMilliSecondsOffset();
-};
-
-export const onChainTimeToLocalTime = (onChainTimestamp: number) => {
-	return onChainTimestamp * 1000 - getMilliSecondsOffset();
 };
 
 export const getUTCTimeStamp = () => {

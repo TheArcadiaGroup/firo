@@ -10,6 +10,9 @@
 	import { onMount } from 'svelte';
 	import AccountSummary from '$lib/AccountSummary/index.svelte';
 	import { showAccountSummary } from '$stores/accountSummaryStore';
+	import { getUserLockInfo } from '$utils/contractInteractions/masterChef';
+	import { userAddress } from '$stores/wallet';
+	import { getCurrentBlockTimestampMilliseconds } from '$utils/onChainFuncs';
 
 	onMount(() => {
 		link.set('staking');
@@ -17,6 +20,13 @@
 
 	const triggerAction = async () => {
 		// Dev use
+		console.log('BlockTime: ', await getCurrentBlockTimestampMilliseconds());
+		const userLockInfo = await getUserLockInfo($userAddress);
+		userLockInfo.map(async (lockInfo, i) => {
+			console.log('Timestamp: ', lockInfo.unlockableAt * 1000);
+			console.log('BlockTime: ', await getCurrentBlockTimestampMilliseconds());
+			console.log(new Date(lockInfo.unlockableAt * 1000).toUTCString());
+		});
 	};
 </script>
 

@@ -2,11 +2,11 @@
 	import { convertDate, dateDifference } from '$utils';
 
 	export let first: boolean = false;
-	export let stakedOn = new Date(2021, 11, 1, 12, 54, 35);
+	export let lockedOn = new Date(2021, 11, 1, 12, 54, 35);
 	export let unlockedOn = new Date(2022, 0, 1, 16, 48, 39);
 	export let rewardOn = new Date(2022, 1, 1, 3, 24, 45);
-	const totalTime = rewardOn.getTime() - stakedOn.getTime();
-	const progressTime = new Date().getTime() - stakedOn.getTime();
+	const totalTime = rewardOn.getTime() - lockedOn.getTime();
+	const progressTime = new Date().getTime() - lockedOn.getTime();
 	const progress = progressTime / totalTime;
 
 	let progressBar = 0;
@@ -32,7 +32,7 @@
 	</div>
 
 	<div class="mid">
-		<p class="locked">{stakedOn.toLocaleTimeString()}<br />{convertDate(stakedOn)}</p>
+		<p class="locked">{lockedOn.toLocaleTimeString()}<br />{convertDate(lockedOn)}</p>
 		<p class="unlocked" class:text-maincolor={progressBar > 0.5}>
 			{unlockedOn.toLocaleTimeString()}<br />{convertDate(unlockedOn)}
 		</p>
@@ -40,14 +40,14 @@
 	</div>
 
 	<div class="bottom">
-		<p>{dateDifference(unlockedOn, stakedOn)}</p>
+		<p>{dateDifference(unlockedOn, lockedOn)}</p>
 		<div class="vl" />
 		<p>{dateDifference(rewardOn, unlockedOn)}</p>
 	</div>
 	<hr class="dashed" />
 
 	<div class="total-time">
-		Total Time Until Reward<br />{dateDifference(rewardOn, stakedOn)}
+		Total Time Until Reward<br />{dateDifference(rewardOn, lockedOn)}
 	</div>
 </div>
 
