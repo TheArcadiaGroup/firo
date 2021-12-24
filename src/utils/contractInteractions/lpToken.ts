@@ -26,13 +26,11 @@ export const checkMasterchefAllowance = async (userAddress: string) => {
 export const increaseMasterChefAllowance = async () => {
 	try {
 		const lpPool = await getPoolInfoByIndex(get(selectedPool));
-		const lpContract = getLPTokenContract(lpPool.lpToken, get(appProvider));
+		const lpContract = getLPTokenContract(lpPool.lpToken, get(appSigner));
 		const transaction = await lpContract.increaseAllowance(
 			masterChef,
 			ethers.utils.parseEther('999999999999999999999999999999999999000000000000000000')
 		);
-
-		console.log(transaction);
 
 		toastSuccess('Successfully executed transaction');
 

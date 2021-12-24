@@ -13,7 +13,6 @@ import {
 	realizedFiroRewardsBalance
 } from '$stores/accountSummaryStore';
 import { appProvider } from '$stores/wallet';
-import { getUTCTimeStamp } from '$utils/helpers/showTimeInLocalTime';
 import { getCurrentBlockTimestampMilliseconds } from '$utils/onChainFuncs';
 import { ethers } from 'ethers';
 import type { LockInfo, UserInfo } from 'src/global';
