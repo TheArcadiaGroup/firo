@@ -63,7 +63,7 @@
 					{/if}
 					<p class="atomidex-title">Swap on AtomicDex</p>
 					<a
-						href="https://pancakeswap.finance/add/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c/0xd5d0322b6bab6a762c79f8c81a0b674778e13aed"
+						href="https://github.com/firoorg/FiroDEX-Desktop/releases"
 						target="_blank"
 						class="atomic-dex"
 					>
@@ -118,7 +118,7 @@
 	}
 
 	.atomic-dex {
-		@apply py-1 md:py-2 border border-line-color rounded-xl flex justify-center md:mx-6 xxl:border-2 xxxl:border-4 xxxl:h-24;
+		@apply py-1 md:py-2 border border-line-color rounded-xl flex justify-center md:mx-6 xxl:border-2 xxxl:border-4 xxxl:h-24 w-full;
 	}
 
 	.atomidex-title {

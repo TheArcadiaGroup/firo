@@ -46,22 +46,22 @@
 		</div>
 		<button on:click={() => dispatch('confirmButtonClicked')}>Confirm and Withdraw</button>
 	{:else}
-		<div class="lpTokenAmts w-full flex flex-col space-y-1">
+		<div class="lpTokenAmts w-full flex flex-col space-y-4 md:space-y-1">
 			{#await getUserLockInfo($userAddress)}
 				Loading...
 			{:then lockInfoArr}
 				{#each lockInfoArr as lockInfo, index}
 					{#if blockTime > lockInfo.unlockableAt * 1000}
 						<div
-							class="lockedData w-full flex justify-between items-center md:text-lg"
+							class="lockedData w-full flex flex-col md:flex-row justify-between items-center md:text-lg space-y-1 md:space-y-0"
 							transition:fade
 						>
-							<div class="text-black-default opacity-50 mx-4">
-								Unlocked on:
+							<div class="text-black-default text-sm opacity-50 mx-4">
+								Unlocked:
 								{new Date(lockInfo.unlockableAt * 1000).toUTCString()}
 							</div>
 							<div
-								class="lpWithdrawBtn max-h-full text-base cursor-pointer w-1/2"
+								class="lpWithdrawBtn max-h-full text-base cursor-pointer w-full md:w-1/2"
 								class:disabled={blockTime < lockInfo.unlockableAt * 1000}
 								disabled={blockTime < lockInfo.unlockableAt * 1000}
 								on:click={() => unlockLpTokens($userAddress, index)}
