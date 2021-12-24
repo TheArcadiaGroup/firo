@@ -115,7 +115,8 @@ export const getLpTokenLockInfoBalance = async (userAddress: string) => {
 				const unlockTimestamp = +ethers.utils.formatUnits(lockInfo.unlockableAts[i], 0) * 1000;
 				const blockTime = await getCurrentBlockTimestampMilliseconds();
 
-				if (unlockTimestamp < blockTime) {
+				// Current seconds since epoch are fewer than the unlocktime which is in the future implying not unlocked
+				if (blockTime < unlockTimestamp) {
 					// is still locked
 					lockedLPBalance += +ethers.utils.formatEther(amt);
 				} else {

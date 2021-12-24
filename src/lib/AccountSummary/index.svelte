@@ -108,6 +108,7 @@
 	>
 		<button
 			class="withdraw-button"
+			disabled={$totalUnlockedLPTokenBalance <= 0}
 			class:cursor-not-allowed={$totalUnlockedLPTokenBalance <= 0}
 			on:click={() => {
 				clickedPopup = 'LP';
@@ -194,10 +195,10 @@
 		@apply py-2 mb-7 md:py-0 md:px-[148px] mx-auto md:h-[56px];
 	}
 
-	.my-stakes-title {
+	/* .my-stakes-title {
 		@apply text-lg md:text-3xl font-semibold;
 		@apply mb-5 md:mt-[78px];
-	}
+	} */
 
 	.mobile {
 		@apply md:hidden;
