@@ -8,6 +8,7 @@
 		lpTokenBalance,
 		pendingFiroRewardsBalance,
 		realizedFiroRewardsBalance,
+		totalLockedLPBalance,
 		totalStakedLPBalance,
 		totalUnlockedLPTokenBalance
 	} from '$stores/accountSummaryStore';
@@ -81,8 +82,8 @@
 		<div class="data-holder money">
 			<img src="/images/svg/money.svg" alt="money-icon" />
 			<div>
-				<p class="data-text">Total Staked <br />LP Balance</p>
-				<p class="value">{$totalStakedLPBalance} LP TOKEN</p>
+				<p class="data-text">Total Locked <br />LP Balance</p>
+				<p class="value">{$totalLockedLPBalance} LP TOKEN</p>
 			</div>
 		</div>
 

@@ -1,6 +1,7 @@
 import { getMasterChefContract } from '$constants/contracts';
+import { deployerAcc, erc20Mock } from '$constants/contracts/contractAddresses';
 import { lockUpDuration, vestingDuration } from '$stores/stakingStore';
-import { appProvider, appSigner } from '$stores/wallet';
+import { appProvider, appSigner, userAddress } from '$stores/wallet';
 import { ethersBigNumberToNumber } from '$utils/helpers/ethersHelpers';
 import { toastError, toastSuccess } from '$utils/toastNotification';
 import { ethers } from 'ethers';
@@ -12,7 +13,7 @@ export const getPoolLength = async () => {
 	try {
 		const poolLength = await masterChefContract.poolLength();
 
-		return ethers.utils.formatUnits(poolLength, 0);
+		return +ethers.utils.formatUnits(poolLength, 0);
 	} catch (err) {
 		console.log(err.message);
 		return 0;
@@ -29,22 +30,6 @@ export const getPoolInfoByIndex: (poolIndex: number) => Promise<Pool | null> = a
 
 		return poolInfo;
 	} catch (err) {
-		// Check if pool does not exist
-		// if (get(userAddress) === deployerAcc) {
-		// 	// Create the first pool
-		// 	const transaction = await masterChefContract.add(
-		// 		ethers.utils.parseEther('1000000'),
-		// 		'0x64c71da9C9539239C526b3176BB9ddB17b024804',
-		// 		true
-		// 	);
-
-		// 	console.log(transaction);
-
-		// 	// We will now only have one pool with index 0;
-		// 	return await getPoolInfoByIndex(0);
-		// }
-
-		console.log(err.message);
 		return null;
 	}
 };
@@ -52,6 +37,28 @@ export const getPoolInfoByIndex: (poolIndex: number) => Promise<Pool | null> = a
 // Get Contract Init Info
 export const initMasterChefContract = async () => {
 	const masterChefContract = getMasterChefContract(get(appSigner));
+
+	// Initialize Pool if none is found
+	const poolLength = await getPoolLength();
+
+	if (
+		poolLength === 0 &&
+		deployerAcc === get(userAddress) &&
+		import.meta.env.VITE_LOCALTESTING === 'true'
+	) {
+		console.log('CREATING POOL');
+		// Create a pool
+		const transaction: ethers.providers.TransactionResponse = await masterChefContract.add(
+			ethers.utils.parseEther('100'),
+			erc20Mock,
+			true
+		);
+		await transaction.wait(1);
+
+		console.log(transaction.data);
+
+		return true;
+	}
 };
 
 // Get pools where user has staked tokens
@@ -91,7 +98,6 @@ export const getUserLockInfo = async (userAddress: string) => {
 
 		return lockArray;
 	} catch (err) {
-		console.log(err);
 		return null;
 	}
 };

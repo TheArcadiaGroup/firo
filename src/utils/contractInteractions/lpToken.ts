@@ -13,8 +13,6 @@ export const checkMasterchefAllowance = async (userAddress: string) => {
 
 		const allowanceInEth = await lpContract.allowance(userAddress, masterChef);
 
-		console.log('ALLOWANCE: ', +ethers.utils.formatEther(allowanceInEth));
-
 		return +ethers.utils.formatEther(allowanceInEth);
 	} catch (err) {
 		console.log(err);

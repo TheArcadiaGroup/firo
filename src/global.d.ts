@@ -8,3 +8,16 @@ interface Pool {
 	lastRewardBlock: ethers.BigNumberish;
 	accFiroPerShare: ethers.BigNumberish;
 }
+
+interface LockInfo {
+	// From locking contract
+	isWithdrawns: bool[]; // Whether entry has been withdrawn
+	tokens: string[]; // LP tokens related to the lock
+	unlockableAts: ethers.BigNumberish[]; // timestamps
+	amounts: ethers.BigNumberish[]; // value of tokens
+}
+
+interface UserInfo {
+	amount: number; // Balance of staked LP Tokens
+	rewardDebt: number; // Withdrawn reward
+}

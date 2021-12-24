@@ -5,7 +5,7 @@ import {
 } from '$constants/contracts';
 import { appProvider, userAddress } from '$stores/wallet';
 import { get } from 'svelte/store';
-import { loadStakeBalances, loadUnstakeBalances } from './contractInteractions/tokenBalances';
+import { loadAllBalances } from './contractInteractions/tokenBalances';
 
 export default () => {
 	const provider = get(appProvider);
@@ -17,10 +17,9 @@ export default () => {
 		masterChefContract.on('Deposit', async (_userAddress, _poolId, amount) => {
 			if (_userAddress === get(userAddress)) {
 				try {
-					console.log('LP TOKENS DEPOSITED');
+					// console.log('LP TOKENS DEPOSITED');
 					// Refresh stake balance
-					await loadStakeBalances();
-					await loadUnstakeBalances();
+					await loadAllBalances(_userAddress);
 				} catch (err) {
 					console.log(err);
 				}
@@ -30,10 +29,9 @@ export default () => {
 		masterChefContract.on('Withdraw', async (_userAddress, _poolId, amount) => {
 			if (_userAddress === get(userAddress)) {
 				try {
-					console.log('LP TOKENS UNSTAKED');
+					// console.log('LP TOKENS UNSTAKED');
 					// Refresh stake balance
-					await loadStakeBalances();
-					await loadUnstakeBalances();
+					await loadAllBalances(_userAddress);
 				} catch (err) {
 					console.log(err);
 				}
@@ -44,10 +42,9 @@ export default () => {
 		lockingContract.on('Lock', async (_token, _userAddress, _amount) => {
 			if (_userAddress === get(userAddress)) {
 				try {
-					console.log('LP TOKENS LOCKED');
+					// console.log('LP TOKENS LOCKED');
 					// Refresh stake balance
-					await loadStakeBalances();
-					await loadUnstakeBalances();
+					await loadAllBalances(_userAddress);
 				} catch (err) {
 					console.log(err);
 				}
@@ -58,10 +55,9 @@ export default () => {
 		lockingContract.on('Unlock', async (_tokenAddress, _userAddress, _amount) => {
 			if (_userAddress === get(userAddress)) {
 				try {
-					console.log('LP TOKENS WITHDRAWN');
+					// console.log('LP TOKENS WITHDRAWN');
 					// Refresh stake balance
-					await loadStakeBalances();
-					await loadUnstakeBalances();
+					await loadAllBalances(_userAddress);
 				} catch (err) {
 					console.log(err);
 				}
@@ -72,10 +68,9 @@ export default () => {
 		vestingContract.on('Lock', async (_token, _userAddress, _amount) => {
 			if (_userAddress === get(userAddress)) {
 				try {
-					console.log('FIRO TOKENS VESTED');
+					// console.log('FIRO TOKENS VESTED');
 					// Refresh stake balance
-					await loadStakeBalances();
-					await loadUnstakeBalances();
+					await loadAllBalances(_userAddress);
 				} catch (err) {
 					console.log(err);
 				}
@@ -86,10 +81,9 @@ export default () => {
 		vestingContract.on('Unlock', async (_tokenAddress, _userAddress, _amount) => {
 			if (_userAddress === get(userAddress)) {
 				try {
-					console.log('FIRO TOKENS UNLOCKED FROM VESTING');
+					// console.log('FIRO TOKENS UNLOCKED FROM VESTING');
 					// Refresh stake balance
-					await loadStakeBalances();
-					await loadUnstakeBalances();
+					await loadAllBalances(_userAddress);
 				} catch (err) {
 					console.log(err);
 				}

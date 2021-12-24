@@ -6,9 +6,16 @@
 	import Toast from '$lib/Toast/index.svelte';
 	import { onMount } from 'svelte';
 	import { refreshWalletConnection } from '$utils/walletConnection';
-	import { appSigner } from '$stores/wallet';
-	import { walletConnected } from '$stores/stakingStore';
+	import { appSigner, userAddress } from '$stores/wallet';
+	import { isApproved, walletConnected } from '$stores/stakingStore';
 	import contractEvents from '$utils/contractEvents';
+	import {
+		getLockUpDuration,
+		getVestingDuration,
+		initMasterChefContract
+	} from '$utils/contractInteractions/masterChef';
+	import { checkMasterchefAllowance } from '$utils/contractInteractions/lpToken';
+	import { loadAllBalances } from '$utils/contractInteractions/tokenBalances';
 	onMount(async () => {
 		await refreshWalletConnection();
 	});
@@ -17,6 +24,15 @@
 		walletConnected.set(connectStatus);
 
 		if (connectStatus) {
+			await initMasterChefContract();
+			const allowance = await checkMasterchefAllowance($userAddress);
+			isApproved.set(allowance > 0);
+			await getLockUpDuration();
+			await getVestingDuration();
+
+			// Load all balances
+			loadAllBalances($userAddress);
+
 			contractEvents();
 		}
 	})(!!$appSigner);

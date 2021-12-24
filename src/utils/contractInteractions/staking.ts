@@ -1,11 +1,11 @@
 import { getMasterChefContract } from '$constants/contracts';
 import { lpTokenBalance, selectedPool } from '$stores/accountSummaryStore';
 import { stakingOrUnstakeAmount } from '$stores/stakingStore';
-import { appProvider, appSigner } from '$stores/wallet';
+import { appProvider, appSigner, userAddress } from '$stores/wallet';
 import { toastError, toastSuccess } from '$utils/toastNotification';
 import { ethers } from 'ethers';
 import { get } from 'svelte/store';
-import { loadUnstakeBalances } from './tokenBalances';
+import { loadAllBalances } from './tokenBalances';
 
 export const stakeLPTokens = async () => {
 	try {
@@ -79,7 +79,7 @@ export const unStakeLpTokens = async () => {
 
 		toastSuccess(`Successfully Unstaked ${amount.toString()} LP Tokens`);
 
-		await loadUnstakeBalances();
+		await loadAllBalances(get(userAddress));
 
 		return transaction;
 	} catch (err) {

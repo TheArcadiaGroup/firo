@@ -13,26 +13,10 @@
 	import {
 		lpTokenBalance,
 		pendingFiroRewardsBalance,
-		selectedPool,
 		totalStakedLPBalance
 	} from '$stores/accountSummaryStore';
-	import { appProvider, userAddress } from '$stores/wallet';
 	import { stakeLPTokens, unStakeLpTokens } from '$utils/contractInteractions/staking';
-	import {
-		checkMasterchefAllowance,
-		increaseMasterChefAllowance
-	} from '$utils/contractInteractions/lpToken';
-	import {
-		loadStakeBalances,
-		loadUnstakeBalances,
-		loadWithdrawableLPTokens
-	} from '$utils/contractInteractions/tokenBalances';
-	import {
-		getLockUpDuration,
-		getPendingFiroTokens,
-		getVestingDuration
-	} from '$utils/contractInteractions/masterChef';
-	import { realizedFiroRewards } from '$utils/contractInteractions/vesting';
+	import { increaseMasterChefAllowance } from '$utils/contractInteractions/lpToken';
 
 	isStaking.set(true);
 
@@ -45,30 +29,6 @@
 			unStakeLpTokens();
 		}
 	};
-
-	// Check Masterchef allowance everytime useraddress changes
-	$: (async (userAddress) => {
-		if (userAddress) {
-			const allowance = await checkMasterchefAllowance(userAddress);
-			console.log('ALLOWANCE: ', allowance > 0);
-			isApproved.set(allowance > 0);
-			await loadStakeBalances();
-			await loadUnstakeBalances();
-			await realizedFiroRewards(userAddress);
-			await loadWithdrawableLPTokens();
-
-			// Check pending firos
-			const pendingFiros = await getPendingFiroTokens($selectedPool, userAddress);
-			pendingFiroRewardsBalance.set(pendingFiros);
-		}
-	})($userAddress);
-
-	$: (async (_appProvider) => {
-		if (_appProvider) {
-			await getLockUpDuration();
-			await getVestingDuration();
-		}
-	})($appProvider);
 </script>
 
 <div class="main">
