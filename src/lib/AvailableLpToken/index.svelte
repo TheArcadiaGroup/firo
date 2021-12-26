@@ -15,7 +15,7 @@
 			<div class="logo-container">
 				<img
 					class="firo-symbol scale-95"
-					src="/images/png/pancakeswap-cake-logo.png"
+					src="/images/png/firo-lp-token-logo.png"
 					alt="firo-symbol"
 				/>
 				<img class="binance-chain" src="/images/svg/binance-chain.svg" alt="binance-chain" />

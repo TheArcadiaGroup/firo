@@ -10,6 +10,8 @@
 	import { onMount } from 'svelte';
 	import AccountSummary from '$lib/AccountSummary/index.svelte';
 	import { showAccountSummary } from '$stores/accountSummaryStore';
+	import AtomicDex from '$lib/icons/AtomicDex.svelte';
+	import PancakeSwapFull from '$lib/icons/PancakeSwapFull.svelte';
 
 	onMount(() => {
 		link.set('staking');
@@ -61,13 +63,25 @@
 							<NoWallet>Available LP TOKEN</NoWallet>
 						</div>
 					{/if}
+
+					<!-- Pancake Swap Link -->
+					<p class="atomidex-title">Buy LP Tokens</p>
+					<a
+						href="https://pancakeswap.finance/add/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c/0xd5d0322b6bab6a762c79f8c81a0b674778e13aed"
+						target="_blank"
+						class="pancakeswap-link"
+					>
+						<PancakeSwapFull class="h-full scale-75" />
+					</a>
+
+					<!-- AtomicDex Link -->
 					<p class="atomidex-title">Swap on AtomicDex</p>
 					<a
 						href="https://github.com/firoorg/FiroDEX-Desktop/releases"
 						target="_blank"
 						class="atomic-dex"
 					>
-						<img src="/images/png/atomic-dex.png" alt="atomic-dex" />
+						<AtomicDex class="h-full scale-90" />
 					</a>
 				</div>
 			</div>
@@ -99,6 +113,12 @@
 
 	.lower-section {
 		@apply md:flex items-center w-full max-w-4xl xl:max-w-6xl xxl:max-w-screen-xl xxxl:max-w-fourk self-center md:justify-between xl:justify-around mb-16 md:mb-0;
+		@apply h-auto;
+	}
+
+	.lower-section > .right,
+	.lower-section > .left {
+		@apply flex flex-col h-full justify-between;
 	}
 
 	.right {
@@ -117,8 +137,9 @@
 		@apply xxxl:w-7/12 mb-24;
 	}
 
-	.atomic-dex {
-		@apply py-1 md:py-2 border border-line-color rounded-xl flex justify-center md:mx-6 xxl:border-2 xxxl:border-4 xxxl:h-24 w-full;
+	.atomic-dex,
+	.pancakeswap-link {
+		@apply py-1 md:py-2 border border-line-color rounded-xl flex justify-center md:mx-6 xxl:border-2 xxxl:border-4 xxxl:h-24 w-full h-14;
 	}
 
 	.atomidex-title {
