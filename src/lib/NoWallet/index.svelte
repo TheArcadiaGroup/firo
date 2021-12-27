@@ -1,4 +1,6 @@
 <script>
+	import { connectToWallet } from '$utils/walletConnection';
+
 	export let first = false;
 </script>
 
@@ -6,7 +8,7 @@
 	<p class="title">
 		<slot />
 	</p>
-	<div class="content">
+	<div class="content" on:click={async () => await connectToWallet()}>
 		<img src="/images/svg/wallet.svg" alt="wallet-icon" />
 		<p class="description">CONNECT WALLET</p>
 	</div>

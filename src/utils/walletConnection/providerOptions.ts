@@ -2,6 +2,17 @@ import { binanceWalletLogo, metamaskLogo } from '$constants/walletLogos';
 
 const infuraId = '456e115b04624699aa0e776f6f2ee65c';
 
+// Install Metamask option if not found
+const installMetamask = () => {
+	if (!document.getElementById('installMetaMask')) {
+		document
+			.querySelector('.web3modal-modal-card')
+			.prepend(
+				'<div id="installMetaMask" class="cjAFRf web3modal-provider-wrapper"><a href="https://metamask.io/" target="_blank" class="cjAFRf web3modal-provider-container"><div class="jMhaxE web3modal-provider-icon"><img src="./assets/img/metamask.svg" alt="MetaMask"></div><div class="bktcUM sc-web3modal-provider-name mt-0">Install MetaMask</div><div class="eFHlqH web3modal-provider-description">Connect using browser wallet</div></a></div>'
+			);
+	}
+};
+
 const isMetaMaskInstalled = () => {
 	if ((window as any).ethereum) {
 		if ((window as any).ethereum.providers) {
@@ -25,6 +36,7 @@ export default {
 		connector: async () => {
 			if (!isMetaMaskInstalled()) {
 				// window.location = "https://metamask.app.link/dapp/www.ethbox.org/app/"; // <-- LOOK HERE
+				// installMetamask();
 				return;
 			}
 

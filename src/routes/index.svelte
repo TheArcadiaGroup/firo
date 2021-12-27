@@ -64,25 +64,29 @@
 						</div>
 					{/if}
 
-					<!-- Pancake Swap Link -->
-					<p class="atomidex-title">Buy LP Tokens</p>
-					<a
-						href="https://pancakeswap.finance/add/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c/0xd5d0322b6bab6a762c79f8c81a0b674778e13aed"
-						target="_blank"
-						class="pancakeswap-link"
-					>
-						<PancakeSwapFull class="h-full scale-75" />
-					</a>
+					<div class="link_btns">
+						<!-- Pancake Swap Link -->
+						<p class="atomidex-title">Buy LP Tokens</p>
+						<a
+							href="https://pancakeswap.finance/add/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c/0xd5d0322b6bab6a762c79f8c81a0b674778e13aed"
+							target="_blank"
+							class="pancakeswap-link"
+						>
+							<PancakeSwapFull class="h-full scale-50 md:scale-75" />
+						</a>
+					</div>
 
-					<!-- AtomicDex Link -->
-					<p class="atomidex-title">Swap on AtomicDex</p>
-					<a
-						href="https://github.com/firoorg/FiroDEX-Desktop/releases"
-						target="_blank"
-						class="atomic-dex"
-					>
-						<AtomicDex class="h-full scale-90" />
-					</a>
+					<div class="link_btns">
+						<!-- AtomicDex Link -->
+						<p class="atomidex-title my-2">Swap on AtomicDex</p>
+						<a
+							href="https://github.com/firoorg/FiroDEX-Desktop/releases"
+							target="_blank"
+							class="atomic-dex"
+						>
+							<AtomicDex class="h-full scale-75 md:scale-90" />
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -143,7 +147,11 @@
 	}
 
 	.atomidex-title {
-		@apply font-bold md:ml-6 xxl:text-lg xxxl:text-3xl leading-normal mb-3 md:mb-2 xl:mb-3 xxl:mb-4 xxxl:mb-6;
+		@apply font-bold md:ml-6 xxl:text-lg xxxl:text-3xl leading-normal;
+	}
+
+	.link_btns {
+		@apply flex flex-col space-y-2;
 	}
 
 	.component-holder {

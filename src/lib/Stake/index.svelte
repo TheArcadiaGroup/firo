@@ -17,6 +17,7 @@
 	} from '$stores/accountSummaryStore';
 	import { stakeLPTokens, unStakeLpTokens } from '$utils/contractInteractions/staking';
 	import { increaseMasterChefAllowance } from '$utils/contractInteractions/lpToken';
+	import { connectToWallet } from '$utils/walletConnection';
 
 	isStaking.set(true);
 
@@ -87,7 +88,9 @@
 			{!$isApproved ? 'Approve' : $isStaking ? 'Stake' : 'Unstake'}
 		</button>
 	{:else}
-		<button class="connect-wallet-button"> Connect Wallet </button>
+		<button class="connect-wallet-button" on:click={async () => await connectToWallet()}>
+			Connect Wallet
+		</button>
 	{/if}
 </div>
 
