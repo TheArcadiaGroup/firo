@@ -21,7 +21,7 @@
 				<img class="binance-chain" src="/images/svg/binance-chain.svg" alt="binance-chain" />
 			</div>
 			<div class="unstaked-amount-value">
-				<p>{$lpTokenBalance}</p>
+				<p>{$lpTokenBalance.noExponents()}</p>
 				<p>LP TOKEN</p>
 			</div>
 		</div>

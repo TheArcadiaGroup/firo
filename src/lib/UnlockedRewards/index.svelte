@@ -11,7 +11,7 @@
 				<img class="binance-chain" src="/images/svg/binance-chain.svg" alt="binance-chain" />
 			</div>
 			<div class="unstaked-amount-value">
-				<p>{$realizedFiroRewardsBalance}</p>
+				<p>{$realizedFiroRewardsBalance.noExponents()}</p>
 				<p>FIRO</p>
 			</div>
 		</div>

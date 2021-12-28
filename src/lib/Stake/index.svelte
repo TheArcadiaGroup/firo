@@ -44,25 +44,25 @@
 
 	<div class="lower-text">
 		{#if $isStaking}
-			<p class="firo-lockup">
+			<p class="firo-lockup px-3">
 				LP Lockup = {$lockUpDuration / (60 * 60 * 24)} Days + Reward Lockup = {$vestingDuration /
 					(60 * 60 * 24)} Days
 			</p>
 		{/if}
 		{#if $isStaking}
 			{#if $pendingFiroRewardsBalance > 0}
-				<p class="until-x-firo">
-					<!-- <span class="red-text">
-						{$vestingDuration}
+				<p class="until-x-firo px-3">
+					<span class="red-text">
+						{$vestingDuration / (60 * 60 * 24)} Days
 					</span>
-					Until <span class="red-text">{$pendingFiroRewardsBalance} FIRO</span> Reward -->
+					Until <span class="red-text">{$pendingFiroRewardsBalance.noExponents()} FIRO</span> Reward
 				</p>
 			{/if}
 		{:else}
 			<p class="until-x-firo">
 				Unstaking will take <span class="red-text">{$lockUpDuration / (60 * 60 * 24)} Days</span>
 				and nullify your reward of
-				<span class="red-text">{$pendingFiroRewardsBalance} FIRO</span>
+				<span class="red-text">{$pendingFiroRewardsBalance.noExponents()} FIRO</span>
 			</p>
 		{/if}
 	</div>

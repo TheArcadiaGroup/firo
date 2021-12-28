@@ -1,9 +1,8 @@
-import { appProvider } from '$stores/wallet';
+import { appProvider, connectionDetails } from '$stores/wallet';
 import { get } from 'svelte/store';
 
-export const networkName =
-	(get(appProvider) && (await get(appProvider).getNetwork()).name) || 'BSCTestnet';
-export const chainID = (get(appProvider) && (await get(appProvider).getNetwork()).chainId) || 97;
+export const networkName = get(connectionDetails)?.name || 'BSCTestnet';
+export const chainID = get(connectionDetails)?.chainId || 97;
 
 export const deployerAcc =
 	chainID === 1337 || parseFloat(chainID.toString()) === 1337
