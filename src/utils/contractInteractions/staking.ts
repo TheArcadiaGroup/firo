@@ -1,5 +1,5 @@
 import { getMasterChefContract } from '$constants/contracts';
-import { lpTokenBalance, selectedPool } from '$stores/accountSummaryStore';
+import { lpTokenBalance, selectedPool, totalStakedLPBalance } from '$stores/accountSummaryStore';
 import { stakingOrUnstakeAmount } from '$stores/stakingStore';
 import { appProvider, appSigner, userAddress } from '$stores/wallet';
 import { toastError, toastSuccess } from '$utils/toastNotification';
@@ -63,7 +63,7 @@ export const unStakeLpTokens = async () => {
 			return;
 		}
 
-		if (amount > get(lpTokenBalance)) {
+		if (amount > get(totalStakedLPBalance)) {
 			toastError('Amount Cannot be More than Actual Balance');
 			return;
 		}
@@ -96,7 +96,7 @@ export const emergencyWithdrawLpTokens = async () => {
 		return;
 	}
 
-	if (amount > get(lpTokenBalance)) {
+	if (amount > get(totalStakedLPBalance)) {
 		toastError('Amount Cannot be More than Actual Balance');
 		return;
 	}
