@@ -56,8 +56,8 @@
 	.binance-chain {
 		@apply h-[20px] xl:h-[25px] xxl:h-[30px] xxxl:h-[50px];
 	}
-
+	/* 
 	.time {
 		@apply text-xs md:text-base xxl:text-lg xxxl:text-3xl text-maincolor text-center mt-[16px] xxxl:mt-[32px];
-	}
+	} */
 </style>
