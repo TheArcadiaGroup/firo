@@ -34,7 +34,7 @@
 		{placeholder}
 	/>
 	<div class="max-balance">
-		<p class="balance">Balance: {balance.noExponents()}</p>
+		<p class="balance">Balance: {balance}</p>
 		<div class="button" on:click={inputMax}>
 			<p>MAX</p>
 		</div>
