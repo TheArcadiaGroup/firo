@@ -38,6 +38,9 @@ export const getPoolInfoByIndex: (poolIndex: number) => Promise<Pool | null> = a
 export const initMasterChefContract = async () => {
 	const masterChefContract = getMasterChefContract(get(appSigner));
 
+	console.log('VESTING CONTRACT: ', await masterChefContract.vesting());
+	console.log('LOCKING CONTRACT: ', await masterChefContract.locking());
+
 	// Initialize Pool if none is found
 	const poolLength = await getPoolLength();
 
