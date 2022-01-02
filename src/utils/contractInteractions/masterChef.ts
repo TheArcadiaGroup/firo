@@ -1,7 +1,7 @@
 import { getMasterChefContract } from '$constants/contracts';
 import { deployerAcc, erc20Mock } from '$constants/contracts/contractAddresses';
 import { lockUpDuration, vestingDuration } from '$stores/stakingStore';
-import { appProvider, appSigner, userAddress } from '$stores/wallet';
+import { appProvider, appSigner, connectionDetails, userAddress } from '$stores/wallet';
 import { ethersBigNumberToNumber } from '$utils/helpers/ethersHelpers';
 import { toastError, toastSuccess } from '$utils/toastNotification';
 import { ethers } from 'ethers';
@@ -43,14 +43,14 @@ export const initMasterChefContract = async () => {
 
 	if (
 		poolLength === 0 &&
-		deployerAcc === get(userAddress) &&
+		deployerAcc(get(connectionDetails).chainId) === get(userAddress) &&
 		import.meta.env.VITE_LOCALTESTING === 'true'
 	) {
 		console.log('CREATING POOL');
 		// Create a pool
 		const transaction: ethers.providers.TransactionResponse = await masterChefContract.add(
 			ethers.utils.parseEther('100'),
-			erc20Mock,
+			erc20Mock(get(connectionDetails).chainId),
 			true
 		);
 		await transaction.wait(1);

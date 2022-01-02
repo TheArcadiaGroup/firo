@@ -41,11 +41,12 @@ export const getUserLPTokenBalance = async (userAddress: string) => {
 		);
 
 		// * Set store
-		lpTokenBalance.set(+ethers.utils.formatEther(userBalance) || 0);
+		lpTokenBalance.set(+ethers.utils.formatEther(userBalance));
 
 		// * Return it as a number
 		return +ethers.utils.formatEther(userBalance);
 	} catch (error) {
+		lpTokenBalance.set(0);
 		return 0;
 	}
 };
@@ -60,6 +61,7 @@ export const getStakedLPTokensBalance = async (userAddress: string) => {
 
 		return stakedTokens;
 	} catch (error) {
+		totalStakedLPBalance.set(0);
 		return 0;
 	}
 };
@@ -91,10 +93,12 @@ export const getUserPendingRewards = async (userAddress: string) => {
 		const pendingFiroAmt = await masterChefContract.pendingFiro(get(selectedPool), userAddress);
 
 		// * set store
-		pendingFiroRewardsBalance.set(+ethers.utils.formatEther(pendingFiroAmt) || 0);
+		pendingFiroRewardsBalance.set(+ethers.utils.formatEther(pendingFiroAmt));
 
 		return +ethers.utils.formatEther(pendingFiroAmt);
 	} catch (error) {
+		pendingFiroRewardsBalance.set(0);
+
 		return 0;
 	}
 };
@@ -145,12 +149,11 @@ export const getLpTokenLockInfoBalance = async (userAddress: string) => {
 export const realizedFiroRewards = async (userAddress: string) => {
 	try {
 		const vestingContract = getVestingContract(get(appProvider));
-
 		const realizedRewards = await vestingContract.getUnlockable(userAddress);
 
 		realizedFiroRewardsBalance.set(+ethers.utils.formatEther(realizedRewards));
 
-		console.log('REALIZED REWARDS: ', +ethers.utils.formatEther(realizedRewards));
+		console.log('REALIZED REWARDS: ', (+ethers.utils.formatEther(realizedRewards)).toFixed(20));
 
 		return +ethers.utils.formatEther(realizedRewards);
 	} catch (error) {

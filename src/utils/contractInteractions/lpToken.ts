@@ -2,7 +2,7 @@ import { getLPTokenContract } from '$constants/contracts';
 import { masterChef } from '$constants/contracts/contractAddresses';
 import { selectedPool } from '$stores/accountSummaryStore';
 import { isApproved } from '$stores/stakingStore';
-import { appProvider, appSigner } from '$stores/wallet';
+import { appProvider, appSigner, connectionDetails } from '$stores/wallet';
 import { toastSuccess } from '$utils/toastNotification';
 import { ethers } from 'ethers';
 import { get } from 'svelte/store';
@@ -14,7 +14,10 @@ export const checkMasterchefAllowance = async (userAddress: string) => {
 		const lpContract = getLPTokenContract(lpPool.lpToken, get(appProvider));
 		if (!userAddress) return 0;
 
-		const allowanceInEth = await lpContract.allowance(userAddress, masterChef);
+		const allowanceInEth = await lpContract.allowance(
+			userAddress,
+			masterChef(get(connectionDetails).chainId)
+		);
 
 		return +ethers.utils.formatEther(allowanceInEth);
 	} catch (err) {
@@ -28,7 +31,7 @@ export const increaseMasterChefAllowance = async () => {
 		const lpPool = await getPoolInfoByIndex(get(selectedPool));
 		const lpContract = getLPTokenContract(lpPool.lpToken, get(appSigner));
 		const transaction = await lpContract.increaseAllowance(
-			masterChef,
+			masterChef(get(connectionDetails).chainId),
 			ethers.utils.parseEther('999999999999999999999999999999999999000000000000000000')
 		);
 

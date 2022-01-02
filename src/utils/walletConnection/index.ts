@@ -127,8 +127,10 @@ export const refreshWalletConnection = async () => {
 const isBinance = (provider: any) => {
 	let chainId = provider.chainId;
 
+	console.log(typeof chainId, 'CHAIN ID: ', parseInt(chainId.toString()));
+
 	try {
-		chainId = typeof chainId === 'string' ? parseInt(chainId) : chainId;
+		chainId = typeof chainId === 'string' ? parseInt(chainId.toString()) : chainId;
 	} catch (err) {
 		toastError('Error: This Application only Supports the Binance Smartchain');
 	}

@@ -61,8 +61,8 @@
 		{:else}
 			<p class="until-x-firo">
 				Unstaking will take <span class="red-text">{$lockUpDuration / (60 * 60 * 24)} Days</span>
-				and nullify your reward of
-				<span class="red-text">{$pendingFiroRewardsBalance.noExponents()} FIRO</span>
+				<!-- and nullify your reward of
+				<span class="red-text">{$pendingFiroRewardsBalance.noExponents()} FIRO</span> -->
 			</p>
 		{/if}
 	</div>

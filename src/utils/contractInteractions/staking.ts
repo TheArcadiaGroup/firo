@@ -88,16 +88,17 @@ export const unStakeLpTokens = async () => {
 	}
 };
 
-export const emergencyWithdrawLpTokens = async () => {
-	const amount = get(stakingOrUnstakeAmount);
+// Not Implemented
+// export const emergencyWithdrawLpTokens = async () => {
+// 	const amount = get(stakingOrUnstakeAmount);
 
-	if (amount <= 0) {
-		toastError('Please enter amount to unstake');
-		return;
-	}
+// 	if (amount <= 0) {
+// 		toastError('Please enter amount to unstake');
+// 		return;
+// 	}
 
-	if (amount > get(totalStakedLPBalance)) {
-		toastError('Amount Cannot be More than Actual Balance');
-		return;
-	}
-};
+// 	if (amount > get(totalStakedLPBalance)) {
+// 		toastError('Amount Cannot be More than Actual Balance');
+// 		return;
+// 	}
+// };
