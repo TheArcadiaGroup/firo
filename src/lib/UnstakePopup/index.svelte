@@ -1,17 +1,21 @@
 <script>
+	import { unstakeAllLPPopupActive } from '$stores/accountSummaryStore';
+	import { selectedPool } from '$stores/accountSummaryStore';
+
+	import { stakingOrUnstakeAmount } from '$stores/stakingStore';
+	import { userAddress } from '$stores/wallet';
+	import { getUserInfoWithIndex, unStakeLpTokens } from '$utils/contractInteractions/staking';
+	import { ethers } from 'ethers';
 	import { darkOverlay } from '$stores/navStore';
 	import { lockUpDuration } from '$stores/stakingStore';
-	import { createEventDispatcher } from 'svelte';
 	import { scale } from 'svelte/transition';
-
-	const dispatch = createEventDispatcher();
 </script>
 
 <div class="withdraw-popup" transition:scale>
 	<img
 		on:click={() => {
 			darkOverlay.set(false);
-			dispatch('deactivatePopup');
+			unstakeAllLPPopupActive.set(false);
 		}}
 		src="/images/svg/red-cross.svg"
 		alt="close-icon"
@@ -19,10 +23,16 @@
 	<h4>Are you sure you want to unstake all your positions?</h4>
 	<p class="desktop">Your Unstaked LP TOKEN will be sent to your wallet</p>
 	<p class="info">
-		Unstaking will take <span>{$lockUpDuration / (60 * 60 * 24)} days</span> and will nullify your
-		<span>FIRO</span> reward
+		Unstaking will take <span>{$lockUpDuration / (60 * 60 * 24)} days</span> after which you can withdraw
+		your LP tokens
 	</p>
-	<button>Confirm and Unstake all positions</button>
+	<button
+		on:click={async () => {
+			const result = await getUserInfoWithIndex($selectedPool, $userAddress);
+			stakingOrUnstakeAmount.set(+ethers.utils.formatEther(result.amount));
+			await unStakeLpTokens();
+		}}>Confirm and Unstake all positions</button
+	>
 </div>
 
 <style lang="postcss">

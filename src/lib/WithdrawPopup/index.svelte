@@ -6,6 +6,7 @@
 	import { getUserLockInfo, unlockLpTokens } from '$utils/contractInteractions/masterChef';
 	import { appProvider, userAddress } from '$stores/wallet';
 	import { getCurrentBlockTimestampMilliseconds } from '$utils/onChainFuncs';
+	import { withdrawPopupActive } from '$stores/accountSummaryStore';
 
 	export let token: 'FIRO' | 'LP' = 'FIRO';
 	export let balance: number = 0;
@@ -23,7 +24,7 @@
 	<img
 		on:click={() => {
 			darkOverlay.set(false);
-			dispatch('deactivatePopup');
+			withdrawPopupActive.set(false);
 		}}
 		src="/images/svg/red-cross.svg"
 		alt="close-icon"
@@ -66,7 +67,7 @@
 								disabled={blockTime < lockInfo.unlockableAt * 1000}
 								on:click={() => unlockLpTokens($userAddress, index)}
 							>
-								Withdraw {lockInfo.amount} LP
+								Withdraw {(+lockInfo.amount.toFixed(4)).noExponents()} LP
 							</div>
 						</div>
 					{/if}

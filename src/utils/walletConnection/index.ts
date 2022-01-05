@@ -1,5 +1,11 @@
 import { toastSuccess, toastWarning, toastError } from './../toastNotification';
-import { appProvider, appSigner, userAddress, connectionDetails } from '$stores/wallet';
+import {
+	appProvider,
+	appSigner,
+	userAddress,
+	connectionDetails,
+	externalProvider
+} from '$stores/wallet';
 import { web3ModalInstance } from '$stores/wallet';
 import Web3Modal from 'web3modal';
 import { get } from 'svelte/store';
@@ -65,6 +71,7 @@ const updateSvelteStore = async (provider: ethers.providers.ExternalProvider) =>
 
 	connectionDetails.set(connectedNetwork);
 	appProvider.set(ethersProvider);
+	externalProvider.set(provider);
 	appSigner.set(ethersProvider.getSigner());
 	userAddress.set(await ethersProvider.getSigner().getAddress());
 };

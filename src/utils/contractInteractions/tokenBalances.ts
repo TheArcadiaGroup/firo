@@ -153,8 +153,6 @@ export const realizedFiroRewards = async (userAddress: string) => {
 
 		realizedFiroRewardsBalance.set(+ethers.utils.formatEther(realizedRewards));
 
-		console.log('REALIZED REWARDS: ', (+ethers.utils.formatEther(realizedRewards)).toFixed(20));
-
 		return +ethers.utils.formatEther(realizedRewards);
 	} catch (error) {
 		console.log(error);

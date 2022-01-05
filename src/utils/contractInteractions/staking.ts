@@ -28,9 +28,11 @@ export const stakeLPTokens = async () => {
 			ethers.utils.parseEther(amount.toString())
 		)) as ethers.providers.TransactionResponse;
 
-		await transaction.wait();
+		await transaction.wait(1);
 
 		toastSuccess(`Successfully Staked ${amount.toString()} LP Tokens`);
+
+		await loadAllBalances(get(userAddress));
 
 		return transaction;
 	} catch (err) {

@@ -1,12 +1,13 @@
 import { getMasterChefContract } from '$constants/contracts';
 import { deployerAcc, erc20Mock } from '$constants/contracts/contractAddresses';
+import { unstakeAllLPPopupActive, withdrawPopupActive } from '$stores/accountSummaryStore';
 import { lockUpDuration, vestingDuration } from '$stores/stakingStore';
 import { appProvider, appSigner, connectionDetails, userAddress } from '$stores/wallet';
-import { ethersBigNumberToNumber } from '$utils/helpers/ethersHelpers';
 import { toastError, toastSuccess } from '$utils/toastNotification';
 import { ethers } from 'ethers';
 import type { Pool } from 'src/global';
 import { get } from 'svelte/store';
+import { loadAllBalances } from './tokenBalances';
 
 export const getPoolLength = async () => {
 	const masterChefContract = getMasterChefContract(get(appProvider));
@@ -112,22 +113,6 @@ export const getTotalLPTokensStaked = async (userAddress: string) => {
 	return getUserStakedPoolsData(userAddress).totalStaked;
 };
 
-// Get Pending Firos
-export const getPendingFiroTokens = async (poolIndex: number, userAddress: string) => {
-	try {
-		// Only need provider here as its a read operation
-		const masterChefContract = getMasterChefContract(get(appProvider));
-
-		const pendingFirosInEthers = await masterChefContract.pendingFiro(poolIndex, userAddress);
-		console.log('PENDING FIROS: ', ethersBigNumberToNumber(pendingFirosInEthers));
-
-		return ethersBigNumberToNumber(pendingFirosInEthers);
-	} catch (err) {
-		console.log(err.message);
-		return 0;
-	}
-};
-
 // Get Lockup duration
 export const getLockUpDuration = async () => {
 	try {
@@ -172,9 +157,13 @@ export const unlockVestedFiroTokens = async (userAddress: string) => {
 		const transaction = (await masterChefContract.unlockVesting(
 			userAddress
 		)) as ethers.providers.TransactionResponse;
+
 		await transaction.wait(1);
 
 		toastSuccess('Tokens Successfully Transfered to Token');
+		withdrawPopupActive.set(false);
+		unstakeAllLPPopupActive.set(false);
+		await loadAllBalances(userAddress);
 
 		return;
 	} catch (error) {
@@ -195,6 +184,9 @@ export const unlockLpTokens = async (userAddress: string, index: number) => {
 		transaction.wait(1);
 
 		toastSuccess('Tokens Successfully Transfered to Wallet');
+		withdrawPopupActive.set(false);
+		unstakeAllLPPopupActive.set(false);
+		await loadAllBalances(userAddress);
 
 		return true;
 	} catch (error) {

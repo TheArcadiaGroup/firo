@@ -60,9 +60,8 @@
 			{/if}
 		{:else}
 			<p class="until-x-firo">
-				Unstaking will take <span class="red-text">{$lockUpDuration / (60 * 60 * 24)} Days</span>
-				<!-- and nullify your reward of
-				<span class="red-text">{$pendingFiroRewardsBalance.noExponents()} FIRO</span> -->
+				Unstaking will take <span class="red-text">{$lockUpDuration / (60 * 60 * 24)} Days</span> after
+				which you can withdraw your LP tokens
 			</p>
 		{/if}
 	</div>

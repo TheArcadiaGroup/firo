@@ -3,6 +3,7 @@ import {
 	getMasterChefContract,
 	getVestingContract
 } from '$constants/contracts';
+import { unstakeAllLPPopupActive, withdrawPopupActive } from '$stores/accountSummaryStore';
 import { appProvider, userAddress } from '$stores/wallet';
 import { get } from 'svelte/store';
 import { loadAllBalances } from './contractInteractions/tokenBalances';
@@ -20,6 +21,8 @@ export default () => {
 					// console.log('LP TOKENS DEPOSITED');
 					// Refresh stake balance
 					await loadAllBalances(_userAddress);
+					withdrawPopupActive.set(false);
+					unstakeAllLPPopupActive.set(false);
 				} catch (err) {
 					console.log(err);
 				}
@@ -32,6 +35,8 @@ export default () => {
 					// console.log('LP TOKENS UNSTAKED');
 					// Refresh stake balance
 					await loadAllBalances(_userAddress);
+					withdrawPopupActive.set(false);
+					unstakeAllLPPopupActive.set(false);
 				} catch (err) {
 					console.log(err);
 				}
@@ -45,6 +50,8 @@ export default () => {
 					// console.log('LP TOKENS LOCKED');
 					// Refresh stake balance
 					await loadAllBalances(_userAddress);
+					withdrawPopupActive.set(false);
+					unstakeAllLPPopupActive.set(false);
 				} catch (err) {
 					console.log(err);
 				}
@@ -58,6 +65,8 @@ export default () => {
 					// console.log('LP TOKENS WITHDRAWN');
 					// Refresh stake balance
 					await loadAllBalances(_userAddress);
+					withdrawPopupActive.set(false);
+					unstakeAllLPPopupActive.set(false);
 				} catch (err) {
 					console.log(err);
 				}
@@ -71,6 +80,8 @@ export default () => {
 					// console.log('FIRO TOKENS VESTED');
 					// Refresh stake balance
 					await loadAllBalances(_userAddress);
+					withdrawPopupActive.set(false);
+					unstakeAllLPPopupActive.set(false);
 				} catch (err) {
 					console.log(err);
 				}
@@ -84,6 +95,8 @@ export default () => {
 					// console.log('FIRO TOKENS UNLOCKED FROM VESTING');
 					// Refresh stake balance
 					await loadAllBalances(_userAddress);
+					withdrawPopupActive.set(false);
+					unstakeAllLPPopupActive.set(false);
 				} catch (err) {
 					console.log(err);
 				}

@@ -10,3 +10,6 @@ export const totalStakedLPBalance = writable<number>(0); // staked LP - on maste
 export const totalUnlockedLPTokenBalance = writable<number>(0); // lp that can be withdrawn
 export const pendingFiroRewardsBalance = writable<number>(0); // In Firo
 export const realizedFiroRewardsBalance = writable<number>(0); // In Firo
+export const withdrawPopupActive = writable<boolean>(false);
+export const unstakeAllLPPopupActive = writable<boolean>(false);
+export const clickedTokenPopup = writable<'FIRO' | 'LP'>('FIRO');

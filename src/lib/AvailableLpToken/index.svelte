@@ -1,10 +1,11 @@
 <script>
-	import { lpTokenBalance, selectedPool, totalStakedLPBalance } from '$stores/accountSummaryStore';
+	import {
+		lpTokenBalance,
+		totalStakedLPBalance,
+		unstakeAllLPPopupActive
+	} from '$stores/accountSummaryStore';
 
-	import { isStaking, stakingOrUnstakeAmount } from '$stores/stakingStore';
-	import { userAddress } from '$stores/wallet';
-	import { getUserInfoWithIndex, unStakeLpTokens } from '$utils/contractInteractions/staking';
-	import { ethers } from 'ethers';
+	import { isStaking } from '$stores/stakingStore';
 	import { scale } from 'svelte/transition';
 </script>
 
@@ -32,9 +33,7 @@
 				disabled={$totalStakedLPBalance <= 0}
 				class:cursor-not-allowed={$totalStakedLPBalance <= 0}
 				on:click={async () => {
-					const result = await getUserInfoWithIndex($selectedPool, $userAddress);
-					stakingOrUnstakeAmount.set(+ethers.utils.formatEther(result.amount));
-					await unStakeLpTokens();
+					unstakeAllLPPopupActive.set(true);
 				}}
 			>
 				Unstake all positions
