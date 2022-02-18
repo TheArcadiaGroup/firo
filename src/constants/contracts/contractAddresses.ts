@@ -4,7 +4,7 @@ export const deployerAcc = (chainID: number | string) => {
 		: chainID === 97 || parseInt(chainID.toString()) === 97
 		? '0x05dC042b203De11a7CeDa84C06D3DcC0f8FD6E61'
 		: chainID === 56 || parseInt(chainID.toString()) === 56
-		? ''
+		? '0x1dd78cd9b142994c236c11bea8c904e49d01ee8a'
 		: '';
 };
 
