@@ -14,7 +14,7 @@ export const firoToken = (chainID: number | string) => {
 		: chainID === 97 || parseInt(chainID.toString()) === 97
 		? '0xb9169FF37D9596008E9765C0A7721Bc6e9422115'
 		: chainID === 56 || parseInt(chainID.toString()) === 56
-		? ''
+		? '0xd5d0322b6bab6a762c79f8c81a0b674778e13aed'
 		: '';
 };
 
@@ -24,7 +24,7 @@ export const erc20Mock = (chainID: number | string) => {
 		: chainID === 97 || parseInt(chainID.toString()) === 97
 		? '0x4843b2337cf208574c8c916408b894e333bD39C5'
 		: chainID === 56 || parseInt(chainID.toString()) === 56
-		? ''
+		? '0xd4de573f4af499b28ac387fac607f1bb819eca10'
 		: '';
 };
 
@@ -34,7 +34,7 @@ export const vestingContract = (chainID: number | string) => {
 		: chainID === 97 || parseInt(chainID.toString()) === 97
 		? '0x462Ef7a62846f068962919C0D3F2eC292522de30'
 		: chainID === 56 || parseInt(chainID.toString()) === 56
-		? ''
+		? '0x5c1C5ad5ce5aF464F43eefA7399E95b33D4492C4'
 		: '';
 };
 
@@ -44,7 +44,7 @@ export const lockingContract = (chainID: number | string) => {
 		: chainID === 97 || parseInt(chainID.toString()) === 97
 		? '0x98b03026E4CbF6d9Ec17C7022B98521632A531fa'
 		: chainID === 56 || parseInt(chainID.toString()) === 56
-		? ''
+		? '0x22b4Ba3784AAca836f21803Cbf4b960fB33afB58'
 		: '';
 };
 
@@ -54,9 +54,6 @@ export const masterChef = (chainID: number | string) => {
 		: chainID === 97 || parseInt(chainID.toString()) === 97
 		? '0x74FAF62b6b33b19FC433E1e8b325013D267FDAD2'
 		: chainID === 56 || parseInt(chainID.toString()) === 56
-		? ''
-		: chainID === 1 || parseInt(chainID.toString()) === 1
 		? '0x48764CD6683226BD6F2E093eb9561AE751354c7a'
-
 		: '';
 };
