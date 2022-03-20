@@ -6,3 +6,4 @@ export const stakingOrUnstakeAmount = writable<number>(0);
 export const walletConnected = writable(false);
 export const lockUpDuration = writable<number>(0);
 export const vestingDuration = writable<number>(0);
+export const estimatedAPY = writable<number>(0);

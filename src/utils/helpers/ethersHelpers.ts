@@ -1,4 +1,6 @@
+import { appProvider } from '$stores/wallet';
 import { ethers } from 'ethers';
+import { get } from 'svelte/store';
 
 export const ethersBigNumberToNumber = (ethersBigNumber: ethers.BigNumberish) => {
 	try {

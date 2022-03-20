@@ -29,7 +29,7 @@ const initProviderEvents = (provider: any) => {
 			get(web3ModalInstance)?.clearCachedProvider();
 
 			// Inform the user
-			toastWarning('Wallet Disconnected');
+			// toastWarning('Wallet Disconnected');
 		}
 
 		await refreshWalletConnection();
@@ -43,7 +43,7 @@ const initProviderEvents = (provider: any) => {
 	// Subscribe to provider connection
 	provider.on('connect', async (info: { chainId: number }) => {
 		console.log('connect: ', info);
-		toastSuccess('Successfully Connected to Wallet');
+		// toastSuccess('Successfully Connected to Wallet');
 	});
 
 	// Subscribe to provider disconnection
@@ -54,7 +54,7 @@ const initProviderEvents = (provider: any) => {
 		get(web3ModalInstance)?.clearCachedProvider();
 
 		// Inform the user
-		toastWarning('Wallet Disconnected');
+		// toastWarning('Wallet Disconnected');
 	});
 };
 

@@ -24,7 +24,7 @@ export const getPoolLength = async () => {
 export const getPoolInfoByIndex: (poolIndex: number) => Promise<Pool | null> = async (
 	poolIndex: number
 ) => {
-	const masterChefContract = getMasterChefContract(get(appSigner));
+	const masterChefContract = getMasterChefContract(get(appProvider));
 	try {
 		const poolInfo = await masterChefContract.poolInfo(poolIndex);
 
@@ -46,14 +46,14 @@ export const initMasterChefContract = async () => {
 
 	if (
 		poolLength === 0 &&
-		deployerAcc(get(connectionDetails).chainId) === get(userAddress) &&
+		deployerAcc(get(connectionDetails)?.chainId) === get(userAddress) &&
 		import.meta.env.VITE_LOCALTESTING === 'true'
 	) {
 		console.log('CREATING POOL');
 		// Create a pool
 		const transaction: ethers.providers.TransactionResponse = await masterChefContract.add(
 			ethers.utils.parseEther('100'),
-			erc20Mock(get(connectionDetails).chainId),
+			erc20Mock(get(connectionDetails)?.chainId),
 			true
 		);
 		await transaction.wait(1);

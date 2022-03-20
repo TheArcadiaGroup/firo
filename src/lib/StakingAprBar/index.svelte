@@ -1,7 +1,11 @@
+<script lang="ts">
+	import { estimatedAPY } from '$stores/stakingStore';
+</script>
+
 <div class="staking-apr component">
 	<p class="staking-apr-text">Staking APR</p>
 	<div class="apr-value">
-		<p class="staking-apr-value-text">{9.58}%</p>
+		<p class="staking-apr-value-text">{+$estimatedAPY.toFixed(2) * 100}%</p>
 		<p class="undertext">Yesterday's APR</p>
 	</div>
 </div>
