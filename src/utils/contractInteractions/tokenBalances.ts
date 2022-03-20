@@ -3,6 +3,7 @@ import {
 	getMasterChefContract,
 	getVestingContract
 } from '$constants/contracts';
+import { masterChef } from '$constants/contracts/contractAddresses';
 import {
 	selectedPool,
 	lpTokenBalance,
@@ -12,23 +13,13 @@ import {
 	pendingFiroRewardsBalance,
 	realizedFiroRewardsBalance
 } from '$stores/accountSummaryStore';
-import { appProvider } from '$stores/wallet';
+import { estimatedAPY } from '$stores/stakingStore';
+import { appProvider, connectionDetails } from '$stores/wallet';
 import { getCurrentBlockTimestampMilliseconds } from '$utils/onChainFuncs';
 import { ethers } from 'ethers';
 import type { LockInfo, UserInfo } from 'src/global';
 import { get } from 'svelte/store';
 import { getPoolInfoByIndex } from './masterChef';
-
-/*
- * Balances to load:
- * LP Token Balance (From Wallet) - Available LP Tokens ✅
- * Staked LP Tokens (on MasterChef) ✅
- * Pending Rewards (From vesting contract or MasterChef (pendingFiro Func)) ✅
- * Locked Tokens - From locking contract ✅
- * Unlocked LP Tokens - From locking contract ✅
- * Pending Firo (account summary page) - currently locked in the vesting contract
- * Total realized rewards that can be withdrawn - unlocked firo rewards
- */
 
 // Get the User's LP Token Balance
 export const getUserLPTokenBalance = async (userAddress: string) => {
@@ -167,4 +158,53 @@ export const loadAllBalances = async (userAddress: string) => {
 	await getUserPendingRewards(userAddress);
 	await realizedFiroRewards(userAddress);
 	await getLpTokenLockInfoBalance(userAddress);
+	await calculateStakingApr();
+};
+
+// Calculate staking APR
+export const calculateStakingApr = async () => {
+	try {
+		const provider = get(appProvider);
+
+		const masterChefContract = getMasterChefContract(provider);
+
+		const userMockedBalance = ethers.BigNumber.from(ethers.utils.parseEther('1000'));
+
+		const lpPool = await masterChefContract.poolInfo(get(selectedPool) || 0);
+
+		const lpContract = getLPTokenContract(lpPool.lpToken, provider);
+
+		let accFiroPerShare: ethers.BigNumber = ethers.BigNumber.from(lpPool?.accFiroPerShare);
+		const blockNumber = await provider.getBlockNumber(); // current block number or block number at the end of the day
+		const lastRewardBlock = +ethers.utils.formatUnits(lpPool?.lastRewardBlock, 0); // first block number of the day (the day we are calculating the APY for)
+
+		const timeElapsed = (blockNumber - lastRewardBlock) / (3600 * 24 * 365); // convert second timestamps to years
+
+		const lpSupply = ethers.BigNumber.from(
+			await lpContract.balanceOf(masterChef(get(connectionDetails)?.chainId))
+		);
+
+		const multiplier: ethers.BigNumber = ethers.BigNumber.from(
+			await masterChefContract.getMultiplier(lastRewardBlock, blockNumber)
+		);
+		const firoPerBlock: ethers.BigNumber = ethers.BigNumber.from(
+			await masterChefContract.firoPerBlock()
+		);
+		const totalAllocPoint = ethers.BigNumber.from(await masterChefContract.totalAllocPoint());
+		const firoReward = multiplier.mul(firoPerBlock).mul(lpPool?.allocPoint).div(totalAllocPoint);
+
+		accFiroPerShare = accFiroPerShare.add(firoReward.mul(1e12).div(lpSupply));
+		const pendingRewards = +ethers.utils.formatEther(
+			userMockedBalance.mul(accFiroPerShare).div(1e12).sub(ethers.BigNumber.from(0))
+		);
+
+		// Interest rate
+		const r = (1 / timeElapsed) * ((pendingRewards + 1000) / 1000 - 1);
+
+		estimatedAPY.set(r);
+
+		return r;
+	} catch (err) {
+		console.log(err);
+	}
 };

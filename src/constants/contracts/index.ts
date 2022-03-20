@@ -10,22 +10,30 @@ import { get } from 'svelte/store';
 
 // Firo
 export const getFiroContract = (provider: ethers.Signer | ethers.providers.Provider) => {
-	return new ethers.Contract(firoToken(get(connectionDetails).chainId), FiroTokenAbi, provider);
+	return new ethers.Contract(firoToken(get(connectionDetails)?.chainId), FiroTokenAbi, provider);
 };
 
 // Masterchef
 export const getMasterChefContract = (provider: ethers.Signer | ethers.providers.Provider) => {
-	return new ethers.Contract(masterChef(get(connectionDetails).chainId), MasterChefAbi, provider);
+	return new ethers.Contract(masterChef(get(connectionDetails)?.chainId), MasterChefAbi, provider);
 };
 
 // Vesting Contract
 export const getVestingContract = (provider: ethers.Signer | ethers.providers.Provider) => {
-	return new ethers.Contract(vestingContract(get(connectionDetails).chainId), VestingAbi, provider);
+	return new ethers.Contract(
+		vestingContract(get(connectionDetails)?.chainId),
+		VestingAbi,
+		provider
+	);
 };
 
 // Locking Contract
 export const getLockingContract = (provider: ethers.Signer | ethers.providers.Provider) => {
-	return new ethers.Contract(lockingContract(get(connectionDetails).chainId), LockingAbi, provider);
+	return new ethers.Contract(
+		lockingContract(get(connectionDetails)?.chainId),
+		LockingAbi,
+		provider
+	);
 };
 
 export const getLPTokenContract = (

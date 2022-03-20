@@ -10,8 +10,7 @@ export const localeTimeToOnChainTime = () => {
 	return Date.now() + getMilliSecondsOffset();
 };
 
-export const getUTCTimeStamp = () => {
-	const now = new Date();
+export const getUTCTimeStamp = (now = new Date()) => {
 	const utc_timestamp = Date.UTC(
 		now.getUTCFullYear(),
 		now.getUTCMonth(),

@@ -16,7 +16,7 @@ export const checkMasterchefAllowance = async (userAddress: string) => {
 
 		const allowanceInEth = await lpContract.allowance(
 			userAddress,
-			masterChef(get(connectionDetails).chainId)
+			masterChef(get(connectionDetails)?.chainId)
 		);
 
 		return +ethers.utils.formatEther(allowanceInEth);
@@ -31,7 +31,7 @@ export const increaseMasterChefAllowance = async () => {
 		const lpPool = await getPoolInfoByIndex(get(selectedPool));
 		const lpContract = getLPTokenContract(lpPool.lpToken, get(appSigner));
 		const transaction = await lpContract.increaseAllowance(
-			masterChef(get(connectionDetails).chainId),
+			masterChef(get(connectionDetails)?.chainId),
 			ethers.utils.parseEther('999999999999999999999999999999999999000000000000000000')
 		);
 
