@@ -10,7 +10,7 @@
 	import { onMount } from 'svelte';
 	import AccountSummary from '$lib/AccountSummary/index.svelte';
 	import { showAccountSummary } from '$stores/accountSummaryStore';
-	import AtomicDex from '$lib/icons/AtomicDex.svelte';
+	import FiroDex from '$lib/icons/FiroDex.svelte';
 	import PancakeSwapFull from '$lib/icons/PancakeSwapFull.svelte';
 
 	onMount(() => {
@@ -77,14 +77,14 @@
 					</div>
 
 					<div class="link_btns">
-						<!-- AtomicDex Link -->
-						<p class="atomidex-title my-2">Swap on AtomicDex</p>
+						<!-- FiroDex Link -->
+						<p class="atomidex-title my-2">Swap on FiroDex</p>
 						<a
 							href="https://github.com/firoorg/FiroDEX-Desktop/releases"
 							target="_blank"
 							class="atomic-dex"
 						>
-							<AtomicDex class="h-full scale-75 md:scale-90" />
+							<FiroDex class="h-full scale-75 md:scale-90" />
 						</a>
 					</div>
 				</div>
