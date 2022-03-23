@@ -1,5 +1,5 @@
 <script>
-	import { walletConnected } from '$stores/stakingStore';
+	import { lockUpDuration, walletConnected } from '$stores/stakingStore';
 	import { connectToWallet } from '$utils/walletConnection';
 	import { appSigner } from '$stores/wallet';
 	import { createEventDispatcher } from 'svelte';
@@ -19,8 +19,9 @@
 	Firo.
 	<br />
 	<br />
-	***Unstaking your LP, has a cool down of 2 days to encourage users to provide long term liquidity to
-	FIRO on BSC.
+	***Unstaking your LP, has a cool down of {$lockUpDuration / (60 * 60 * 24) <= 0
+		? $lockUpDuration / (60 * 60 * 24)
+		: 3} days to encourage users to provide long term liquidity to FIRO on BSC.
 </p>
 <div class="btn-holder">
 	{#if $walletConnected}

@@ -66,7 +66,7 @@
 
 					<div class="link_btns">
 						<!-- Pancake Swap Link -->
-						<p class="atomidex-title">Buy LP Tokens</p>
+						<p class="atomidex-title">Add Liquidity for LP Tokens</p>
 						<a
 							href="https://pancakeswap.finance/add/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c/0xd5d0322b6bab6a762c79f8c81a0b674778e13aed"
 							target="_blank"
