@@ -91,7 +91,7 @@
 
 					<div class="link_btns">
 						<!-- FiroDex Link -->
-						<p class="atomidex-title my-2">Swap FIRO {'<=>'} BEP20 FIRO on FiroDEX</p>
+						<p class="atomidex-title my-2">Swap FIRO {'<=>'} BEP20 FIRO</p>
 						<a
 							href="https://github.com/firoorg/FiroDEX-Desktop/releases"
 							target="_blank"
