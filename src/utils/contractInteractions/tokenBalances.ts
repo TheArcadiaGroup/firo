@@ -13,7 +13,7 @@ import {
 	pendingFiroRewardsBalance,
 	realizedFiroRewardsBalance
 } from '$stores/accountSummaryStore';
-import { estimatedAPY } from '$stores/stakingStore';
+import { estimatedAPR } from '$stores/stakingStore';
 import { appProvider, connectionDetails } from '$stores/wallet';
 import { getCurrentBlockTimestampMilliseconds } from '$utils/onChainFuncs';
 import { ethers } from 'ethers';
@@ -209,7 +209,7 @@ export const calculateStakingApr = async () => {
 		// Interest rate
 		const r = (1 / timeElapsed) * ((pendingRewards + stakedLP) / stakedLP - 1);
 
-		estimatedAPY.set(r);
+		estimatedAPR.set(r);
 
 		return r;
 	} catch (err) {
