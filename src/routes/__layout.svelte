@@ -37,6 +37,8 @@
 	onMount(async () => {
 		await refreshWalletConnection();
 		await calculateStakingApr();
+		await getLockUpDuration();
+		await getVestingDuration();
 	});
 
 	$: (async (connectStatus: boolean) => {

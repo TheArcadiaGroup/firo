@@ -165,7 +165,7 @@ export const loadAllBalances = async (userAddress: string) => {
 // Calculate staking APR
 export const calculateStakingApr = async () => {
 	try {
-		const stakedLP = 1000;
+		const stakedLP = 1;
 		const provider = get(appProvider) || fallBackProvider();
 
 		const masterChefContract = getMasterChefContract(provider);
@@ -182,7 +182,10 @@ export const calculateStakingApr = async () => {
 		const blockNumber = await provider.getBlockNumber(); // current block number or block number at the end of the day
 		const lastRewardBlock = +ethers.utils.formatUnits(lpPool?.lastRewardBlock, 0); // first block number of the day (the day we are calculating the APR for)
 
-		const timeElapsed = (blockNumber - lastRewardBlock) / (3600 * 24 * 365); // convert second timestamps to years
+		const timeElapsed =
+			((await provider.getBlock(blockNumber)).timestamp -
+				(await provider.getBlock(lastRewardBlock)).timestamp) /
+			(3600 * 24 * 365); // convert second timestamps to years
 
 		const lpSupply = ethers.BigNumber.from(
 			await lpContract.balanceOf(masterChef(get(connectionDetails)?.chainId || 56))
@@ -205,10 +208,11 @@ export const calculateStakingApr = async () => {
 		// console.log('\n\nFIRO REWARD: ', firoReward.toString(), '\n\n');
 		// console.log('\n\nFIRO PER SHARE: ', accFiroPerShare.toString(), '\n\n');
 		// console.log('\n\nTIME ELAPSED: ', timeElapsed, '\n\n');
-		// console.log('\n\nPENDING REWARDS: ', pendingRewards, '\n\n');
+		// console.log('\n\n AMOUNT: ', stakedLP, '\n\nPENDING REWARDS: ', pendingRewards, '\n\n');
 
 		// Interest rate
-		const r = (1 / timeElapsed) * ((pendingRewards + stakedLP) / stakedLP - 1);
+		const div = (pendingRewards + stakedLP) / stakedLP;
+		const r = (1 / timeElapsed) * (div - 1);
 
 		estimatedAPR.set(r);
 
