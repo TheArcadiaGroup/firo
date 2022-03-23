@@ -60,8 +60,9 @@
 			{/if}
 		{:else}
 			<p class="until-x-firo">
-				Unstaking will take <span class="red-text">{$lockUpDuration / (60 * 60 * 24)} Days</span> after
-				which you can withdraw your LP tokens
+				Unstaking will take <span class="red-text"
+					>{$lockUpDuration !== 0 ? $lockUpDuration / (60 * 60 * 24) : 3} Days</span
+				> after which you can withdraw your LP tokens
 			</p>
 		{/if}
 	</div>

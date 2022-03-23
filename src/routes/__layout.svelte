@@ -15,7 +15,7 @@
 		initMasterChefContract
 	} from '$utils/contractInteractions/masterChef';
 	import { checkMasterchefAllowance } from '$utils/contractInteractions/lpToken';
-	import { loadAllBalances } from '$utils/contractInteractions/tokenBalances';
+	import { calculateStakingApr, loadAllBalances } from '$utils/contractInteractions/tokenBalances';
 	import {
 		clickedTokenPopup,
 		realizedFiroRewardsBalance,
@@ -36,6 +36,7 @@
 
 	onMount(async () => {
 		await refreshWalletConnection();
+		await calculateStakingApr();
 	});
 
 	$: (async (connectStatus: boolean) => {

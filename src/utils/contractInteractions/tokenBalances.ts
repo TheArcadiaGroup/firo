@@ -19,6 +19,7 @@ import { getCurrentBlockTimestampMilliseconds } from '$utils/onChainFuncs';
 import { ethers } from 'ethers';
 import type { LockInfo, UserInfo } from 'src/global';
 import { get } from 'svelte/store';
+import fallBackProvider from './fallBackProvider';
 import { getPoolInfoByIndex } from './masterChef';
 
 // Get the User's LP Token Balance
@@ -165,7 +166,7 @@ export const loadAllBalances = async (userAddress: string) => {
 export const calculateStakingApr = async () => {
 	try {
 		const stakedLP = 1000;
-		const provider = get(appProvider);
+		const provider = get(appProvider) || fallBackProvider();
 
 		const masterChefContract = getMasterChefContract(provider);
 
@@ -184,7 +185,7 @@ export const calculateStakingApr = async () => {
 		const timeElapsed = (blockNumber - lastRewardBlock) / (3600 * 24 * 365); // convert second timestamps to years
 
 		const lpSupply = ethers.BigNumber.from(
-			await lpContract.balanceOf(masterChef(get(connectionDetails)?.chainId))
+			await lpContract.balanceOf(masterChef(get(connectionDetails)?.chainId || 56))
 		);
 
 		const multiplier: ethers.BigNumber = ethers.BigNumber.from(

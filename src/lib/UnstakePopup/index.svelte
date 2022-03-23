@@ -23,8 +23,9 @@
 	<h4>Are you sure you want to unstake all your positions?</h4>
 	<p class="desktop">Your Unstaked LP TOKEN will be sent to your wallet</p>
 	<p class="info">
-		Unstaking will take <span>{$lockUpDuration / (60 * 60 * 24)} days</span> after which you can withdraw
-		your LP tokens
+		Unstaking will take <span
+			>{$lockUpDuration !== 0 ? $lockUpDuration / (60 * 60 * 24) : 3} days</span
+		> after which you can withdraw your LP tokens
 	</p>
 	<button
 		on:click={async () => {

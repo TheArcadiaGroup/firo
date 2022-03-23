@@ -7,6 +7,7 @@ import { toastError, toastSuccess } from '$utils/toastNotification';
 import { ethers } from 'ethers';
 import type { Pool } from 'src/global';
 import { get } from 'svelte/store';
+import fallBackProvider from './fallBackProvider';
 import { loadAllBalances } from './tokenBalances';
 
 export const getPoolLength = async () => {
@@ -39,9 +40,6 @@ export const getPoolInfoByIndex: (poolIndex: number) => Promise<Pool | null> = a
 export const initMasterChefContract = async () => {
 	const masterChefContract = getMasterChefContract(get(appSigner));
 
-	console.log('VESTING CONTRACT: ', await masterChefContract.vesting());
-	console.log('LOCKING CONTRACT: ', await masterChefContract.locking());
-
 	// Initialize Pool if none is found
 	const poolLength = await getPoolLength();
 
@@ -58,8 +56,6 @@ export const initMasterChefContract = async () => {
 			true
 		);
 		await transaction.wait(1);
-
-		console.log(transaction.data);
 
 		return true;
 	}
@@ -116,7 +112,7 @@ export const getTotalLPTokensStaked = async (userAddress: string) => {
 // Get Lockup duration
 export const getLockUpDuration = async () => {
 	try {
-		const masterChefContract = getMasterChefContract(get(appProvider));
+		const masterChefContract = getMasterChefContract(get(appProvider) || fallBackProvider());
 		const lockupSeconds = parseFloat(
 			ethers.utils.formatUnits(await masterChefContract.lockingDuration(), 0)
 		);
@@ -134,7 +130,7 @@ export const getLockUpDuration = async () => {
 // Get Vesting Duration
 export const getVestingDuration = async () => {
 	try {
-		const masterChefContract = getMasterChefContract(get(appProvider));
+		const masterChefContract = getMasterChefContract(get(appProvider) || fallBackProvider());
 		const vestingSeconds = parseFloat(
 			ethers.utils.formatUnits(await masterChefContract.vestingDuration(), 0)
 		);
