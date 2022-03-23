@@ -45,8 +45,8 @@
 	<div class="lower-text">
 		{#if $isStaking}
 			<p class="firo-lockup px-3">
-				LP Lockup = {$lockUpDuration / (60 * 60 * 24)} Days + Reward Lockup = {$vestingDuration /
-					(60 * 60 * 24)} Days
+				LP Lockup = {$lockUpDuration !== 0 ? $lockUpDuration / (60 * 60 * 24) : 3} Days + Reward Lockup
+				= {$vestingDuration !== 0 ? $vestingDuration / (60 * 60 * 24) : 30} Days
 			</p>
 		{/if}
 		{#if $isStaking}
