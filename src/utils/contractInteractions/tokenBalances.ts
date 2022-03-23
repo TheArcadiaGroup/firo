@@ -205,6 +205,6 @@ export const calculateStakingApr = async () => {
 
 		return r;
 	} catch (err) {
-		console.log(err);
+		// console.log(err);
 	}
 };

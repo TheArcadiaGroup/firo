@@ -200,32 +200,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_devaddr",
-				"type": "address"
-			}
-		],
-		"name": "dev",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "devaddr",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "uint256",
 				"name": "_pid",
 				"type": "uint256"
@@ -252,6 +226,19 @@
 	{
 		"inputs": [],
 		"name": "firoPerBlock",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getEndBlock",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -421,6 +408,19 @@
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "getTest",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -453,22 +453,12 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_firo",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
 				"name": "_locking",
 				"type": "address"
 			},
 			{
 				"internalType": "address",
 				"name": "_vesting",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_devaddr",
 				"type": "address"
 			},
 			{
@@ -680,6 +670,19 @@
 	},
 	{
 		"inputs": [],
+		"name": "proxiableUUID",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "renounceOwnership",
 		"outputs": [],
 		"stateMutability": "nonpayable",
@@ -729,6 +732,19 @@
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "_bonusEndBlock",
+				"type": "uint256"
+			}
+		],
+		"name": "setEndBlock",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "contract IMigratorChef",
 				"name": "_migrator",
 				"type": "address"
@@ -753,8 +769,34 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_test",
+				"type": "uint256"
+			}
+		],
+		"name": "setTest",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "startBlock",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "test",
 		"outputs": [
 			{
 				"internalType": "uint256",

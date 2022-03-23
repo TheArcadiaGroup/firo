@@ -30,8 +30,10 @@ export const increaseMasterChefAllowance = async () => {
 	try {
 		const lpPool = await getPoolInfoByIndex(get(selectedPool));
 		const lpContract = getLPTokenContract(lpPool.lpToken, get(appSigner));
-		const transaction = await lpContract.increaseAllowance(
-			masterChef(get(connectionDetails)?.chainId),
+		const masterChefAddress = masterChef(get(connectionDetails)?.chainId);
+
+		const transaction = await lpContract.approve(
+			masterChefAddress,
 			ethers.utils.parseEther('999999999999999999999999999999999999000000000000000000')
 		);
 
@@ -41,7 +43,7 @@ export const increaseMasterChefAllowance = async () => {
 
 		return transaction;
 	} catch (err) {
-		console.log(err);
+		console.log('APPROVAL ERROR: ', err);
 		return 0;
 	}
 };

@@ -22,6 +22,7 @@
 	isStaking.set(true);
 
 	const stakeButtonAction = () => {
+		console.log('\n\nIS APPROVED: ', $isApproved);
 		if (!$isApproved) {
 			increaseMasterChefAllowance();
 		} else if ($isStaking) {
@@ -68,15 +69,15 @@
 
 	<!-- TODO: PREVENT USERS FROM CLICKING BUTTON WHEN THEY ADDED MORE TOKENS THAN THEY HAVE -->
 	{#if $walletConnected}
-		<button
-			on:click={stakeButtonAction}
-			class="connect-wallet-button"
-			disabled={($lpTokenBalance <= 0 &&
+		<!-- disabled={($lpTokenBalance <= 0 &&
 				$isStaking &&
 				$stakingOrUnstakeAmount <= $lpTokenBalance) ||
 				($totalStakedLPBalance <= 0 &&
 					!$isStaking &&
-					$stakingOrUnstakeAmount <= $totalStakedLPBalance)}
+					$stakingOrUnstakeAmount <= $totalStakedLPBalance)} -->
+		<button
+			on:click={stakeButtonAction}
+			class="connect-wallet-button"
 			class:cursor-not-allowed={($lpTokenBalance <= 0 &&
 				$isStaking &&
 				$stakingOrUnstakeAmount <= $lpTokenBalance) ||

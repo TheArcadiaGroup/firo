@@ -61,5 +61,5 @@ export const masterChef = (chainID: number | string) => {
 		? '0x74FAF62b6b33b19FC433E1e8b325013D267FDAD2'
 		: chainID === 56 || parseInt(chainID.toString()) === 56
 		? '0x0cc96d5a90b6C43238733791f23BbA17D8d2EaE9'
-		: '';
+		: '0x0cc96d5a90b6C43238733791f23BbA17D8d2EaE9';
 };
