@@ -12,6 +12,7 @@
 	import { showAccountSummary } from '$stores/accountSummaryStore';
 	import FiroDex from '$lib/icons/FiroDex.svelte';
 	import PancakeSwapFull from '$lib/icons/PancakeSwapFull.svelte';
+	import BinanceLogo from '$lib/icons/BinanceLogo.svelte';
 
 	onMount(() => {
 		link.set('staking');
@@ -77,14 +78,33 @@
 					</div>
 
 					<div class="link_btns">
+						<!-- Pancake Swap Link -->
+						<p class="atomidex-title">Swap on Pancakeswap</p>
+						<a
+							href="https://pancakeswap.finance/swap?inputCurrency=0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c&outputCurrency=0xd5d0322b6bab6a762c79f8c81a0b674778e13aed"
+							target="_blank"
+							class="pancakeswap-link"
+						>
+							<PancakeSwapFull class="h-full scale-50 md:scale-75" />
+						</a>
+					</div>
+
+					<div class="link_btns">
 						<!-- FiroDex Link -->
-						<p class="atomidex-title my-2">Swap on FiroDex</p>
+						<p class="atomidex-title my-2">Swap FIRO {'<=>'} BEP20 FIRO on FiroDEX</p>
 						<a
 							href="https://github.com/firoorg/FiroDEX-Desktop/releases"
 							target="_blank"
 							class="atomic-dex"
 						>
 							<FiroDex class="h-full scale-75 md:scale-90" />
+						</a>
+						<a
+							href="https://www.binance.com/en/register?ref=BO08LUVY"
+							target="_blank"
+							class="atomic-dex"
+						>
+							<BinanceLogo class="h-full scale-75 md:scale-90" />
 						</a>
 					</div>
 				</div>
