@@ -13,7 +13,7 @@ import {
 	pendingFiroRewardsBalance,
 	realizedFiroRewardsBalance
 } from '$stores/accountSummaryStore';
-import { estimatedAPR } from '$stores/stakingStore';
+import { estimatedAPR, estimatedCompoundedAPR } from '$stores/stakingStore';
 import { appProvider, connectionDetails } from '$stores/wallet';
 import { getCurrentBlockTimestampMilliseconds } from '$utils/onChainFuncs';
 import { ethers } from 'ethers';
@@ -205,16 +205,24 @@ export const calculateStakingApr = async () => {
 			userMockedBalance.mul(accFiroPerShare).div(1e12).sub(ethers.BigNumber.from(0))
 		);
 
+		// r = n[(A/P)^(1/nt)-1] => compound interest rate (r = (A/P)^(1/t) - 1) => compound interest formula
 		// console.log('\n\nFIRO REWARD: ', firoReward.toString(), '\n\n');
 		// console.log('\n\nFIRO PER SHARE: ', accFiroPerShare.toString(), '\n\n');
 		// console.log('\n\nTIME ELAPSED: ', timeElapsed, '\n\n');
 		// console.log('\n\n AMOUNT: ', stakedLP, '\n\nPENDING REWARDS: ', pendingRewards, '\n\n');
 
 		// Interest rate
-		const div = (pendingRewards + stakedLP) / stakedLP;
+		const A = stakedLP + pendingRewards; // LP and firo are not the same, need a way to convert these
+		const P = stakedLP;
+		const div = A / P;
 		const r = (1 / timeElapsed) * (div - 1);
 
 		estimatedAPR.set(r);
+
+		const n = 12;
+		const t = timeElapsed;
+		const compoundedRate = n * (Math.pow(A / P, 1 / (n * t)) - 1);
+		estimatedCompoundedAPR.set(compoundedRate);
 
 		return r;
 	} catch (err) {
