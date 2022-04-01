@@ -40,8 +40,8 @@ export const vestingContract = (chainID: number | string) => {
 		: chainID === 97 || parseInt(chainID.toString()) === 97
 		? '0x462Ef7a62846f068962919C0D3F2eC292522de30'
 		: chainID === 56 || parseInt(chainID.toString()) === 56
-		? '0xec7a39980A8E41b8873E75F2C6E9B8C741c19d72'
-		: '';
+		? '0xc4E9634F5CE62e8076DD0EC9e0100efa71Dfd483'
+		: '0xc4E9634F5CE62e8076DD0EC9e0100efa71Dfd483';
 };
 
 export const lockingContract = (chainID: number | string) => {
@@ -50,8 +50,8 @@ export const lockingContract = (chainID: number | string) => {
 		: chainID === 97 || parseInt(chainID.toString()) === 97
 		? '0x98b03026E4CbF6d9Ec17C7022B98521632A531fa'
 		: chainID === 56 || parseInt(chainID.toString()) === 56
-		? '0x01388f74A059fEf5f41E8Ef9034141c318F1e2De'
-		: '';
+		? '0x6658bAF8a57069f58eCA63ff9A8626aeF5433092'
+		: '0x6658bAF8a57069f58eCA63ff9A8626aeF5433092';
 };
 
 export const masterChef = (chainID: number | string) => {
@@ -60,6 +60,8 @@ export const masterChef = (chainID: number | string) => {
 		: chainID === 97 || parseInt(chainID.toString()) === 97
 		? '0x74FAF62b6b33b19FC433E1e8b325013D267FDAD2'
 		: chainID === 56 || parseInt(chainID.toString()) === 56
-		? '0x0cc96d5a90b6C43238733791f23BbA17D8d2EaE9'
-		: '0x0cc96d5a90b6C43238733791f23BbA17D8d2EaE9';
+		? '0x1175F3E59C8DB26d9Cdf0aE8eb15b40E6a236c6A'
+		: '0x1175F3E59C8DB26d9Cdf0aE8eb15b40E6a236c6A';
 };
+
+export const pancakeSwapWBNBFiroPair = '0xD4DE573F4Af499b28Ac387FAc607f1Bb819eCA10';

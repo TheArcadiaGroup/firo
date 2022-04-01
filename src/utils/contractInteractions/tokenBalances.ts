@@ -1,6 +1,7 @@
 import {
 	getLPTokenContract,
 	getMasterChefContract,
+	getPancakeSwapPairContract,
 	getVestingContract
 } from '$constants/contracts';
 import { masterChef } from '$constants/contracts/contractAddresses';
@@ -162,10 +163,29 @@ export const loadAllBalances = async (userAddress: string) => {
 	await calculateStakingApr();
 };
 
+// Calculate price of 1LP token in FIRO
+export const lpToFiroPrice = async (lpTokenBalance: number) => {
+	try {
+		const pairContract = getPancakeSwapPairContract();
+		const [_reserve0, reserve1] = await pairContract.getReserves();
+
+		const totalFiroInPool = +ethers.utils.formatUnits(reserve1, 8);
+		const totalLpTokensInPool = +ethers.utils.formatEther(await pairContract.totalSupply());
+
+		console.log(totalLpTokensInPool);
+		const lpValueInFiro = (lpTokenBalance / totalLpTokensInPool) * totalFiroInPool;
+		console.log('VALUE OF 1 LP IN FIRO: ', lpValueInFiro, 'firo in contract: ', totalFiroInPool);
+
+		return lpValueInFiro;
+	} catch (error) {
+		return 1;
+	}
+};
+
 // Calculate staking APR
 export const calculateStakingApr = async () => {
 	try {
-		const stakedLP = 1;
+		const stakedLP = await lpToFiroPrice(1);
 		const provider = get(appProvider) || fallBackProvider();
 
 		const masterChefContract = getMasterChefContract(provider);
@@ -205,12 +225,6 @@ export const calculateStakingApr = async () => {
 			userMockedBalance.mul(accFiroPerShare).div(1e12).sub(ethers.BigNumber.from(0))
 		);
 
-		// r = n[(A/P)^(1/nt)-1] => compound interest rate (r = (A/P)^(1/t) - 1) => compound interest formula
-		// console.log('\n\nFIRO REWARD: ', firoReward.toString(), '\n\n');
-		// console.log('\n\nFIRO PER SHARE: ', accFiroPerShare.toString(), '\n\n');
-		// console.log('\n\nTIME ELAPSED: ', timeElapsed, '\n\n');
-		// console.log('\n\n AMOUNT: ', stakedLP, '\n\nPENDING REWARDS: ', pendingRewards, '\n\n');
-
 		// Interest rate
 		const A = stakedLP + pendingRewards; // LP and firo are not the same, need a way to convert these
 		const P = stakedLP;
@@ -226,6 +240,6 @@ export const calculateStakingApr = async () => {
 
 		return r;
 	} catch (err) {
-		console.log(err);
+		// console.log(err);
 	}
 };
