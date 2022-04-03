@@ -9,17 +9,9 @@
 	import { appSigner, userAddress } from '$stores/wallet';
 	import { isApproved, walletConnected } from '$stores/stakingStore';
 	import contractEvents from '$utils/contractEvents';
-	import {
-		getLockUpDuration,
-		getVestingDuration,
-		initMasterChefContract
-	} from '$utils/contractInteractions/masterChef';
+	import { getLockUpDuration, getVestingDuration } from '$utils/contractInteractions/masterChef';
 	import { checkMasterchefAllowance } from '$utils/contractInteractions/lpToken';
-	import {
-		calculateStakingApr,
-		loadAllBalances,
-		lpToFiroPrice
-	} from '$utils/contractInteractions/tokenBalances';
+	import { calculateStakingApr, loadAllBalances } from '$utils/contractInteractions/tokenBalances';
 	import {
 		clickedTokenPopup,
 		realizedFiroRewardsBalance,
@@ -49,8 +41,6 @@
 		walletConnected.set(connectStatus);
 
 		if (connectStatus) {
-			await lpToFiroPrice(1);
-			await initMasterChefContract();
 			const allowance = await checkMasterchefAllowance($userAddress);
 			isApproved.set(allowance > 0);
 			await getLockUpDuration();
