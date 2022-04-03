@@ -1,8 +1,7 @@
 import { getMasterChefContract } from '$constants/contracts';
-import { deployerAcc, erc20Mock } from '$constants/contracts/contractAddresses';
 import { unstakeAllLPPopupActive, withdrawPopupActive } from '$stores/accountSummaryStore';
 import { lockUpDuration, vestingDuration } from '$stores/stakingStore';
-import { appProvider, appSigner, connectionDetails, userAddress } from '$stores/wallet';
+import { appProvider, appSigner } from '$stores/wallet';
 import { toastError, toastSuccess } from '$utils/toastNotification';
 import { ethers } from 'ethers';
 import type { Pool } from 'src/global';
@@ -37,29 +36,29 @@ export const getPoolInfoByIndex: (poolIndex: number) => Promise<Pool | null> = a
 };
 
 // Get Contract Init Info
-export const initMasterChefContract = async () => {
-	const masterChefContract = getMasterChefContract(get(appSigner));
+// export const initMasterChefContract = async () => {
+// 	const masterChefContract = getMasterChefContract(get(appSigner));
 
-	// Initialize Pool if none is found
-	const poolLength = await getPoolLength();
+// 	// Initialize Pool if none is found
+// 	const poolLength = await getPoolLength();
 
-	if (
-		poolLength === 0 &&
-		deployerAcc(get(connectionDetails)?.chainId) === get(userAddress) &&
-		import.meta.env.VITE_LOCALTESTING === 'true'
-	) {
-		console.log('CREATING POOL');
-		// Create a pool
-		const transaction: ethers.providers.TransactionResponse = await masterChefContract.add(
-			ethers.utils.parseEther('100'),
-			erc20Mock(get(connectionDetails)?.chainId),
-			true
-		);
-		await transaction.wait(1);
+// 	if (
+// 		poolLength === 0 &&
+// 		deployerAcc(get(connectionDetails)?.chainId) === get(userAddress) &&
+// 		import.meta.env.VITE_LOCALTESTING === 'true'
+// 	) {
+// 		console.log('CREATING POOL');
+// 		// Create a pool
+// 		const transaction: ethers.providers.TransactionResponse = await masterChefContract.add(
+// 			ethers.utils.parseEther('100'),
+// 			erc20Mock(get(connectionDetails)?.chainId),
+// 			true
+// 		);
+// 		await transaction.wait(1);
 
-		return true;
-	}
-};
+// 		return true;
+// 	}
+// };
 
 // Get pools where user has staked tokens
 export const getUserStakedPoolsData = (userAddress: string) => {

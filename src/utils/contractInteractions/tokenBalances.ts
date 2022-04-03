@@ -66,10 +66,12 @@ export const getUserInfo: (userAddress: string) => Promise<UserInfo> = async (
 		const masterChefContract = getMasterChefContract(get(appProvider));
 		const userInfo = await masterChefContract.getUserInfo(get(selectedPool), userAddress);
 
-		return {
+		const stakedInfo = {
 			amount: +ethers.utils.formatEther(userInfo?.amount) || 0,
 			rewardDebt: +ethers.utils.formatEther(userInfo?.rewardDebt) || 0
 		};
+
+		return stakedInfo;
 	} catch (error) {
 		return {
 			amount: 0,
@@ -85,9 +87,9 @@ export const getUserPendingRewards = async (userAddress: string) => {
 		const pendingFiroAmt = await masterChefContract.pendingFiro(get(selectedPool), userAddress);
 
 		// * set store
-		pendingFiroRewardsBalance.set(+ethers.utils.formatEther(pendingFiroAmt));
+		pendingFiroRewardsBalance.set(+ethers.utils.formatUnits(pendingFiroAmt, 8));
 
-		return +ethers.utils.formatEther(pendingFiroAmt);
+		return +ethers.utils.formatUnits(pendingFiroAmt, 8);
 	} catch (error) {
 		pendingFiroRewardsBalance.set(0);
 
@@ -143,9 +145,9 @@ export const realizedFiroRewards = async (userAddress: string) => {
 		const vestingContract = getVestingContract(get(appProvider));
 		const realizedRewards = await vestingContract.getUnlockable(userAddress);
 
-		realizedFiroRewardsBalance.set(+ethers.utils.formatEther(realizedRewards));
+		realizedFiroRewardsBalance.set(+ethers.utils.formatUnits(realizedRewards, 8));
 
-		return +ethers.utils.formatEther(realizedRewards);
+		return +ethers.utils.formatUnits(realizedRewards, 8);
 	} catch (error) {
 		console.log(error);
 		realizedFiroRewardsBalance.set(0);
