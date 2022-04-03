@@ -172,12 +172,11 @@ export const lpToFiroPrice = async (lpTokenBalance: number) => {
 		const totalFiroInPool = +ethers.utils.formatUnits(reserve1, 8);
 		const totalLpTokensInPool = +ethers.utils.formatEther(await pairContract.totalSupply());
 
-		console.log(totalLpTokensInPool);
 		const lpValueInFiro = (lpTokenBalance / totalLpTokensInPool) * totalFiroInPool;
-		console.log('VALUE OF 1 LP IN FIRO: ', lpValueInFiro, 'firo in contract: ', totalFiroInPool);
 
 		return lpValueInFiro;
 	} catch (error) {
+		console.log(error);
 		return 1;
 	}
 };
@@ -185,7 +184,7 @@ export const lpToFiroPrice = async (lpTokenBalance: number) => {
 // Calculate staking APR
 export const calculateStakingApr = async () => {
 	try {
-		const stakedLP = await lpToFiroPrice(1);
+		const stakedLP = 1;
 		const provider = get(appProvider) || fallBackProvider();
 
 		const masterChefContract = getMasterChefContract(provider);
@@ -226,8 +225,10 @@ export const calculateStakingApr = async () => {
 		);
 
 		// Interest rate
-		const A = stakedLP + pendingRewards; // LP and firo are not the same, need a way to convert these
-		const P = stakedLP;
+		const stakedLpToFiro = await lpToFiroPrice(stakedLP);
+		console.log('Staked LP In Firo: ', stakedLpToFiro);
+		const A = stakedLpToFiro + pendingRewards; // LP and firo are not the same, need a way to convert these
+		const P = stakedLpToFiro;
 		const div = A / P;
 		const r = (1 / timeElapsed) * (div - 1);
 
@@ -237,9 +238,10 @@ export const calculateStakingApr = async () => {
 		const t = timeElapsed;
 		const compoundedRate = n * (Math.pow(A / P, 1 / (n * t)) - 1);
 		estimatedCompoundedAPR.set(compoundedRate);
+		console.log('Compound Interest: ', compoundedRate, 'Simple Interest: ', r);
 
 		return r;
 	} catch (err) {
-		// console.log(err);
+		console.log(err);
 	}
 };
