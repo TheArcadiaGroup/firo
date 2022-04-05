@@ -192,7 +192,7 @@ export const calculateStakingApr = async () => {
 		const masterChefContract = getMasterChefContract(provider);
 
 		const userMockedBalance = ethers.BigNumber.from(
-			ethers.utils.parseUnits(stakedLP.toString(), 12)
+			ethers.utils.parseUnits(stakedLP.toString(), 18)
 		);
 
 		const lpPool = await masterChefContract.poolInfo(get(selectedPool) || 0);
@@ -222,8 +222,9 @@ export const calculateStakingApr = async () => {
 		const firoReward = multiplier.mul(firoPerBlock).mul(lpPool?.allocPoint).div(totalAllocPoint);
 
 		accFiroPerShare = accFiroPerShare.add(firoReward.mul(1e12).div(lpSupply));
-		const pendingRewards = +ethers.utils.formatEther(
-			userMockedBalance.mul(accFiroPerShare).div(1e12).sub(ethers.BigNumber.from(0))
+		const pendingRewards = +ethers.utils.formatUnits(
+			userMockedBalance.mul(accFiroPerShare).div(1e12).sub(ethers.BigNumber.from(0)),
+			8
 		);
 
 		// Interest rate
