@@ -55,7 +55,8 @@
 					<span class="red-text">
 						{$vestingDuration / (60 * 60 * 24)} Days
 					</span>
-					Until <span class="red-text">{$pendingFiroRewardsBalance.noExponents()} FIRO</span> Reward
+					Until
+					<span class="red-text">{parseFloat($pendingFiroRewardsBalance.toFixed(9))} FIRO</span> Reward
 				</p>
 			{/if}
 		{:else}

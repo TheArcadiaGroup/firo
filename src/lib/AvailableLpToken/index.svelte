@@ -1,16 +1,12 @@
 <script>
-	import {
-		lpTokenBalance,
-		totalStakedLPBalance,
-		unstakeAllLPPopupActive
-	} from '$stores/accountSummaryStore';
+	import { totalStakedLPBalance, unstakeAllLPPopupActive } from '$stores/accountSummaryStore';
 
 	import { isStaking } from '$stores/stakingStore';
 	import { scale } from 'svelte/transition';
 </script>
 
 <div class="component balance">
-	<p class="balance-title">Available LP TOKEN</p>
+	<p class="balance-title">Staked LP</p>
 	<div>
 		<div class="unstaked-amount">
 			<div class="logo-container">
@@ -22,7 +18,7 @@
 				<img class="binance-chain" src="/images/svg/binance-chain.svg" alt="binance-chain" />
 			</div>
 			<div class="unstaked-amount-value">
-				<p>{$lpTokenBalance.noExponents()}</p>
+				<p>{parseFloat($totalStakedLPBalance.toFixed(18))}</p>
 				<p>LP TOKEN</p>
 			</div>
 		</div>

@@ -35,7 +35,7 @@
 			<img src="/images/svg/shield.svg" alt="shield-icon" />
 			<div>
 				<p class="data-text">Total LP Balance</p>
-				<p class="value">{$lpTokenBalance.noExponents()} LP TOKEN</p>
+				<p class="value">{parseFloat($lpTokenBalance.toFixed(18))} LP TOKEN</p>
 			</div>
 		</div>
 
@@ -43,7 +43,7 @@
 			<img src="/images/svg/money.svg" alt="money-icon" />
 			<div>
 				<p class="data-text">Total Locked <br />LP Balance</p>
-				<p class="value">{$totalLockedLPBalance.noExponents()} LP TOKEN</p>
+				<p class="value">{parseFloat($totalLockedLPBalance.toFixed(18))} LP TOKEN</p>
 			</div>
 		</div>
 
@@ -51,7 +51,7 @@
 			<img src="/images/svg/banking.svg" alt="banking-icon" />
 			<div>
 				<p class="data-text">Total Unlocked LP Balance</p>
-				<p class="value">{$totalUnlockedLPTokenBalance.noExponents()} LP TOKEN</p>
+				<p class="value">{parseFloat($totalUnlockedLPTokenBalance.toFixed(18))} LP TOKEN</p>
 			</div>
 		</div>
 	</div>
@@ -60,7 +60,7 @@
 		<img src="/images/svg/banking.svg" alt="banking-icon" />
 		<div>
 			<p class="data-text">Total Unlocked LP Balance</p>
-			<p class="value">{$totalUnlockedLPTokenBalance.noExponents()} LP TOKEN</p>
+			<p class="value">{parseFloat($totalUnlockedLPTokenBalance.toFixed(18))} LP TOKEN</p>
 		</div>
 	</div>
 
@@ -84,7 +84,7 @@
 			<img src="/images/svg/pending.svg" alt="pending-icon" />
 			<div>
 				<p class="data-text">Total Pending Rewards</p>
-				<p class="value">{$pendingFiroRewardsBalance.noExponents()} FIRO</p>
+				<p class="value">{parseFloat($pendingFiroRewardsBalance.toFixed(9))} FIRO</p>
 			</div>
 		</div>
 
@@ -94,7 +94,7 @@
 			<img src="/images/svg/award.svg" alt="award-icon" />
 			<div>
 				<p class="data-text">Total Realized <br />Rewards</p>
-				<p class="value">{$realizedFiroRewardsBalance.noExponents()} FIRO</p>
+				<p class="value">{parseFloat($realizedFiroRewardsBalance.toFixed(9))} FIRO</p>
 			</div>
 		</div>
 	</div>

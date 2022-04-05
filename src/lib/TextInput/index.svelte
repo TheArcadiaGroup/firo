@@ -34,7 +34,10 @@
 		{placeholder}
 	/>
 	<div class="max-balance">
-		<p class="balance">Balance: {balance}</p>
+		<!-- parseFloat(inputValue) > 0 ? balance.toExponential(2) : not visible on mobile fix  -->
+		<p class="balance">
+			Balance: {balance}
+		</p>
 		<div class="button" on:click={inputMax}>
 			<p>MAX</p>
 		</div>

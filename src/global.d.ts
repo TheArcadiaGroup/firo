@@ -1,11 +1,5 @@
 /// <reference types="@sveltejs/kit" />
 
-declare global {
-	interface Number {
-		noExponents: () => string;
-	}
-}
-
 import type { ethers } from 'ethers';
 
 interface Pool {

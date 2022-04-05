@@ -67,7 +67,7 @@
 								disabled={blockTime < lockInfo.unlockableAt * 1000}
 								on:click={() => unlockLpTokens($userAddress, index)}
 							>
-								Withdraw {(+lockInfo.amount.toFixed(4)).noExponents()} LP
+								Withdraw {parseFloat(lockInfo.amount.toFixed(9))} LP
 							</div>
 						</div>
 					{/if}
