@@ -1,7 +1,8 @@
 import {
 	getLPTokenContract,
 	getMasterChefContract,
-	getVestingContract
+	getVestingContract,
+	getPancakeSwapPairContract
 } from '$constants/contracts';
 import { masterChef } from '$constants/contracts/contractAddresses';
 import {
@@ -164,17 +165,30 @@ export const loadAllBalances = async (userAddress: string) => {
 	await calculateStakingApr();
 };
 
+// Calculate price of 1LP token in FIRO
+export const lpToFiroPrice = async (lpBalance: number) => {
+	try {
+		const pairContract = getPancakeSwapPairContract();
+		const [_reserve0, reserve1] = await pairContract.getReserves();
+
+		const totalFiroInPool = +ethers.utils.formatUnits(reserve1, 8);
+		const totalLpTokensInPool = +ethers.utils.formatEther(await pairContract.totalSupply());
+
+		const lpValueInFiro = (totalLpTokensInPool / totalLpTokensInPool) * totalFiroInPool;
+
+		return lpBalance * lpValueInFiro;
+	} catch (error) {
+		console.log(error);
+		return lpBalance * 1;
+	}
+};
+
 // Calculate staking APR
 export const calculateStakingApr = async () => {
 	try {
-		const stakedLP = 1;
 		const provider = get(appProvider) || fallBackProvider();
 
 		const masterChefContract = getMasterChefContract(provider);
-
-		const userMockedBalance = ethers.BigNumber.from(
-			ethers.utils.parseUnits(stakedLP.toString(), 12)
-		);
 
 		const lpPool = await masterChefContract.poolInfo(get(selectedPool) || 0);
 
@@ -189,9 +203,10 @@ export const calculateStakingApr = async () => {
 				(await provider.getBlock(lastRewardBlock)).timestamp) /
 			(3600 * 24 * 365); // convert second timestamps to years
 
-		const lpSupply = ethers.BigNumber.from(
-			await lpContract.balanceOf(masterChef(get(connectionDetails)?.chainId || 56))
-		);
+		const lpSupply =
+			ethers.BigNumber.from(
+				await lpContract.balanceOf(masterChef(get(connectionDetails)?.chainId || 56))
+			) || ethers.BigNumber.from(1);
 
 		const multiplier: ethers.BigNumber = ethers.BigNumber.from(
 			await masterChefContract.getMultiplier(lastRewardBlock, blockNumber)
@@ -204,16 +219,13 @@ export const calculateStakingApr = async () => {
 
 		accFiroPerShare = accFiroPerShare.add(firoReward.mul(1e12).div(lpSupply));
 		const pendingRewards = +ethers.utils.formatEther(
-			userMockedBalance.mul(accFiroPerShare).div(1e12).sub(ethers.BigNumber.from(0))
+			lpSupply.mul(accFiroPerShare).div(1e12).sub(ethers.BigNumber.from(0))
 		);
 
-		// console.log('\n\nFIRO REWARD: ', firoReward.toString(), '\n\n');
-		// console.log('\n\nFIRO PER SHARE: ', accFiroPerShare.toString(), '\n\n');
-		// console.log('\n\nTIME ELAPSED: ', timeElapsed, '\n\n');
-		// console.log('\n\n AMOUNT: ', stakedLP, '\n\nPENDING REWARDS: ', pendingRewards, '\n\n');
-
 		// Interest rate
-		const div = (pendingRewards + stakedLP) / stakedLP;
+		const div =
+			(pendingRewards + (await lpToFiroPrice(+ethers.utils.formatEther(lpSupply)))) /
+			(await lpToFiroPrice(+ethers.utils.formatEther(lpSupply)));
 		const r = (1 / timeElapsed) * (div - 1);
 
 		estimatedAPR.set(r);

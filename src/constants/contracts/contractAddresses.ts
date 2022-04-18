@@ -63,3 +63,5 @@ export const masterChef = (chainID: number | string) => {
 		? '0x1175F3E59C8DB26d9Cdf0aE8eb15b40E6a236c6A'
 		: '0x1175F3E59C8DB26d9Cdf0aE8eb15b40E6a236c6A';
 };
+
+export const pancakeSwapWBNBFiroPair = '0xD4DE573F4Af499b28Ac387FAc607f1Bb819eCA10';

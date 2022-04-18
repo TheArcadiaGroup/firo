@@ -1,12 +1,20 @@
 import { ethers } from 'ethers';
-import { firoToken, lockingContract, masterChef, vestingContract } from './contractAddresses';
+import {
+	firoToken,
+	lockingContract,
+	masterChef,
+	pancakeSwapWBNBFiroPair,
+	vestingContract
+} from './contractAddresses';
 import FiroTokenAbi from '$constants/abi/FiroToken.json';
 import MasterChefAbi from '$constants/abi/MasterChef.json';
 import VestingAbi from '$constants/abi/Vesting.json';
 import LockingAbi from '$constants/abi/Locking.json';
 import LPTokenAbi from '$constants/abi/LPTokenAbi.json';
-import { connectionDetails } from '$stores/wallet';
+import PairContractAbi from '$constants/abi/PancakeSwapPairContractAbi.json';
+import { appProvider, connectionDetails } from '$stores/wallet';
 import { get } from 'svelte/store';
+import fallBackProvider from '$utils/contractInteractions/fallBackProvider';
 
 // Firo
 export const getFiroContract = (provider: ethers.Signer | ethers.providers.Provider) => {
@@ -37,4 +45,12 @@ export const getLPTokenContract = (
 	provider: ethers.Signer | ethers.providers.Provider
 ) => {
 	return new ethers.Contract(address, LPTokenAbi, provider);
+};
+
+export const getPancakeSwapPairContract = () => {
+	return new ethers.Contract(
+		pancakeSwapWBNBFiroPair,
+		PairContractAbi,
+		get(appProvider) || fallBackProvider()
+	);
 };
