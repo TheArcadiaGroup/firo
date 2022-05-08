@@ -187,46 +187,29 @@ export const lpToFiroPrice = async (lpBalance: number) => {
 export const calculateStakingApr = async () => {
 	try {
 		const provider = get(appProvider) || fallBackProvider();
-
 		const masterChefContract = getMasterChefContract(provider);
-
 		const lpPool = await masterChefContract.poolInfo(get(selectedPool) || 0);
-
 		const lpContract = getLPTokenContract(lpPool.lpToken, provider);
 
-		let accFiroPerShare: ethers.BigNumber = ethers.BigNumber.from(lpPool?.accFiroPerShare);
 		const blockNumber = await provider.getBlockNumber(); // current block number or block number at the end of the day
 		const lastRewardBlock = +ethers.utils.formatUnits(lpPool?.lastRewardBlock, 0); // first block number of the day (the day we are calculating the APR for)
 
 		const timeElapsed =
-			((await provider.getBlock(blockNumber)).timestamp -
-				(await provider.getBlock(lastRewardBlock)).timestamp) /
-			(3600 * 24 * 365); // convert second timestamps to years
+			(await provider.getBlock(blockNumber)).timestamp -
+			(await provider.getBlock(lastRewardBlock)).timestamp; // convert second timestamps to years
 
-		const lpSupply =
-			ethers.BigNumber.from(
-				await lpContract.balanceOf(masterChef(get(connectionDetails)?.chainId || 56))
-			) || ethers.BigNumber.from(1);
+		const blocksPerSecond = (blockNumber - lastRewardBlock) / timeElapsed;
+		const annualizedBlocks = blocksPerSecond * 3600 * 24 * 365;
 
-		const multiplier: ethers.BigNumber = ethers.BigNumber.from(
-			await masterChefContract.getMultiplier(lastRewardBlock, blockNumber)
-		);
-		const firoPerBlock: ethers.BigNumber = ethers.BigNumber.from(
-			await masterChefContract.firoPerBlock()
-		);
-		const totalAllocPoint = ethers.BigNumber.from(await masterChefContract.totalAllocPoint());
-		const firoReward = multiplier.mul(firoPerBlock).mul(lpPool?.allocPoint).div(totalAllocPoint);
-
-		accFiroPerShare = accFiroPerShare.add(firoReward.mul(1e12).div(lpSupply));
-		const pendingRewards = +ethers.utils.formatEther(
-			lpSupply.mul(accFiroPerShare).div(1e12).sub(ethers.BigNumber.from(0))
+		const lpSupply = +ethers.utils.formatEther(
+			await lpContract.balanceOf(masterChef(get(connectionDetails)?.chainId || 56))
 		);
 
-		// Interest rate
-		const div =
-			(pendingRewards + (await lpToFiroPrice(+ethers.utils.formatEther(lpSupply)))) /
-			(await lpToFiroPrice(+ethers.utils.formatEther(lpSupply)));
-		const r = (1 / timeElapsed) * (div - 1);
+		const lpPriceInFiro = await lpToFiroPrice(lpSupply);
+
+		const firoPerBlock = +ethers.utils.formatUnits(await masterChefContract.firoPerBlock(), 8);
+
+		const r = ((firoPerBlock * annualizedBlocks) / lpPriceInFiro) * 100;
 
 		estimatedAPR.set(r);
 

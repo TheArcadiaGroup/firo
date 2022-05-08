@@ -5,7 +5,7 @@
 <div class="staking-apr component">
 	<p class="staking-apr-text">Staking APR</p>
 	<div class="apr-value">
-		<p class="staking-apr-value-text">{($estimatedAPR * 100).toFixed(2)}%</p>
+		<p class="staking-apr-value-text">{$estimatedAPR.toFixed(2)}%</p>
 		<p class="undertext">Yesterday's APR</p>
 	</div>
 </div>
